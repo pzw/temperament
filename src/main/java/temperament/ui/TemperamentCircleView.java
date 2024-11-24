@@ -13,16 +13,18 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
+import temperament.model.AppState;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentCircleModel;
-import temperament.model.AppState;
 
 public class TemperamentCircleView extends JComponent {
 	private static final long		serialVersionUID	= 1L;
 	private TemperamentCircleModel	model;
+	private AppState				appState;
 
 	public TemperamentCircleView(AppState appState, TemperamentCircleModel model) {
 		super();
+		this.appState = appState;
 		this.model = model;
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -90,6 +92,9 @@ public class TemperamentCircleView extends JComponent {
 		NotePosition np = model.getNotePosition(noteRank);
 		Color borderColor = np.isSelected() ? Color.red : Color.darkGray;
 		int ep = np.isSelected() ? 3 : 1;
+		if (np.isSelected()) {
+			noteColor = appState.getSelectionColor(np.getSelectionRank());
+		}
 		for (int i = 0; i < ep; i++) {
 			drawCircle(g, np.getCenterX(), np.getCenterY(), model.getNoteRadius() - i, borderColor, noteColor);
 		}
@@ -108,7 +113,7 @@ public class TemperamentCircleView extends JComponent {
 		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
 		if (model.isTemperamentDefined()) {
 			for (int n = 0; n <= model.getNbNotes(); n++) {
-				Color c = n < model.getNbNotes() ? Color.blue : Color.cyan;
+				Color c = n < model.getNbNotes() ? Color.gray : Color.darkGray;
 				drawNote(g, n, c);
 			}
 		}

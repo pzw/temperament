@@ -80,7 +80,7 @@ public class NoteWave {
 	}
 
 	public float getSample(int idx) {
-		return wave[idx];
+		return idx < wave.length ? wave[idx] : 0.0f;
 	}
 
 	/**

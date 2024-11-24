@@ -118,13 +118,14 @@ public class TemperamentCircleModel {
 	private void computeNotePositions() {
 		ITemperament t = getTemperament();
 		if (null != t) {
-			for (int n = 0; n <= t.getNbNotes(); n++) {
-				computeNotePosition(n);
+			int nNotes = t.getNbNotes();
+			for (int n = 0; n <= nNotes; n++) {
+				computeNotePosition(n, n == nNotes);
 			}
 		}
 	}
 
-	private void computeNotePosition(int noteRank) {
+	private void computeNotePosition(int noteRank, boolean lastNote) {
 		// trouver l'angle en fonction du rapport de fréquence
 		// 1 => 0
 		// 2 => 360
@@ -135,8 +136,12 @@ public class TemperamentCircleModel {
 		double angle = angleDegre * Math.PI / 180.0;
 		double cos = Math.cos(angle);
 		double sin = Math.sin(angle);
-		int x = (int) (cx + cos * r);
-		int y = (int) (cy - sin * r);
+		int radius = r;
+		if (lastNote) {
+			radius += 2 * r2;
+		}
+		int x = (int) (cx + cos * radius);
+		int y = (int) (cy - sin * radius);
 		double rTx = r - 3 * r2;
 		int xTx = (int) (cx + cos * rTx);
 		int yTx = (int) (cy - sin * rTx);
@@ -147,7 +152,10 @@ public class TemperamentCircleModel {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		for (int n = 0; n < positions.length; n++) {
 			if (positions[n].isSelected()) {
+				positions[n].setSelectionRank(result.size());
 				result.add(n);
+			} else {
+				positions[n].setSelectionRank(-1);
 			}
 		}
 		return result;

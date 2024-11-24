@@ -6,13 +6,13 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
-import temperament.model.TemperamentCircleModel;
 import temperament.model.AppState;
+import temperament.model.TemperamentCircleModel;
 import temperament.model.TemperamentTableModel;
 
 public class TemperamentPanel extends JPanel {
-	private static final long			serialVersionUID	= 1L;
-	private AppState	appState		= new AppState();
+	private static final long	serialVersionUID	= 1L;
+	private AppState			appState			= new AppState();
 
 	public TemperamentPanel() {
 		super();

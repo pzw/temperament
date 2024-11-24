@@ -1,82 +1,42 @@
 package temperament.ui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.List;
+import java.awt.BorderLayout;
 
-import javax.swing.JComponent;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+
+import com.jgoodies.binding.PresentationModel;
+import com.jgoodies.binding.adapter.Bindings;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 import temperament.model.AppState;
-import temperament.musical.NoteWave;
 
-public class WavePanel extends JComponent {
-	private static final long	serialVersionUID	= 1L;
-	private AppState			appState;
+public class WavePanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 
-	public WavePanel(AppState appState) {
-		this.appState = appState;
-		appState.addPropertyChangeListener(new PropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				repaint();
-			}
-		});
+	public WavePanel(AppState state) {
+		super(new BorderLayout());
+		add(buildNorth(state), BorderLayout.NORTH);
+		add(new WaveComponent(state), BorderLayout.CENTER);
 	}
 
-	private void paintNote(Graphics g, int noteIndex, Color color) {
-		NoteWave wave = appState.buildNoteWave(noteIndex);
-		float max = wave.getMaxValue();
-		int w = getWidth();
-		int h = getHeight();
-		int h2 = h / 2;
-		int amplitude = h2;
-		if (amplitude > 60) {
-			amplitude -= 10;
-		}
+	private JPanel buildNorth(AppState state) {
+		FormLayout layout = new FormLayout("$dm,p,$rg,p,1px:g", "2px,p,2px");
+		JPanel result = new JPanel(layout);
+		PresentationModel<AppState> pm = new PresentationModel<AppState>(state);
+		CellConstraints cc = new CellConstraints();
+		int x = 2;
+		int y = 2;
+		JCheckBox chkShowSum = new JCheckBox("montre la somme");
+		Bindings.bind(chkShowSum, pm.getModel(AppState.WAVE_SHOW_SUM));
+		result.add(chkShowSum, cc.xy(x, y));
 
-		float scaleY = 0;
-		if (0 != max) {
-			scaleY = amplitude / max;
-		}
+		x += 2;
+		JCheckBox chkShowEachNote = new JCheckBox("montre chaque note");
+		Bindings.bind(chkShowEachNote, pm.getModel(AppState.WAVE_SHOW_EACH_NOTE));
+		result.add(chkShowEachNote, cc.xy(x, y));
 
-		int viewDuration = appState.getDuration() / 10;
-		int totSamples = wave.getSize();
-		int stepX = 4;
-		int nSteps = w / stepX;
-		int stepSample = totSamples / 40 / nSteps;
-		System.out.println("totSamples:" + totSamples + ", nSteps:" + nSteps + ",stepSample:" + stepSample);
-		int xPrec = 0;
-		int yPrec = h2 - (int) (wave.getSample(0) * scaleY);
-		g.setColor(color);
-		for (int i = 0; i < nSteps; i++) {
-			int xCur = 2 * i * stepX;
-			int yCur = h2 - (int) (wave.getSample(i * stepSample) * scaleY);
-			g.drawLine(xPrec, yPrec, xCur, yCur);
-			xPrec = xCur;
-			yPrec = yCur;
-		}
+		return result;
 	}
-
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		int w = getWidth();
-		int h = getHeight();
-		g.setColor(Color.black);
-		g.fillRect(0, 0, w, h);
-		int cy = h / 2;
-		g.setColor(Color.gray);
-		g.drawLine(0, cy, w, cy);
-		List<Integer> sel = appState.getSelection();
-		if (!sel.isEmpty()) {
-			int idx = 0;
-			for (Integer n : sel) {
-				paintNote(g, n, appState.getSelectionColor(idx++));
-			}
-		}
-	}
-
 }
