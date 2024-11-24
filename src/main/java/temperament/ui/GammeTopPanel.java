@@ -1,4 +1,4 @@
-package sound.temperament.ui;
+package temperament.ui;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -10,8 +10,8 @@ import com.jgoodies.binding.list.SelectionInList;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-import sound.temperament.GammeParameterBean;
-import sound.temperament.Temperament;
+import temperament.model.GammeParameterBean;
+import temperament.musical.Temperament;
 
 public class GammeTopPanel extends JPanel {
 

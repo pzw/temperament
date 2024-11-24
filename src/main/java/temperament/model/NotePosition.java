@@ -1,4 +1,7 @@
-package sound.temperament;
+package temperament.model;
+
+import temperament.musical.Gamme;
+import temperament.musical.Note;
 
 public class NotePosition {
 	private int x;

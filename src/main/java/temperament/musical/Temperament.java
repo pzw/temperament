@@ -1,4 +1,4 @@
-package sound.temperament;
+package temperament.musical;
 
 public enum Temperament {
 	Egal, Pythagoricien

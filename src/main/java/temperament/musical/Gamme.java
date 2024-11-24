@@ -1,4 +1,6 @@
-package sound.temperament;
+package temperament.musical;
+
+import temperament.constants.IConstants;
 
 public class Gamme {
 	private static String[] noteNames;

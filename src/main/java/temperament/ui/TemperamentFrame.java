@@ -1,4 +1,4 @@
-package sound.temperament.ui;
+package temperament.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

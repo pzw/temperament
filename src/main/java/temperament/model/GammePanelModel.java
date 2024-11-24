@@ -1,6 +1,11 @@
-package sound.temperament;
+package temperament.model;
 
 import java.awt.Point;
+
+import temperament.constants.IConstants;
+import temperament.musical.Gamme;
+import temperament.musical.Note;
+import temperament.musical.Temperament;
 
 public class GammePanelModel {
 	private NotePosition[] positions = new NotePosition[IConstants.NB_DEMI_TONS + 1];

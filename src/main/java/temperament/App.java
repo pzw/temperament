@@ -1,8 +1,8 @@
-package sound.temperament;
+package temperament;
 
 import javax.swing.SwingUtilities;
 
-import sound.temperament.ui.TemperamentFrame;
+import temperament.ui.TemperamentFrame;
 
 /**
  * Hello world!

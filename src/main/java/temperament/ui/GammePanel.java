@@ -1,11 +1,11 @@
-package sound.temperament.ui;
+package temperament.ui;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import sound.temperament.GammePanelModel;
-import sound.temperament.GammeParameterBean;
+import temperament.model.GammePanelModel;
+import temperament.model.GammeParameterBean;
 
 public class GammePanel extends JPanel {
 	private static final long serialVersionUID = 1L;

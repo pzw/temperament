@@ -1,6 +1,8 @@
-package sound.temperament;
+package temperament.model;
 
 import com.jgoodies.binding.beans.Model;
+
+import temperament.musical.Temperament;
 
 public class GammeParameterBean extends Model {
 	private static final long serialVersionUID = 1L;

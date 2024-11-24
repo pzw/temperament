@@ -1,4 +1,4 @@
-package sound.temperament.ui;
+package temperament.ui;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -13,11 +13,11 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import sound.temperament.GammePanelModel;
-import sound.temperament.GammeParameterBean;
-import sound.temperament.IConstants;
-import sound.temperament.NotePosition;
-import sound.temperament.Temperament;
+import temperament.constants.IConstants;
+import temperament.model.GammePanelModel;
+import temperament.model.GammeParameterBean;
+import temperament.model.NotePosition;
+import temperament.musical.Temperament;
 
 public class GammeCirclePanel extends JComponent {
 	private static final long serialVersionUID = 1L;

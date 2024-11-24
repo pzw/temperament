@@ -1,9 +1,11 @@
-package sound.temperament;
+package temperament.musical;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+
+import temperament.constants.IConstants;
 
 public class Note {
 
