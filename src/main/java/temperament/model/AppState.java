@@ -10,7 +10,7 @@ import temperament.musical.ITemperament;
 import temperament.musical.NoteWave;
 import temperament.musical.Temperaments;
 
-public class TemperamentParameterBean extends Model {
+public class AppState extends Model {
 	private static final long	serialVersionUID		= 1L;
 	public static final String	TEMPERAMENT_PROPERTY	= "temperament";
 	public static final String	DURATION_PROPERTY		= "duration";

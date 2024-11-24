@@ -15,22 +15,22 @@ import javax.swing.SwingUtilities;
 
 import temperament.model.NotePosition;
 import temperament.model.TemperamentCircleModel;
-import temperament.model.TemperamentParameterBean;
+import temperament.model.AppState;
 
 public class TemperamentCircleView extends JComponent {
 	private static final long		serialVersionUID	= 1L;
 	private TemperamentCircleModel	model;
 
-	public TemperamentCircleView(TemperamentParameterBean parameterBean, TemperamentCircleModel model) {
+	public TemperamentCircleView(AppState appState, TemperamentCircleModel model) {
 		super();
 		this.model = model;
-		parameterBean.addPropertyChangeListener(new PropertyChangeListener() {
+		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (TemperamentParameterBean.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
+				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
 					repaintLater();
-				} else if (TemperamentParameterBean.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
+				} else if (AppState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 					repaint();
 				}
 			}

@@ -9,26 +9,25 @@ import javax.swing.table.AbstractTableModel;
 import temperament.musical.ITemperament;
 
 public class TemperamentTableModel extends AbstractTableModel {
-	private static final long			serialVersionUID	= 1L;
-	public static final int				COL_NOTE_NAME		= 0;
-	public static final int				COL_FREQUENCY_RATIO	= 1;
-	public static final int				COL_FREQUENCY		= 2;
-	private static final int			COL_NB				= 3;
-	private NumberFormat				format;
-	private TemperamentParameterBean	parameterBean;
+	private static final long	serialVersionUID	= 1L;
+	public static final int		COL_NOTE_NAME		= 0;
+	public static final int		COL_FREQUENCY_RATIO	= 1;
+	public static final int		COL_FREQUENCY		= 2;
+	private static final int	COL_NB				= 3;
+	private NumberFormat		format;
+	private AppState			appState;
 
-	public TemperamentTableModel(TemperamentParameterBean parameterBean) {
-		this.parameterBean = parameterBean;
-		parameterBean.addPropertyChangeListener(TemperamentParameterBean.TEMPERAMENT_PROPERTY,
-				new PropertyChangeListener() {
+	public TemperamentTableModel(AppState appState) {
+		this.appState = appState;
+		appState.addPropertyChangeListener(AppState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
 
-					@Override
-					public void propertyChange(PropertyChangeEvent evt) {
-						if (TemperamentParameterBean.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
-							fireTableDataChanged();
-						}
-					}
-				});
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
+					fireTableDataChanged();
+				}
+			}
+		});
 
 		format = NumberFormat.getNumberInstance();
 		format.setMaximumFractionDigits(5);
@@ -36,7 +35,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 	}
 
 	private ITemperament getTemperament() {
-		return parameterBean.getTemperament();
+		return appState.getTemperament();
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 					result = format.format(t.getNoteFrequencyRatio(rowIndex));
 					break;
 				case COL_FREQUENCY:
-					double frequenceDo = t.getFrequenceDo(parameterBean.getLaFrequency());
+					double frequenceDo = t.getFrequenceDo(appState.getLaFrequency());
 					result = format.format(frequenceDo * t.getNoteFrequencyRatio(rowIndex));
 					break;
 				}

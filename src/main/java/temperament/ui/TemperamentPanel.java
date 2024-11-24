@@ -7,24 +7,24 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 import temperament.model.TemperamentCircleModel;
-import temperament.model.TemperamentParameterBean;
+import temperament.model.AppState;
 import temperament.model.TemperamentTableModel;
 
 public class TemperamentPanel extends JPanel {
 	private static final long			serialVersionUID	= 1L;
-	private TemperamentParameterBean	parameterBean		= new TemperamentParameterBean();
+	private AppState	appState		= new AppState();
 
 	public TemperamentPanel() {
 		super();
 		setLayout(new BorderLayout());
-		add(new TemperamentTopPanel(parameterBean), BorderLayout.NORTH);
-		TemperamentCircleModel circleModel = new TemperamentCircleModel(parameterBean);
-		TemperamentCircleView circleView = new TemperamentCircleView(parameterBean, circleModel);
-		TemperamentTableModel tableModel = new TemperamentTableModel(parameterBean);
-		TemperamentTablePanel tableView = new TemperamentTablePanel(parameterBean, tableModel);
+		add(new TemperamentTopPanel(appState), BorderLayout.NORTH);
+		TemperamentCircleModel circleModel = new TemperamentCircleModel(appState);
+		TemperamentCircleView circleView = new TemperamentCircleView(appState, circleModel);
+		TemperamentTableModel tableModel = new TemperamentTableModel(appState);
+		TemperamentTablePanel tableView = new TemperamentTablePanel(appState, tableModel);
 		JSplitPane splitTableCircle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tableView, circleView);
 
-		WavePanel wavePanel = new WavePanel(parameterBean);
+		WavePanel wavePanel = new WavePanel(appState);
 		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitTableCircle, wavePanel);
 		add(splitWave, BorderLayout.CENTER);
 		SwingUtilities.invokeLater(new Runnable() {

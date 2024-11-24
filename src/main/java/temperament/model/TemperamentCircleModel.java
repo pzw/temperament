@@ -9,25 +9,25 @@ import java.util.List;
 import temperament.musical.ITemperament;
 
 public class TemperamentCircleModel {
-	private NotePosition[]				positions;
-	private int							cx;
-	private int							cy;
-	private int							r;
-	private int							r2;
-	private static double				log2	= Math.log(2.0);
-	private TemperamentParameterBean	parameterBean;
+	private NotePosition[]	positions;
+	private int				cx;
+	private int				cy;
+	private int				r;
+	private int				r2;
+	private static double	log2	= Math.log(2.0);
+	private AppState		appState;
 
-	public TemperamentCircleModel(TemperamentParameterBean parameterBean) {
-		this.parameterBean = parameterBean;
-		parameterBean.addPropertyChangeListener(new PropertyChangeListener() {
+	public TemperamentCircleModel(AppState appState) {
+		this.appState = appState;
+		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (TemperamentParameterBean.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
+				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
 					temperamentChanged();
-				} else if (TemperamentParameterBean.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
+				} else if (AppState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 					// changement de la sélection
-					setSelection(parameterBean.getSelection());
+					setSelection(appState.getSelection());
 				}
 			}
 		});
@@ -61,7 +61,7 @@ public class TemperamentCircleModel {
 	}
 
 	private ITemperament getTemperament() {
-		return parameterBean.getTemperament();
+		return appState.getTemperament();
 	}
 
 	private void temperamentChanged() {
@@ -107,7 +107,7 @@ public class TemperamentCircleModel {
 		NotePosition note = findNote(p);
 		if (null != note) {
 			note.invertSelection();
-			parameterBean.setSelection(getSelection());
+			appState.setSelection(getSelection());
 		}
 	}
 
