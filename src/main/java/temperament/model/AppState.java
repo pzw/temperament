@@ -101,7 +101,7 @@ public class AppState extends Model {
 	}
 
 	public double getWaveViewDuration() {
-		System.out.println("viewDuration:" + waveViewDuration);
+		// System.out.println("viewDuration:" + waveViewDuration);
 		return waveViewDuration;
 	}
 

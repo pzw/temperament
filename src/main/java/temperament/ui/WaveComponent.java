@@ -62,7 +62,7 @@ public class WaveComponent extends JComponent {
 		int nSteps = w / stepX;
 		int xPrec = 0;
 		int yPrec = h2 - (int) (wave.getSample(0) * scaleY);
-		System.out.println("w:" + w + ",nbSample:" + nbSampleInView + ",stepX:" + stepX + ",stepSample:" + stepSample);
+//		System.out.println("w:" + w + ",nbSample:" + nbSampleInView + ",stepX:" + stepX + ",stepSample:" + stepSample);
 		g.setColor(color);
 		for (int i = 0; i < nSteps; i++) {
 			int xCur = 2 * i * stepX;
