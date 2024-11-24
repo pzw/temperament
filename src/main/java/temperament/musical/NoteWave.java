@@ -1,13 +1,8 @@
 package temperament.musical;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-
 import temperament.constants.IConstants;
 
-public class Note {
+public class NoteWave {
 
 	private float[] wave;
 
@@ -17,7 +12,7 @@ public class Note {
 	 * @param frequency fréquence en Herz
 	 * @param duration  durée en millisecondes
 	 */
-	public Note(double frequency, int duration, double volume) {
+	public NoteWave(double frequency, int duration, double volume) {
 		if (frequency <= 0.0)
 			throw new IllegalArgumentException("Frequency <= 0 hz");
 
@@ -39,32 +34,36 @@ public class Note {
 		return wave.length;
 	}
 
-	public void addNote(Note n) {
+	public void addNote(NoteWave n) {
 		int l = Math.min(getWaveLength(), n.getWaveLength());
 		for (int i = 0; i < l; i++) {
 			wave[i] += n.wave[i];
 		}
 	}
 
-	public void subNote(Note n) {
+	public void subNote(NoteWave n) {
 		int l = Math.min(getWaveLength(), n.getWaveLength());
 		for (int i = 0; i < l; i++) {
 			wave[i] -= n.wave[i];
 		}
 	}
 
-	public byte[] normalize() {
-		float max = 0;
+	public float getMaxValue() {
+		float result = 0;
 		for (int i = 0; i < wave.length; i++) {
-			max = Math.max(max, Math.abs(wave[i]));
+			result = Math.max(result, Math.abs(wave[i]));
 		}
+		return result;
+	}
+	public byte[] normalize() {
+		float max = getMaxValue();
 
 		int size = wave.length;
 		byte[] result = new byte[size];
 		for (int i = 0; i < size; i++) {
 			result[i] = (byte) (wave[i] * 120.0f / max);
 		}
-		
+
 		float frontLength = IConstants.SAMPLE_RATE / 10.0f;
 		for (int i = 0; i < frontLength && i < result.length / 2; i++) {
 			result[i] = (byte) (result[i] * i / frontLength);
@@ -72,41 +71,12 @@ public class Note {
 		}
 		return result;
 	}
-
-	public void playAsync() {
-		PlayThread t = new PlayThread();
-		t.start();
+	
+	public int getSize() {
+		return wave.length;
 	}
 	
-	private void sleeep(int millisecond) {
-		try {
-			Thread.sleep(millisecond);
-		} catch (InterruptedException e) {
-		}
-	}
-	private class PlayThread extends Thread {
-		public PlayThread() {
-		}
-		
-		@Override
-		public void run() {
-			AudioFormat af = new AudioFormat(IConstants.SAMPLE_RATE, 8, 1, true, false);
-			byte[] buffer = normalize();
-			SourceDataLine sdl = null;
-			try {
-				sdl = AudioSystem.getSourceDataLine(af);
-				sdl.open(af);
-				sdl.start();
-				sdl.write(buffer, 0, buffer.length);
-			} catch (LineUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (null != sdl) {
-					sleeep(200);
-					sdl.close();
-				}
-			}
-		}
+	public float getSample(int idx) {
+		return wave[idx];
 	}
 }

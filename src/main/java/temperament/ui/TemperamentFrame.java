@@ -28,7 +28,7 @@ public class TemperamentFrame extends JFrame {
 	}
 
 	private JComponent buildMainPanel() {
-		GammePanel result = new GammePanel();
+		TemperamentPanel result = new TemperamentPanel();
 		return result;
 	}
 }

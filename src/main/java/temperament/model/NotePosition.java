@@ -1,9 +1,9 @@
 package temperament.model;
 
-import temperament.musical.Note;
+import temperament.musical.NoteWave;
 
 public class NotePosition {
-	private GammePanelModel parentState;
+	private TemperamentCircleModel parentState;
 	private int x;
 	private int y;
 	private int noteIndex;
@@ -12,7 +12,7 @@ public class NotePosition {
 	private int yTx;
 	private boolean selected = false;
 
-	public NotePosition(GammePanelModel parentState, int noteIndex, double frequencyRatio) {
+	public NotePosition(TemperamentCircleModel parentState, int noteIndex, double frequencyRatio) {
 		this.parentState = parentState;
 		this.noteIndex = noteIndex;
 		this.frequencyRatio = frequencyRatio;
@@ -76,14 +76,18 @@ public class NotePosition {
 		return s.toString();
 	}
 
-	public Note buildNote(int duration) {
+	public NoteWave buildNote(int duration) {
 		double frequenceDo = 440.0 / parentState.getPositionLa().frequencyRatio;
 		double f = frequenceDo * frequencyRatio;
-		return new Note(f, duration, 1.0);
+		return new NoteWave(f, duration, 1.0);
 	}
 
 	public void invertSelection() {
 		selected = !selected;
+	}
+	
+	public void setSelected(boolean newValue) {
+		selected = newValue;
 	}
 
 	public boolean isSelected() {

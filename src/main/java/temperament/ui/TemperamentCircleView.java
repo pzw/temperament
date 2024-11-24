@@ -13,33 +13,33 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import temperament.model.GammePanelModel;
-import temperament.model.GammeParameterBean;
 import temperament.model.NotePosition;
-import temperament.musical.ITemperament;
+import temperament.model.TemperamentCircleModel;
+import temperament.model.TemperamentParameterBean;
 
-public class GammeCirclePanel extends JComponent {
+public class TemperamentCircleView extends JComponent {
 	private static final long serialVersionUID = 1L;
-	private GammePanelModel state;
+	private TemperamentCircleModel model;
 
-	public GammeCirclePanel(GammeParameterBean parameterBean, GammePanelModel state) {
+	public TemperamentCircleView(TemperamentParameterBean parameterBean, TemperamentCircleModel model) {
 		super();
-		this.state = state;
+		this.model = model;
 		parameterBean.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (GammeParameterBean.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
-					setTemperament(parameterBean.getTemperament());
+				if (TemperamentParameterBean.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
+					repaintLater();
+				} else if (TemperamentParameterBean.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
+					repaint();
 				}
 			}
 		});
-		this.setTemperament(parameterBean.getTemperament());
 		this.addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				NotePosition p = state.findNote(e.getPoint());
+				NotePosition p = model.findNote(e.getPoint());
 				if (null != p) {
 					setToolTipText(p.getTooltip());
 				} else {
@@ -56,21 +56,11 @@ public class GammeCirclePanel extends JComponent {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
-					NotePosition p = state.findNote(e.getPoint());
-					if (null != p) {
-						invertNoteSelection(p);
-					}
-				} else if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
-					state.playSelection(parameterBean.getDuration());
+					model.invertNodeSelectionAtPoint(e.getPoint());
 				}
 			}
 
 		});
-	}
-
-	private void invertNoteSelection(NotePosition p) {
-		p.invertSelection();
-		repaint();
 	}
 
 	private void drawCircle(Graphics g, int xc, int yc, int r, Color borderColor, Color fillColor) {
@@ -86,9 +76,7 @@ public class GammeCirclePanel extends JComponent {
 		g.drawArc(x1, y1, d, d, 0, 360);
 	}
 
-	public void setTemperament(ITemperament temperament) {
-		state.setTemperament(temperament);
-
+	public void repaintLater() {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -99,11 +87,11 @@ public class GammeCirclePanel extends JComponent {
 	}
 
 	private void drawNote(Graphics g, int noteRank, Color noteColor) {
-		NotePosition np = state.getNotePosition(noteRank);
+		NotePosition np = model.getNotePosition(noteRank);
 		Color borderColor = np.isSelected() ? Color.red : Color.darkGray;
 		int ep = np.isSelected() ? 3 : 1;
 		for (int i = 0; i < ep; i++) {
-			drawCircle(g, np.getCenterX(), np.getCenterY(), state.getNoteRadius() - i, borderColor, noteColor);
+			drawCircle(g, np.getCenterX(), np.getCenterY(), model.getNoteRadius() - i, borderColor, noteColor);
 		}
 		String note = np.getNoteName();
 		FontMetrics fm = g.getFontMetrics();
@@ -116,11 +104,11 @@ public class GammeCirclePanel extends JComponent {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		state.setPanelDimensions(getWidth(), getHeight());
-		drawCircle(g, state.getCenterX(), state.getCenterY(), state.getCircleRadius(), Color.black, null);
-		if (state.isTemperamentDefined()) {
-			for (int n = 0; n <= state.getNbNotes(); n++) {
-				Color c = n < state.getNbNotes() ? Color.blue : Color.cyan;
+		model.setPanelDimensions(getWidth(), getHeight());
+		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
+		if (model.isTemperamentDefined()) {
+			for (int n = 0; n <= model.getNbNotes(); n++) {
+				Color c = n < model.getNbNotes() ? Color.blue : Color.cyan;
 				drawNote(g, n, c);
 			}
 		}

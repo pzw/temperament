@@ -36,6 +36,6 @@ public class TemperamentPythagore extends TemperamentBase {
 	
 	@Override
 	public String toString() {
-		return "tempérament pythagoricien";
+		return "pythagoricien";
 	}
 }

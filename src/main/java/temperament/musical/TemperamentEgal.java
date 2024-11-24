@@ -20,6 +20,6 @@ public class TemperamentEgal extends TemperamentBase {
 
 	@Override
 	public String toString() {
-		return "tempérament égal";
+		return "égal";
 	}
 }

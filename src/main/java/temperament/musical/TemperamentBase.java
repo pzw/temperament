@@ -43,4 +43,10 @@ public class TemperamentBase implements ITemperament {
 		return 9;
 	}
 
+	@Override
+	public double getFrequenceDo(double frequenceLa) {
+		return frequenceLa / getNoteFrequencyRatio(getIndexLa());
+	}
+
+	
 }
