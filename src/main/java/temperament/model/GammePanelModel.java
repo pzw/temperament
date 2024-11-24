@@ -2,14 +2,12 @@ package temperament.model;
 
 import java.awt.Point;
 
-import temperament.constants.IConstants;
-import temperament.musical.Gamme;
+import temperament.musical.ITemperament;
 import temperament.musical.Note;
-import temperament.musical.Temperament;
 
 public class GammePanelModel {
-	private NotePosition[] positions = new NotePosition[IConstants.NB_DEMI_TONS + 1];
-	private Gamme gamme = null;
+	private NotePosition[] positions;
+	private ITemperament temperament = null;
 	private int cx;
 	private int cy;
 	private int r;
@@ -37,24 +35,28 @@ public class GammePanelModel {
 	public int getCircleRadius() {
 		return r;
 	}
-	
+
 	public int getNoteRadius() {
 		return r2;
 	}
 
-	public void setTemperament(Temperament temperament) {
-		Gamme g = new Gamme(temperament);
-		setGamme(g);
+	public void setTemperament(ITemperament newValue) {
+		temperament = newValue;
+		initPositions();
+	}
+	
+	public String getNoteName(int noteIndex) {
+		return temperament.getNoteName(noteIndex);
 	}
 
-	private void setGamme(Gamme newValue) {
-		gamme = newValue;
-		initPositions();
+	public int getNbNotes() {
+		return temperament.getNbNotes();
 	}
 
 	private void initPositions() {
-		for (int n = IConstants.DO; n <= IConstants.DO2; n++) {
-			double fRatio = gamme.getFrequencyRatio(n);
+		positions = new NotePosition[temperament.getNbNotes() + 1];
+		for (int n = 0; n <= getNbNotes(); n++) {
+			double fRatio = temperament.getNoteFrequencyRatio(n);
 			positions[n] = new NotePosition(this, n, fRatio);
 		}
 	}
@@ -63,8 +65,8 @@ public class GammePanelModel {
 		return positions[9];
 	}
 
-	public boolean isGammeDefined() {
-		return null != gamme;
+	public boolean isTemperamentDefined() {
+		return null != temperament;
 	}
 
 	public NotePosition findNote(Point p) {
@@ -75,14 +77,14 @@ public class GammePanelModel {
 		}
 		return null;
 	}
-	
+
 	public NotePosition getNotePosition(int noteRank) {
 		return positions[noteRank];
 	}
 
 	public void playSelection(int duration) {
 		Note note = null;
-		for (int n = IConstants.DO; n <= IConstants.DO2; n++) {
+		for (int n = 0; n <= temperament.getNbNotes(); n++) {
 			NotePosition np = getNotePosition(n);
 			if (np.isSelected()) {
 				if (null == note) {
@@ -98,8 +100,8 @@ public class GammePanelModel {
 	}
 
 	private void computeNotePositions() {
-		if (null != gamme) {
-			for (int n = IConstants.DO; n <= IConstants.DO2; n++) {
+		if (null != temperament) {
+			for (int n = 0; n <= temperament.getNbNotes(); n++) {
 				computeNotePosition(n);
 			}
 		}
@@ -109,7 +111,7 @@ public class GammePanelModel {
 		// trouver l'angle en fonction du rapport de fréquence
 		// 1 => 0
 		// 2 => 360
-		double fRatio = gamme.getFrequencyRatio(noteRank);
+		double fRatio = temperament.getNoteFrequencyRatio(noteRank);
 		double log = Math.log(fRatio) / log2;
 		double angleDegre = 90.0 - log * 360.0;
 		double angle = angleDegre * Math.PI / 180.0;

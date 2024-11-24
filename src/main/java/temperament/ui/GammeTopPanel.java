@@ -1,5 +1,7 @@
 package temperament.ui;
 
+import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,7 +13,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import temperament.model.GammeParameterBean;
-import temperament.musical.Temperament;
+import temperament.musical.ITemperament;
+import temperament.musical.Temperaments;
 
 public class GammeTopPanel extends JPanel {
 
@@ -25,9 +28,10 @@ public class GammeTopPanel extends JPanel {
 
 		PresentationModel<GammeParameterBean> pm = new PresentationModel<GammeParameterBean>(model);
 
-		SelectionInList<Temperament> selTemperament = new SelectionInList<Temperament>(Temperament.values(),
+		List<ITemperament> temperaments = Temperaments.getInstance().getTemperaments();
+		SelectionInList<ITemperament> selTemperament = new SelectionInList<ITemperament>(temperaments,
 				pm.getModel(GammeParameterBean.TEMPERAMENT_PROPERTY));
-		JComboBox<Temperament> cbTemperament = new JComboBox<Temperament>();
+		JComboBox<ITemperament> cbTemperament = new JComboBox<ITemperament>();
 		Bindings.bind(cbTemperament, selTemperament);
 
 		add(cbTemperament, cc.xy(4, 2));

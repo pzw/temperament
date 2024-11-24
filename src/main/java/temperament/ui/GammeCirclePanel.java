@@ -13,11 +13,10 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import temperament.constants.IConstants;
 import temperament.model.GammePanelModel;
 import temperament.model.GammeParameterBean;
 import temperament.model.NotePosition;
-import temperament.musical.Temperament;
+import temperament.musical.ITemperament;
 
 public class GammeCirclePanel extends JComponent {
 	private static final long serialVersionUID = 1L;
@@ -87,7 +86,7 @@ public class GammeCirclePanel extends JComponent {
 		g.drawArc(x1, y1, d, d, 0, 360);
 	}
 
-	public void setTemperament(Temperament temperament) {
+	public void setTemperament(ITemperament temperament) {
 		state.setTemperament(temperament);
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -102,7 +101,10 @@ public class GammeCirclePanel extends JComponent {
 	private void drawNote(Graphics g, int noteRank, Color noteColor) {
 		NotePosition np = state.getNotePosition(noteRank);
 		Color borderColor = np.isSelected() ? Color.red : Color.darkGray;
-		drawCircle(g, np.getCenterX(), np.getCenterY(), state.getNoteRadius(), borderColor, noteColor);
+		int ep = np.isSelected() ? 3 : 1;
+		for (int i = 0; i < ep; i++) {
+			drawCircle(g, np.getCenterX(), np.getCenterY(), state.getNoteRadius() - i, borderColor, noteColor);
+		}
 		String note = np.getNoteName();
 		FontMetrics fm = g.getFontMetrics();
 		Rectangle2D bounds = fm.getStringBounds(note, g);
@@ -116,9 +118,9 @@ public class GammeCirclePanel extends JComponent {
 		super.paint(g);
 		state.setPanelDimensions(getWidth(), getHeight());
 		drawCircle(g, state.getCenterX(), state.getCenterY(), state.getCircleRadius(), Color.black, null);
-		if (state.isGammeDefined()) {
-			for (int n = IConstants.DO; n <= IConstants.DO2; n++) {
-				Color c = n < IConstants.DO2 ? Color.blue : Color.cyan;
+		if (state.isTemperamentDefined()) {
+			for (int n = 0; n <= state.getNbNotes(); n++) {
+				Color c = n < state.getNbNotes() ? Color.blue : Color.cyan;
 				drawNote(g, n, c);
 			}
 		}

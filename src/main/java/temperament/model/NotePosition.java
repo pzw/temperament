@@ -1,22 +1,21 @@
 package temperament.model;
 
-import temperament.musical.Gamme;
 import temperament.musical.Note;
 
 public class NotePosition {
+	private GammePanelModel parentState;
 	private int x;
 	private int y;
-	private int noteRank;
+	private int noteIndex;
 	private double frequencyRatio;
 	private int xTx;
 	private int yTx;
 	private boolean selected = false;
-	private GammePanelModel parentState;
 
-	public NotePosition(GammePanelModel parentState, int noteRank, double frequencyRatio) {
-		this.noteRank = noteRank;
-		this.frequencyRatio = frequencyRatio;
+	public NotePosition(GammePanelModel parentState, int noteIndex, double frequencyRatio) {
 		this.parentState = parentState;
+		this.noteIndex = noteIndex;
+		this.frequencyRatio = frequencyRatio;
 	}
 
 	public void setGraphicPosition(int x, int y, int xTx, int yTx) {
@@ -43,7 +42,7 @@ public class NotePosition {
 	}
 
 	public String getNoteName() {
-		return Gamme.getNoteName(noteRank);
+		return parentState.getNoteName(noteIndex);
 	}
 
 	/**
@@ -69,7 +68,7 @@ public class NotePosition {
 		StringBuilder s = new StringBuilder();
 		s.append("<html><body>");
 		s.append("<p>");
-		s.append(Gamme.getNoteName(noteRank));
+		s.append(getNoteName());
 		s.append("<br>");
 		s.append(frequencyRatio);
 		s.append("</p>");
