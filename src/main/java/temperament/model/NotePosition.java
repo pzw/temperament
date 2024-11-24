@@ -1,9 +1,7 @@
 package temperament.model;
 
-import temperament.musical.NoteWave;
-
 public class NotePosition {
-	private TemperamentCircleModel	parentState;
+	private TemperamentCircleModel	circleModel;
 	private int						x;
 	private int						y;
 	private int						noteIndex;
@@ -14,7 +12,7 @@ public class NotePosition {
 	private int						selectionRank	= -1;
 
 	public NotePosition(TemperamentCircleModel parentState, int noteIndex, double frequencyRatio) {
-		this.parentState = parentState;
+		this.circleModel = parentState;
 		this.noteIndex = noteIndex;
 		this.frequencyRatio = frequencyRatio;
 	}
@@ -43,7 +41,7 @@ public class NotePosition {
 	}
 
 	public String getNoteName() {
-		return parentState.getNoteName(noteIndex);
+		return circleModel.getNoteName(noteIndex);
 	}
 
 	/**
@@ -62,7 +60,7 @@ public class NotePosition {
 
 	public boolean isInNotePosition(int pX, int pY) {
 		double d = distance(pX, pY);
-		return d <= parentState.getNoteRadius();
+		return d <= circleModel.getNoteRadius();
 	}
 
 	public String getTooltip() {
@@ -75,12 +73,6 @@ public class NotePosition {
 		s.append("</p>");
 		s.append("</body></html>");
 		return s.toString();
-	}
-
-	public NoteWave buildNote(int duration) {
-		double frequenceDo = 440.0 / parentState.getPositionLa().frequencyRatio;
-		double f = frequenceDo * frequencyRatio;
-		return new NoteWave(f, duration, 1.0);
 	}
 
 	public void invertSelection() {
