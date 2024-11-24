@@ -9,13 +9,13 @@ import java.util.List;
 import temperament.musical.ITemperament;
 
 public class TemperamentCircleModel {
-	private NotePosition[] positions;
-	private int cx;
-	private int cy;
-	private int r;
-	private int r2;
-	private static double log2 = Math.log(2.0);
-	private TemperamentParameterBean parameterBean;
+	private NotePosition[]				positions;
+	private int							cx;
+	private int							cy;
+	private int							r;
+	private int							r2;
+	private static double				log2	= Math.log(2.0);
+	private TemperamentParameterBean	parameterBean;
 
 	public TemperamentCircleModel(TemperamentParameterBean parameterBean) {
 		this.parameterBean = parameterBean;

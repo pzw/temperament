@@ -18,8 +18,8 @@ import temperament.model.TemperamentCircleModel;
 import temperament.model.TemperamentParameterBean;
 
 public class TemperamentCircleView extends JComponent {
-	private static final long serialVersionUID = 1L;
-	private TemperamentCircleModel model;
+	private static final long		serialVersionUID	= 1L;
+	private TemperamentCircleModel	model;
 
 	public TemperamentCircleView(TemperamentParameterBean parameterBean, TemperamentCircleModel model) {
 		super();

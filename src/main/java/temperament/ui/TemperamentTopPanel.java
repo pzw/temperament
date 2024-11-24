@@ -37,7 +37,7 @@ public class TemperamentTopPanel extends JPanel {
 		Bindings.bind(cbTemperament, selTemperament);
 
 		add(cbTemperament, cc.xy(4, 2));
-		
+
 		PlaySelectionAction playAction = new PlaySelectionAction(model);
 		add(new JButton(playAction), cc.xy(6, 2));
 	}

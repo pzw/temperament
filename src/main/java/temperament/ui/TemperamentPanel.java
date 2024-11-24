@@ -11,8 +11,8 @@ import temperament.model.TemperamentParameterBean;
 import temperament.model.TemperamentTableModel;
 
 public class TemperamentPanel extends JPanel {
-	private static final long serialVersionUID = 1L;
-	private TemperamentParameterBean parameterBean = new TemperamentParameterBean();
+	private static final long			serialVersionUID	= 1L;
+	private TemperamentParameterBean	parameterBean		= new TemperamentParameterBean();
 
 	public TemperamentPanel() {
 		super();
@@ -23,7 +23,7 @@ public class TemperamentPanel extends JPanel {
 		TemperamentTableModel tableModel = new TemperamentTableModel(parameterBean);
 		TemperamentTablePanel tableView = new TemperamentTablePanel(parameterBean, tableModel);
 		JSplitPane splitTableCircle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tableView, circleView);
-		
+
 		WavePanel wavePanel = new WavePanel(parameterBean);
 		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitTableCircle, wavePanel);
 		add(splitWave, BorderLayout.CENTER);

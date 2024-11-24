@@ -1,13 +1,13 @@
 package temperament.musical;
 
 public class TemperamentBase implements ITemperament {
-	protected final int NB_NOTES_STANDARD = 12;
-	protected String[] names;
-	protected double[] ratios;
-	
+	protected final int	NB_NOTES_STANDARD	= 12;
+	protected String[]	names;
+	protected double[]	ratios;
+
 	public TemperamentBase() {
-		ratios = new double[NB_NOTES_STANDARD+1];
-		names = new String[NB_NOTES_STANDARD+1];
+		ratios = new double[NB_NOTES_STANDARD + 1];
+		names = new String[NB_NOTES_STANDARD + 1];
 		names[0] = "do";
 		names[1] = "do#";
 		names[2] = "ré";
@@ -48,5 +48,4 @@ public class TemperamentBase implements ITemperament {
 		return frequenceLa / getNoteFrequencyRatio(getIndexLa());
 	}
 
-	
 }

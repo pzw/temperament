@@ -23,9 +23,9 @@ import temperament.model.TemperamentTableModel;
  * représentation d'un tempérament dans une JTable
  */
 public class TemperamentTablePanel extends JPanel {
-	private static final long serialVersionUID = 1L;
-	private JTable tableView;
-	private boolean tableSelectionListenerEnabled = true;
+	private static final long	serialVersionUID				= 1L;
+	private JTable				tableView;
+	private boolean				tableSelectionListenerEnabled	= true;
 
 	public TemperamentTablePanel(TemperamentParameterBean parameterBean, TemperamentTableModel model) {
 		setLayout(new BorderLayout());

@@ -4,13 +4,14 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+
 /**
- * inutilisé : exemple initial téléchargé pour avoir un exemple d'utilisation de SourceDataLine
+ * inutilisé : exemple initial téléchargé pour avoir un exemple d'utilisation de
+ * SourceDataLine
  */
 public class Tone {
 	public static float SAMPLE_RATE = 8000f;
 
-	
 	public static void sound(double hz, int msecs, double vol) throws LineUnavailableException {
 
 		if (hz <= 0.0)

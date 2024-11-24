@@ -33,7 +33,7 @@ public class TemperamentPythagore extends TemperamentBase {
 			ratios[note] = ratio;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "pythagoricien";

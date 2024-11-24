@@ -9,8 +9,8 @@ import temperament.musical.NoteWave;
 import temperament.player.NotePlayer;
 
 public class PlaySelectionAction extends AbstractAction {
-	private static final long serialVersionUID = 1L;
-	private TemperamentParameterBean parameterBean;
+	private static final long			serialVersionUID	= 1L;
+	private TemperamentParameterBean	parameterBean;
 
 	public PlaySelectionAction(TemperamentParameterBean parameterBean) {
 		super("Ecouter");

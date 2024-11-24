@@ -1,5 +1,6 @@
 package temperament.model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +11,16 @@ import temperament.musical.NoteWave;
 import temperament.musical.Temperaments;
 
 public class TemperamentParameterBean extends Model {
-	private static final long serialVersionUID = 1L;
-	public static final String TEMPERAMENT_PROPERTY = "temperament";
-	public static final String DURATION_PROPERTY = "duration";
-	public static final String LA_FREQUENCY_PROPERTY = "laFrequency";
-	public static final String SELECTION_PROPERTY = "selection";
+	private static final long	serialVersionUID		= 1L;
+	public static final String	TEMPERAMENT_PROPERTY	= "temperament";
+	public static final String	DURATION_PROPERTY		= "duration";
+	public static final String	LA_FREQUENCY_PROPERTY	= "laFrequency";
+	public static final String	SELECTION_PROPERTY		= "selection";
 
-	private ITemperament temperament = Temperaments.getInstance().getTemperaments().get(0);
-	private int duration = 2000;
-	private double laFrequency = 440.0;
-	private List<Integer> selection = new ArrayList<Integer>();
+	private ITemperament		temperament				= Temperaments.getInstance().getTemperaments().get(0);
+	private int					duration				= 2000;
+	private double				laFrequency				= 440.0;
+	private List<Integer>		selection				= new ArrayList<Integer>();
 
 	public ITemperament getTemperament() {
 		return temperament;
@@ -70,11 +71,26 @@ public class TemperamentParameterBean extends Model {
 			firePropertyChange(SELECTION_PROPERTY, oldValue, newValue);
 		}
 	}
-	
+
 	public NoteWave buildNoteWave(int index) {
-		if (null == temperament) return null;
+		if (null == temperament)
+			return null;
 		double frequenceDo = temperament.getFrequenceDo(getLaFrequency());
 		double f = frequenceDo * temperament.getNoteFrequencyRatio(index);
 		return new NoteWave(f, getDuration(), 1.0);
+	}
+
+	public Color getSelectionColor(int idx) {
+		switch (idx % 4) {
+		case 0:
+			return Color.green;
+		case 1:
+			return Color.yellow;
+		case 2:
+			return Color.red;
+		case 3:
+			return Color.cyan;
+		}
+		return Color.white;
 	}
 }

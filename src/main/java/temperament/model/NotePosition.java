@@ -3,14 +3,14 @@ package temperament.model;
 import temperament.musical.NoteWave;
 
 public class NotePosition {
-	private TemperamentCircleModel parentState;
-	private int x;
-	private int y;
-	private int noteIndex;
-	private double frequencyRatio;
-	private int xTx;
-	private int yTx;
-	private boolean selected = false;
+	private TemperamentCircleModel	parentState;
+	private int						x;
+	private int						y;
+	private int						noteIndex;
+	private double					frequencyRatio;
+	private int						xTx;
+	private int						yTx;
+	private boolean					selected	= false;
 
 	public NotePosition(TemperamentCircleModel parentState, int noteIndex, double frequencyRatio) {
 		this.parentState = parentState;
@@ -85,7 +85,7 @@ public class NotePosition {
 	public void invertSelection() {
 		selected = !selected;
 	}
-	
+
 	public void setSelected(boolean newValue) {
 		selected = newValue;
 	}

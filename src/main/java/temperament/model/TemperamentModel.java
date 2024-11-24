@@ -4,9 +4,9 @@ package temperament.model;
  * modèle global, glue entre les différents modèles
  */
 public class TemperamentModel {
-	private TemperamentParameterBean parameterBean;
-	private TemperamentTableModel tableModel;
-	private TemperamentCircleModel circleModel;
+	private TemperamentParameterBean	parameterBean;
+	private TemperamentTableModel		tableModel;
+	private TemperamentCircleModel		circleModel;
 
 	public TemperamentModel() {
 		parameterBean = new TemperamentParameterBean();

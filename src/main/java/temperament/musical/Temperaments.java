@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Temperaments {
-	private static Temperaments _instance = null;
-	private ArrayList<ITemperament> temperaments;
+	private static Temperaments		_instance	= null;
+	private ArrayList<ITemperament>	temperaments;
 
 	public static synchronized Temperaments getInstance() {
 		if (null == _instance) {
@@ -19,7 +19,7 @@ public class Temperaments {
 		temperaments.add(new TemperamentEgal());
 		temperaments.add(new TemperamentPythagore());
 	}
-	
+
 	public List<ITemperament> getTemperaments() {
 		return temperaments;
 	}
