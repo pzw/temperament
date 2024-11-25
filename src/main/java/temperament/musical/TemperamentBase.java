@@ -7,6 +7,8 @@ public class TemperamentBase implements ITemperament {
 
 	public TemperamentBase() {
 		ratios = new double[NB_NOTES_STANDARD + 1];
+		ratios[0] = 1.0;
+		
 		names = new String[NB_NOTES_STANDARD + 1];
 		names[0] = "do";
 		names[1] = "do#";

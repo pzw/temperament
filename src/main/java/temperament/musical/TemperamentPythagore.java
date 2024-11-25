@@ -4,7 +4,6 @@ public class TemperamentPythagore extends TemperamentBase {
 
 	public TemperamentPythagore() {
 		super();
-		ratios[0] = 1.0;
 		int note = 0;
 		double ratio = 1.0;
 		boolean doContinue = true;

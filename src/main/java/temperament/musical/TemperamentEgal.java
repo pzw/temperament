@@ -5,7 +5,6 @@ public class TemperamentEgal extends TemperamentBase {
 	public TemperamentEgal() {
 		super();
 		double step = Math.pow(2.0, 1.0 / NB_NOTES_STANDARD);
-		ratios[0] = 1.0;
 		for (int n = 1; n < NB_NOTES_STANDARD; n++) {
 			ratios[n] = ratios[n - 1] * step;
 		}
