@@ -18,6 +18,7 @@ public class Temperaments {
 		temperaments = new ArrayList<ITemperament>();
 		temperaments.add(new TemperamentEgal());
 		temperaments.add(new TemperamentPythagore());
+		temperaments.add(new TemperamentMesotonique());
 	}
 
 	public List<ITemperament> getTemperaments() {
