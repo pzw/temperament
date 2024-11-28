@@ -1,0 +1,21 @@
+{
+	"name" : "test",
+	"description" : "Tempérament de test\npour voir ce que ça donne",
+	"notes" : [
+		{
+			 "name" : "do",
+		     "ratio_mul" : 1,
+	   		 "ratio_div" : 1
+	    },
+		{
+			"name" : "sol",
+	  		"ratio_mul" : 3,
+	  		"ratio_div" : 2
+		},
+		{
+			"name" : "la",
+			"ratio_mul" : 1.8,
+			"ratio_div" : 1
+		},
+	],
+}
