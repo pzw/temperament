@@ -20,8 +20,6 @@ public class TemperamentBase implements ITemperament {
 
 	protected void initRatios() {
 		ratios = new double[NB_NOTES_STANDARD + 1];
-		ratios[0] = 1.0;
-		
 		for (int i = 0; i < ratios.length; i++) {
 			ratios[i] = RATIO_UNISSON;
 		}

@@ -1,7 +1,11 @@
 package temperament.ui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -63,6 +67,9 @@ public class WaveComponent extends JComponent {
 		int xPrec = 0;
 		int yPrec = h2 - (int) (wave.getSample(0) * scaleY);
 //		System.out.println("w:" + w + ",nbSample:" + nbSampleInView + ",stepX:" + stepX + ",stepSample:" + stepSample);
+		Graphics2D g2d = (Graphics2D) g;
+		Stroke bkp = g2d.getStroke();
+		g2d.setStroke(new BasicStroke(1.5f));
 		g.setColor(color);
 		for (int i = 0; i < nSteps; i++) {
 			int xCur = 2 * i * stepX;
@@ -72,11 +79,16 @@ public class WaveComponent extends JComponent {
 			xPrec = xCur;
 			yPrec = yCur;
 		}
+		g2d.setStroke(bkp);
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		int w = getWidth();
 		int h = getHeight();
 		g.setColor(Color.black);

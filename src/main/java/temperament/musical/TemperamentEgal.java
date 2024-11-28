@@ -3,7 +3,6 @@ package temperament.musical;
 public class TemperamentEgal extends TemperamentBase {
 
 	public TemperamentEgal() {
-		super();
 	}
 
 	@Override

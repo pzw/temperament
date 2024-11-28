@@ -16,7 +16,6 @@ public class TemperamentPythagore extends TemperamentBase {
 	private static final int	IDX_DO2			= 12;
 
 	public TemperamentPythagore() {
-		super();
 	}
 
 	@Override
