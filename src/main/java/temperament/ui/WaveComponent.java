@@ -13,11 +13,14 @@ import java.util.List;
 import javax.swing.JComponent;
 
 import temperament.model.AppState;
-import temperament.musical.NoteWave;
+import temperament.musical.WaveGenerator;
 
+/**
+ * composant qui affiche une ou plusieurs notes
+ */
 public class WaveComponent extends JComponent {
-	private static final long	serialVersionUID	= 1L;
-	private AppState			appState;
+	private static final long serialVersionUID = 1L;
+	private AppState appState;
 
 	public WaveComponent(AppState appState) {
 		this.appState = appState;
@@ -31,53 +34,38 @@ public class WaveComponent extends JComponent {
 		});
 	}
 
-	private void paintNote(Graphics g, NoteWave wave, Color color) {
-		float max = wave.getMaxValue();
-		int w = getWidth();
+	private float getAmplitude() {
 		int h = getHeight();
 		int h2 = h / 2;
 		int amplitude = h2;
 		if (amplitude > 60) {
 			amplitude -= 10;
 		}
+		return amplitude;
+	}
 
-		float scaleY = 0;
-		if (0 != max) {
-			scaleY = amplitude / max;
-		}
+	/**
+	 * affiche un signal
+	 * @param g
+	 * @param samples échantillons à afficher (on a un échantillon par pixel en x)
+	 * @param color couleur de la courbe
+	 */
+	private void paintSignal(Graphics g, float[] samples, Color color) {
+		int w = getWidth();
+		int h = getHeight();
+		int h2 = h / 2;
 
-		double waveViewDuration = appState.getWaveViewDuration();
-		double waveDuration = appState.getDuration();
-		waveViewDuration = Math.min(waveViewDuration, waveDuration);
-		// nombre d'échantillons montrés dans une vue de w pixel de largeur
-		double nbSampleInView = ((double) wave.getSize()) * waveViewDuration / waveDuration;
-		// avance dans l'échantillon pour 1 pixel
-		double stepSampleDouble = nbSampleInView / w;
-		int stepSample;
-		int stepX;
-		if (stepSampleDouble < 1.0) {
-			stepX = (int) (1.0 / stepSampleDouble);
-			stepSample = 1;
-		} else {
-			stepX = 1;
-			stepSample = (int) stepSampleDouble;
-		}
-
-		int nSteps = w / stepX;
 		int xPrec = 0;
-		int yPrec = h2 - (int) (wave.getSample(0) * scaleY);
-//		System.out.println("w:" + w + ",nbSample:" + nbSampleInView + ",stepX:" + stepX + ",stepSample:" + stepSample);
+		int yPrec = h2 - (int) (samples[0]);
 		Graphics2D g2d = (Graphics2D) g;
 		Stroke bkp = g2d.getStroke();
 		g2d.setStroke(new BasicStroke(1.5f));
 		g.setColor(color);
-		for (int i = 0; i < nSteps; i++) {
-			int xCur = 2 * i * stepX;
-			double waveIndex = i * stepSample;
-			int yCur = h2 - (int) (wave.getSample((int) waveIndex) * scaleY);
-			g.drawLine(xPrec, yPrec, xCur, yCur);
-			xPrec = xCur;
-			yPrec = yCur;
+		for (int x = 1; x < w; x++) {
+			int y = h2 - (int) samples[x];
+			g.drawLine(xPrec, yPrec, x, y);
+			xPrec = x;
+			yPrec = y;
 		}
 		g2d.setStroke(bkp);
 	}
@@ -101,22 +89,25 @@ public class WaveComponent extends JComponent {
 			if (appState.isWaveShowEachNote()) {
 				int idx = 0;
 				for (Integer n : sel) {
-					NoteWave wave = appState.buildNoteWave(n);
-					paintNote(g, wave, appState.getSelectionColor(idx++));
+					double f = appState.getNoteFrequency(n);
+					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), w);
+					paintSignal(g, wave, appState.getSelectionColor(idx++));
 				}
 			}
 
 			if (appState.isWaveShowSum()) {
-				NoteWave cumul = null;
+				float[] samples = null;
 				for (Integer n : sel) {
-					NoteWave wave = appState.buildNoteWave(n);
-					if (null == cumul) {
-						cumul = wave;
+					double f = appState.getNoteFrequency(n);
+					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), w);
+					if (null == samples) {
+						samples = wave;
 					} else {
-						cumul.addNote(wave);
+						samples = WaveGenerator.sum(samples, wave);
 					}
 				}
-				paintNote(g, cumul, Color.red);
+				samples = WaveGenerator.amplitude(samples, getAmplitude());
+				paintSignal(g, samples, Color.red);
 			}
 		}
 	}

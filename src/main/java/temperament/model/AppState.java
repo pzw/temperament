@@ -78,11 +78,16 @@ public class AppState extends Model {
 		}
 	}
 
-	public NoteWave buildNoteWave(int index) {
+	public double getNoteFrequency(int index) {
 		if (null == temperament)
-			return null;
+			return 0.0;
 		double frequenceDo = temperament.getFrequenceDo(getLaFrequency());
-		double f = frequenceDo * temperament.getNoteFrequencyRatio(index);
+		return frequenceDo * temperament.getNoteFrequencyRatio(index);
+	}
+	
+	public NoteWave buildNoteWave(int index) {
+		double f = getNoteFrequency(index);
+		if (0.0 == f) return null;
 		return new NoteWave(f, getDuration(), 1.0);
 	}
 
