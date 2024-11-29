@@ -21,7 +21,6 @@ public class PlayGammeAction extends AbstractAction {
 		int dureeNote = 400;
 		double volume = 0.3;
 		NoteWave gamme = appState.buildNoteWave(0, dureeNote, volume);
-		System.out.println("0:" + gamme.getWaveLength());
 		if (null != gamme) {
 			int nbNotes = appState.getTemperament().getNbNotes();
 			for (int i = 1; i <= nbNotes; i++) {
@@ -30,7 +29,6 @@ public class PlayGammeAction extends AbstractAction {
 				if (null != note) {
 					gamme.appendNote(note);
 				}
-				System.out.println(i + ":" + gamme.getWaveLength());
 			}
 			NotePlayer player = new NotePlayer(gamme);
 			player.start();
