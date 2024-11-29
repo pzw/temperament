@@ -7,17 +7,18 @@ import java.text.NumberFormat;
 import javax.swing.table.AbstractTableModel;
 
 import temperament.musical.ITemperament;
+import temperament.musical.TemperamentBase;
 
 public class TemperamentTableModel extends AbstractTableModel {
-	private static final long serialVersionUID = 1L;
-	public static final int COL_NOTE_NAME = 0;
-	public static final int COL_FREQUENCY_RATIO = 1;
-	public static final int COL_FREQUENCY = 2;
-	public static final int COL_OCTAVE_SELECTED = 3;
-	private static final int COL_NB = 4;
-	private NumberFormat format;
-	private AppState appState;
-	private boolean[] octave;
+	private static final long	serialVersionUID	= 1L;
+	public static final int		COL_NOTE_NAME		= 0;
+	public static final int		COL_FREQUENCY_RATIO	= 1;
+	public static final int		COL_FREQUENCY		= 2;
+	public static final int		COL_OCTAVE_SELECTED	= 3;
+	private static final int	COL_NB				= 4;
+	private NumberFormat		format;
+	private AppState			appState;
+	private boolean[]			octave;
 
 	public TemperamentTableModel(AppState appState) {
 		this.appState = appState;
@@ -60,6 +61,11 @@ public class TemperamentTableModel extends AbstractTableModel {
 		return COL_NB;
 	}
 
+	private double getOctaveRatio(int rowIndex) {
+		return isOctaveSelected(rowIndex) ? TemperamentBase.RATIO_OCTAVE : TemperamentBase.RATIO_UNISSON;
+
+	}
+
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object result = null;
@@ -71,11 +77,11 @@ public class TemperamentTableModel extends AbstractTableModel {
 					result = t.getNoteName(rowIndex);
 					break;
 				case COL_FREQUENCY_RATIO:
-					result = format.format(t.getNoteFrequencyRatio(rowIndex));
+					result = format.format(getOctaveRatio(rowIndex) * t.getNoteFrequencyRatio(rowIndex));
 					break;
 				case COL_FREQUENCY:
 					double frequenceDo = t.getFrequenceDo(appState.getLaFrequency());
-					result = format.format(frequenceDo * t.getNoteFrequencyRatio(rowIndex));
+					result = format.format(getOctaveRatio(rowIndex) * frequenceDo * t.getNoteFrequencyRatio(rowIndex));
 					break;
 				case COL_OCTAVE_SELECTED:
 					result = null == octave ? false : octave[rowIndex];
@@ -95,6 +101,8 @@ public class TemperamentTableModel extends AbstractTableModel {
 				case COL_OCTAVE_SELECTED:
 					if (aValue instanceof Boolean && null != octave) {
 						octave[rowIndex] = (Boolean) aValue;
+						fireTableCellUpdated(rowIndex, COL_FREQUENCY);
+						fireTableCellUpdated(rowIndex, COL_FREQUENCY_RATIO);
 					}
 					break;
 				default:

@@ -4,8 +4,8 @@ import temperament.constants.IConstants;
 
 public class NoteWave {
 
-	private float[] wave;
-	private int duration;
+	private float[]	wave;
+	private int		duration;
 
 	/**
 	 * note à une certaine fréquence, pendant une durée

@@ -25,11 +25,12 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 	protected void initRatios() {
 		ratios = new double[NB_NOTES + 1];
 		// poser les quintes
+		double ratioQuinte = Math.pow(5.0, 0.25);
 		// attention : les quintes dont fausses de 1/4 comma
 		ratios[IDX_DO] = RATIO_UNISSON;
-		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * RATIO_QUINTE);
-		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * RATIO_QUINTE);
-		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * RATIO_QUINTE);
+		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * ratioQuinte);
+		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * ratioQuinte);
+		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * ratioQuinte);
 
 		// poser les tierces par rapport aux quintes déjà placées
 		// tierces relatives au do : la bémol -> do -> mi -> sol dièze

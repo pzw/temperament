@@ -8,8 +8,8 @@ import temperament.musical.NoteWave;
 import temperament.player.NotePlayer;
 
 public class PlayGammeAction extends AbstractAction {
-	private static final long serialVersionUID = 1L;
-	private AppState appState;
+	private static final long	serialVersionUID	= 1L;
+	private AppState			appState;
 
 	public PlayGammeAction(AppState appState) {
 		super("Gamme");

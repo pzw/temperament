@@ -10,10 +10,10 @@ import org.json.JSONObject;
 
 import temperament.musical.ITemperament;
 
-public class TemperamentJson implements ITemperament{
-	private String name = null;
-	private String description = null;
-	private ArrayList<JSonNote> notes = null;
+public class TemperamentJson implements ITemperament {
+	private String				name		= null;
+	private String				description	= null;
+	private ArrayList<JSonNote>	notes		= null;
 
 	public TemperamentJson(String path) {
 		try {
@@ -32,43 +32,41 @@ public class TemperamentJson implements ITemperament{
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	@Override
 	public int getNbNotes() {
-		return null == notes ? 0 : notes.size() -1;
+		return null == notes ? 0 : notes.size() - 1;
 	}
 
 	private int checkIndex(int noteIndex) {
-		if (null == notes) return -1;
-		if (noteIndex >= notes.size()) return -1;
+		if (null == notes)
+			return -1;
+		if (noteIndex >= notes.size())
+			return -1;
 		return noteIndex;
-				
-	}
 
+	}
 
 	@Override
 	public double getNoteFrequencyRatio(int noteIndex) {
 		int idx = checkIndex(noteIndex);
-		if (idx < 0) return 1.0;
+		if (idx < 0)
+			return 1.0;
 		return notes.get(noteIndex).getNoteFrequencyRatio();
 	}
-
-
 
 	@Override
 	public String getNoteName(int noteIndex) {
 		int idx = checkIndex(noteIndex);
-		if (idx < 0) return "unknown";
+		if (idx < 0)
+			return "unknown";
 		return notes.get(noteIndex).name;
 	}
 
-
-
 	@Override
 	public int getIndexLa() {
-		if (null == notes) return 0;
+		if (null == notes)
+			return 0;
 		for (int i = 0; i < notes.size(); i++) {
 			if ("la".equals(notes.get(i).name)) {
 				return i;
@@ -76,8 +74,6 @@ public class TemperamentJson implements ITemperament{
 		}
 		return 0;
 	}
-	
-	
 
 	@Override
 	public String toString() {
@@ -90,30 +86,34 @@ public class TemperamentJson implements ITemperament{
 	}
 
 	public boolean isWellDefined() {
-		if (null == name) return false;
-		if (null == description) return false;
-		if (null == notes) return false;
+		if (null == name)
+			return false;
+		if (null == description)
+			return false;
+		if (null == notes)
+			return false;
 		for (JSonNote n : notes) {
-			if (!n.isWellDefined()) return false; 
+			if (!n.isWellDefined())
+				return false;
 		}
 		return true;
 	}
 
 	private class JSonNote {
-		private String name;
-		private double ratioMul;
-		private double ratioDiv;
+		private String	name;
+		private double	ratioMul;
+		private double	ratioDiv;
 
 		public JSonNote(JSONObject o) {
 			name = o.getString("name");
 			ratioMul = o.getDouble("ratio_mul");
 			ratioDiv = o.getDouble("ratio_div");
 		}
-		
+
 		public boolean isWellDefined() {
 			return name != null && name.length() > 0 && ratioMul > 0.0 && ratioDiv > 0.0;
 		}
-		
+
 		public double getNoteFrequencyRatio() {
 			return ratioMul / ratioDiv;
 		}

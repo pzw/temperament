@@ -3,8 +3,9 @@ package temperament.musical;
 public class WaveGenerator {
 	/**
 	 * générationn d'une sinusoide
+	 * 
 	 * @param pFrequency fréquence [Hz]
-	 * @param pDuration durée à générer [ms]
+	 * @param pDuration  durée à générer [ms]
 	 * @param pNbSamples nombre d'échantillons désirés
 	 * @return
 	 */
@@ -17,9 +18,10 @@ public class WaveGenerator {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * retourne l'amplitude d'un signal
+	 * 
 	 * @param pInput échantillons du signal
 	 * @return
 	 */
@@ -30,10 +32,11 @@ public class WaveGenerator {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * adapte l'amplitude d'un signal
-	 * @param pInput signal
+	 * 
+	 * @param pInput        signal
 	 * @param pOutAmplitude amplitude de sortie
 	 * @return signal avec l'amplitude corrigée
 	 */
@@ -46,9 +49,10 @@ public class WaveGenerator {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * retourne la somme de deux signaux
+	 * 
 	 * @param pInput1
 	 * @param pInput2
 	 * @return

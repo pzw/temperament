@@ -51,21 +51,20 @@ public class TemperamentTablePanel extends JPanel {
 			}
 		});
 
-		appState.addPropertyChangeListener(AppState.SELECTION_PROPERTY,
-				new PropertyChangeListener() {
+		appState.addPropertyChangeListener(AppState.SELECTION_PROPERTY, new PropertyChangeListener() {
 
-					@Override
-					public void propertyChange(PropertyChangeEvent evt) {
-						tableSelectionListenerEnabled = false;
-						List<Integer> sel = appState.getSelection();
-						ListSelectionModel lsm = tableView.getSelectionModel();
-						lsm.clearSelection();
-						for (Integer s : sel) {
-							lsm.addSelectionInterval(s, s);
-						}
-						tableSelectionListenerEnabled = true;
-					}
-				});
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				tableSelectionListenerEnabled = false;
+				List<Integer> sel = appState.getSelection();
+				ListSelectionModel lsm = tableView.getSelectionModel();
+				lsm.clearSelection();
+				for (Integer s : sel) {
+					lsm.addSelectionInterval(s, s);
+				}
+				tableSelectionListenerEnabled = true;
+			}
+		});
 	}
 
 	public void addSelectionListener(ListSelectionListener listener) {

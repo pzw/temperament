@@ -1,19 +1,19 @@
 package temperament.musical;
 
-public class TemperamentMesotonique4 extends TemperamentBase{
-	private static final int IDX_DO = 0;
-	private static final int IDX_DO_DIEZE = 1;
-	private static final int IDX_RE = 2;
-	private static final int IDX_MI_BEMOL = 3;
-	private static final int IDX_MI = 4;
-	private static final int IDX_FA = 5;
-	private static final int IDX_FA_DIEZE = 6;
-	private static final int IDX_SOL = 7;
-	private static final int IDX_SOL_DIEZE = 8;
-	private static final int IDX_LA = 9;
-	private static final int IDX_SI_BEMOL = 10;
-	private static final int IDX_SI = 11;
-	private static final int IDX_DO2 = 12;
+public class TemperamentMesotonique4 extends TemperamentBase {
+	private static final int	IDX_DO			= 0;
+	private static final int	IDX_DO_DIEZE	= 1;
+	private static final int	IDX_RE			= 2;
+	private static final int	IDX_MI_BEMOL	= 3;
+	private static final int	IDX_MI			= 4;
+	private static final int	IDX_FA			= 5;
+	private static final int	IDX_FA_DIEZE	= 6;
+	private static final int	IDX_SOL			= 7;
+	private static final int	IDX_SOL_DIEZE	= 8;
+	private static final int	IDX_LA			= 9;
+	private static final int	IDX_SI_BEMOL	= 10;
+	private static final int	IDX_SI			= 11;
+	private static final int	IDX_DO2			= 12;
 
 	public TemperamentMesotonique4() {
 	}

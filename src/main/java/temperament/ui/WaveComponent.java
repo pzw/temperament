@@ -19,8 +19,8 @@ import temperament.musical.WaveGenerator;
  * composant qui affiche une ou plusieurs notes
  */
 public class WaveComponent extends JComponent {
-	private static final long serialVersionUID = 1L;
-	private AppState appState;
+	private static final long	serialVersionUID	= 1L;
+	private AppState			appState;
 
 	public WaveComponent(AppState appState) {
 		this.appState = appState;
@@ -46,9 +46,10 @@ public class WaveComponent extends JComponent {
 
 	/**
 	 * affiche un signal
+	 * 
 	 * @param g
 	 * @param samples échantillons à afficher (on a un échantillon par pixel en x)
-	 * @param color couleur de la courbe
+	 * @param color   couleur de la courbe
 	 */
 	private void paintSignal(Graphics g, float[] samples, Color color, float pStrokeWidth) {
 		int w = getWidth();
