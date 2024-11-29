@@ -50,7 +50,7 @@ public class WaveComponent extends JComponent {
 	 * @param samples échantillons à afficher (on a un échantillon par pixel en x)
 	 * @param color couleur de la courbe
 	 */
-	private void paintSignal(Graphics g, float[] samples, Color color) {
+	private void paintSignal(Graphics g, float[] samples, Color color, float pStrokeWidth) {
 		int w = getWidth();
 		int h = getHeight();
 		int h2 = h / 2;
@@ -59,7 +59,7 @@ public class WaveComponent extends JComponent {
 		int yPrec = h2 - (int) (samples[0]);
 		Graphics2D g2d = (Graphics2D) g;
 		Stroke bkp = g2d.getStroke();
-		g2d.setStroke(new BasicStroke(1.5f));
+		g2d.setStroke(new BasicStroke(pStrokeWidth));
 		g.setColor(color);
 		for (int x = 1; x < w; x++) {
 			int y = h2 - (int) samples[x];
@@ -91,7 +91,7 @@ public class WaveComponent extends JComponent {
 				for (Integer n : sel) {
 					double f = appState.getNoteFrequency(n);
 					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), w);
-					paintSignal(g, wave, appState.getSelectionColor(idx++));
+					paintSignal(g, wave, appState.getSelectionColor(idx++), 1.0f);
 				}
 			}
 
@@ -107,7 +107,7 @@ public class WaveComponent extends JComponent {
 					}
 				}
 				samples = WaveGenerator.amplitude(samples, getAmplitude());
-				paintSignal(g, samples, Color.red);
+				paintSignal(g, samples, Color.red, 2.0f);
 			}
 		}
 	}

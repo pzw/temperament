@@ -24,7 +24,7 @@ public class AppState extends Model {
 	private double				laFrequency					= 440.0;
 	private List<Integer>		selection					= new ArrayList<Integer>();
 	/** durée visualisée dans WavePanel */
-	private double				waveViewDuration			= 500.0;
+	private double				waveViewDuration			= 20.0;
 	private boolean				waveShowSum					= true;
 	private boolean				waveShowEachNote			= false;
 
@@ -85,10 +85,10 @@ public class AppState extends Model {
 		return frequenceDo * temperament.getNoteFrequencyRatio(index);
 	}
 	
-	public NoteWave buildNoteWave(int index) {
+	public NoteWave buildNoteWave(int index, int pDuration, double pVolume) {
 		double f = getNoteFrequency(index);
 		if (0.0 == f) return null;
-		return new NoteWave(f, getDuration(), 1.0);
+		return new NoteWave(f, pDuration, pVolume);
 	}
 
 	public Color getSelectionColor(int idx) {

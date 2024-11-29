@@ -4,8 +4,8 @@ import temperament.constants.IConstants;
 
 public class NoteWave {
 
-	private float[]	wave;
-	private int		duration;
+	private float[] wave;
+	private int duration;
 
 	/**
 	 * note à une certaine fréquence, pendant une durée
@@ -23,13 +23,8 @@ public class NoteWave {
 		if (volume > 1.0 || volume < 0.0)
 			throw new IllegalArgumentException("Volume out of range 0.0 - 1.0");
 		this.duration = duration;
-		wave = new float[(int) IConstants.SAMPLE_RATE * duration / 1000];
-
-		double angleStep = 2.0 * Math.PI * frequency / IConstants.SAMPLE_RATE;
-		for (int i = 0; i < wave.length; i++) {
-			double angle = i * angleStep;
-			wave[i] = (float) (Math.sin(angle) * 127.0 * volume);
-		}
+		wave = WaveGenerator.generateSinus(frequency, 127.0 * volume, (double) duration,
+				(int) IConstants.SAMPLE_RATE * duration / 1000);
 	}
 
 	public int getWaveLength() {
@@ -43,11 +38,18 @@ public class NoteWave {
 		}
 	}
 
-	public void subNote(NoteWave n) {
-		int l = Math.min(getWaveLength(), n.getWaveLength());
-		for (int i = 0; i < l; i++) {
-			wave[i] -= n.wave[i];
+	public void appendNote(NoteWave n) {
+		int l1 = wave.length;
+		int l2 = n.wave.length;
+
+		float tmp[] = new float[l1 + l2];
+		for (int i = 0; i < l1; i++) {
+			tmp[i] = wave[i];
 		}
+		for (int i = 0; i < l2; i++) {
+			tmp[l1 + i] = n.wave[i];
+		}
+		wave = tmp;
 	}
 
 	public float getMaxValue() {
