@@ -1,6 +1,6 @@
 package temperament.musical;
 
-public class TemperamentMesotonique extends TemperamentBase {
+public class TemperamentAbbatialePayerne extends TemperamentBase {
 	private static final int	NB_NOTES		= 14;
 	private static final int	IDX_DO			= 0;
 	private static final int	IDX_DO_DIEZE	= 1;
@@ -18,7 +18,7 @@ public class TemperamentMesotonique extends TemperamentBase {
 	private static final int	IDX_SI			= 13;
 	private static final int	IDX_DO2			= 14;
 
-	public TemperamentMesotonique() {
+	public TemperamentAbbatialePayerne() {
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class TemperamentMesotonique extends TemperamentBase {
 
 	@Override
 	public String toString() {
-		return "mésotonique";
+		return "Abbatiale Payerne";
 	}
 
 }
