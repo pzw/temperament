@@ -41,7 +41,7 @@ public class TemperamentPythagore extends TemperamentBase {
 
 	@Override
 	public String toString() {
-		return "pythagoricien";
+		return "pythagoricien : 12 quintes montantes";
 	}
 
 	@Override

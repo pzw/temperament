@@ -49,7 +49,7 @@ public class TemperamentTopPanel extends JPanel {
 		x += 4;
 		add(new JLabel("Fréquence du la"), cc.xy(x, y));
 		x += 2;
-		SpinnerHelper sh = new SpinnerHelper(appState.getLaFrequency(), 430, 450, 0.5);
+		SpinnerHelper sh = new SpinnerHelper(appState.getLaFrequency(), 200, 900, 0.5);
 		Bindings.bind(sh.getTextField(), pm.getModel(AppState.LA_FREQUENCY_PROPERTY));
 		sh.getTextField().addFocusListener(new SelectAllFocusListener());
 		add(sh.getMainComponent(), cc.xy(x, y));

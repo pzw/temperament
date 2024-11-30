@@ -105,7 +105,7 @@ public class AppState extends Model {
 	}
 
 	public Color getSelectionColor(int idx) {
-		switch (idx % 4) {
+		switch (idx % 6) {
 		case 0:
 			return Color.green;
 		case 1:
@@ -114,6 +114,10 @@ public class AppState extends Model {
 			return Color.white;
 		case 3:
 			return Color.cyan;
+		case 4 :
+			return Color.magenta;
+		case 5 :
+			return Color.orange;
 		}
 		return Color.magenta;
 	}

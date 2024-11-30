@@ -20,9 +20,10 @@ public class Temperaments {
 		temperaments = new ArrayList<ITemperament>();
 		temperaments.add(new TemperamentEgal());
 		temperaments.add(new TemperamentPythagore());
+		temperaments.add(new TemperamentPythagore2());
 		temperaments.add(new TemperamentMesotonique4());
 		temperaments.add(new TemperamentAbbatialePayerne());
-		temperaments.add(new TemperamentJson("assets/test.json"));
+		// temperaments.add(new TemperamentJson("assets/test.json"));
 	}
 
 	public List<ITemperament> getTemperaments() {

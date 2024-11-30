@@ -9,7 +9,6 @@ public class NotePosition {
 	private int						xTx;
 	private int						yTx;
 	private boolean					selected		= false;
-	private int						selectionRank	= -1;
 
 	public NotePosition(TemperamentCircleModel parentState, int noteIndex, double frequencyRatio) {
 		this.circleModel = parentState;
@@ -85,13 +84,5 @@ public class NotePosition {
 
 	public boolean isSelected() {
 		return selected;
-	}
-
-	public int getSelectionRank() {
-		return selectionRank;
-	}
-
-	public void setSelectionRank(int selectionRank) {
-		this.selectionRank = selectionRank;
 	}
 }

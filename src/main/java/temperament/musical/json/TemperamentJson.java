@@ -10,6 +10,9 @@ import org.json.JSONObject;
 
 import temperament.musical.ITemperament;
 
+/**
+ * tempérament basé sur le contenu d'un fichier JSON (actuellement pas utilisé)
+ */
 public class TemperamentJson implements ITemperament {
 	private String				name		= null;
 	private String				description	= null;

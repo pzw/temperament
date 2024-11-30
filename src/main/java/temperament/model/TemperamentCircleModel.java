@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import temperament.musical.ITemperament;
-import temperament.musical.TemperamentBase;
 
 public class TemperamentCircleModel {
 	private NotePosition[]	positions;
@@ -76,7 +75,7 @@ public class TemperamentCircleModel {
 	public int getNbNotes() {
 		return getTemperament().getNbNotes();
 	}
-	
+
 	public int getNbNotesGamme() {
 		return getTemperament().getNbNotesGamme();
 	}
@@ -120,6 +119,22 @@ public class TemperamentCircleModel {
 		return positions[noteRank];
 	}
 
+	public int getSelectionRank(int noteRank) {
+		if (!positions[noteRank].isSelected()) {
+			// la note n'est pas sélectionnée : pas de rang
+			return -1;
+		}
+		int result = 0;
+		int idx = 0;
+		while (idx < noteRank) {
+			if (positions[idx].isSelected()) {
+				result++;
+			}
+			idx++;
+		}
+		return result;
+	}
+
 	private void computeNotePositions() {
 		ITemperament t = getTemperament();
 		if (null != t) {
@@ -158,10 +173,7 @@ public class TemperamentCircleModel {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		for (int n = 0; n < positions.length; n++) {
 			if (positions[n].isSelected()) {
-				positions[n].setSelectionRank(result.size());
 				result.add(n);
-			} else {
-				positions[n].setSelectionRank(-1);
 			}
 		}
 		return result;

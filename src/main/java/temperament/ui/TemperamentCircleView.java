@@ -91,13 +91,11 @@ public class TemperamentCircleView extends JComponent {
 	private void drawNote(Graphics g, int noteRank, Color noteColor, boolean octave2) {
 		NotePosition np = model.getNotePosition(noteRank);
 		Color borderColor = np.isSelected() ? Color.red : Color.darkGray;
-		int ep = np.isSelected() ? 3 : 1;
 		if (np.isSelected()) {
-			noteColor = appState.getSelectionColor(np.getSelectionRank());
+			int selRank = model.getSelectionRank(noteRank);
+			noteColor = appState.getSelectionColor(selRank);
 		}
-		for (int i = 0; i < ep; i++) {
-			drawCircle(g, np.getCenterX(), np.getCenterY(), model.getNoteRadius() - i, borderColor, noteColor);
-		}
+		drawCircle(g, np.getCenterX(), np.getCenterY(), model.getNoteRadius(), borderColor, noteColor);
 
 		if (!octave2) {
 			String note = np.getNoteName();
