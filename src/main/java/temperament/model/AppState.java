@@ -12,23 +12,29 @@ import temperament.musical.TemperamentBase;
 import temperament.musical.Temperaments;
 
 public class AppState extends Model {
-	private static final long		serialVersionUID			= 1L;
-	public static final String		TEMPERAMENT_PROPERTY		= "temperament";
-	public static final String		DURATION_PROPERTY			= "duration";
-	public static final String		LA_FREQUENCY_PROPERTY		= "laFrequency";
-	public static final String		SELECTION_PROPERTY			= "selection";
-	public static final String		WAVE_VIEW_DURATION_PROPERTY	= "waveViewDuration";
-	public static final String		WAVE_SHOW_SUM				= "waveShowSum";
-	public static final String		WAVE_SHOW_EACH_NOTE			= "waveShowEachNote";
-	private ITemperament			temperament					= Temperaments.getInstance().getTemperaments().get(0);
-	private int						duration					= 2000;
-	private double					laFrequency					= 440.0;
-	private List<Integer>			selection					= new ArrayList<Integer>();
+	private static final long		serialVersionUID				= 1L;
+	public static final String		TEMPERAMENT_PROPERTY			= "temperament";
+	public static final String		DURATION_PROPERTY				= "duration";
+	public static final String		LA_FREQUENCY_PROPERTY			= "laFrequency";
+	public static final String		SELECTION_PROPERTY				= "selection";
+	public static final String		WAVE_VIEW_DURATION_PROPERTY		= "waveViewDuration";
+	public static final String		WAVE_SHOW_SUM_PROPERTY			= "waveShowSum";
+	public static final String		WAVE_SHOW_EACH_NOTE_PROPERTY	= "waveShowEachNote";
+	public static final String		FREQUENCY_RATIO_PROPERTY		= "frequencyRatio";
+	public static final String		FREQUENCY_RATIO_NAME_PROPERTY	= "frequencyRatioName";
+
+	private ITemperament			temperament						= Temperaments.getInstance().getTemperaments()
+			.get(0);
+	private int						duration						= 2000;
+	private double					laFrequency						= 440.0;
+	private List<Integer>			selection						= new ArrayList<Integer>();
 	/** durée visualisée dans WavePanel */
-	private double					waveViewDuration			= 20.0;
-	private boolean					waveShowSum					= true;
-	private boolean					waveShowEachNote			= false;
-	private TemperamentTableModel	tableModel					= null;
+	private double					waveViewDuration				= 20.0;
+	private boolean					waveShowSum						= true;
+	private boolean					waveShowEachNote				= false;
+	private TemperamentTableModel	tableModel						= null;
+	private double					frequencyRatio					= 0.0;
+	private String					frequencyRatioName				= "";
 
 	public void setTemperamentTableModel(TemperamentTableModel tableModel) {
 		this.tableModel = tableModel;
@@ -118,7 +124,6 @@ public class AppState extends Model {
 	}
 
 	public double getWaveViewDuration() {
-		// System.out.println("viewDuration:" + waveViewDuration);
 		return waveViewDuration;
 	}
 
@@ -135,7 +140,7 @@ public class AppState extends Model {
 	public void setWaveShowSum(boolean newValue) {
 		boolean oldValue = isWaveShowSum();
 		waveShowSum = newValue;
-		firePropertyChange(WAVE_SHOW_SUM, oldValue, newValue);
+		firePropertyChange(WAVE_SHOW_SUM_PROPERTY, oldValue, newValue);
 
 	}
 
@@ -146,7 +151,27 @@ public class AppState extends Model {
 	public void setWaveShowEachNote(boolean newValue) {
 		boolean oldValue = isWaveShowEachNote();
 		waveShowEachNote = newValue;
-		firePropertyChange(WAVE_SHOW_EACH_NOTE, oldValue, newValue);
-
+		firePropertyChange(WAVE_SHOW_EACH_NOTE_PROPERTY, oldValue, newValue);
 	}
+
+	public double getFrequencyRatio() {
+		return frequencyRatio;
+	}
+
+	public void setFrequencyRatio(double newValue) {
+		double oldvalue = getFrequencyRatio();
+		frequencyRatio = newValue;
+		firePropertyChange(FREQUENCY_RATIO_PROPERTY, oldvalue, newValue);
+	}
+
+	public String getFrequencyRatioName() {
+		return frequencyRatioName;
+	}
+
+	public void setFrequencyRatioName(String newValue) {
+		String oldvalue = getFrequencyRatioName();
+		frequencyRatioName = newValue;
+		firePropertyChange(FREQUENCY_RATIO_NAME_PROPERTY, oldvalue, newValue);
+	}
+
 }

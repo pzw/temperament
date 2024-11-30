@@ -83,4 +83,22 @@ public class TemperamentBase implements ITemperament {
 		}
 		return result;
 	}
+
+	public static boolean almostEqual(double v1, double v2) {
+		return Math.abs(v1 - v2) < 0.00000001;
+	}
+
+	public static String getFrequencyRatioName(double ratio) {
+		if (almostEqual(ratio, RATIO_TIERCE_MINEURE)) {
+			return "tierce mineure";
+		} else if (almostEqual(ratio, RATIO_TIERCE_MAJEURE)) {
+			return "tierce majeure";
+		} else if (almostEqual(ratio, RATIO_QUARTE)) {
+			return "quarte";
+		} else if (almostEqual(ratio, RATIO_QUINTE)) {
+			return "quinte";
+		} else {
+			return "autre";
+		}
+	}
 }

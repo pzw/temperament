@@ -1,11 +1,15 @@
 package temperament.ui;
 
+import java.text.NumberFormat;
 import java.util.List;
 
+import javax.naming.Binding;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.jgoodies.binding.PresentationModel;
 import com.jgoodies.binding.adapter.Bindings;
@@ -24,7 +28,7 @@ public class TemperamentTopPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public TemperamentTopPanel(AppState appState) {
-		FormLayout layout = new FormLayout("$dm,p,$rg,p:g,$rg,p,$rg,max(p;50dlu),$rg,p,$rg,p,$rg,p,$dm", "$dm,p,$dm");
+		FormLayout layout = new FormLayout("$dm,p,$rg,max(60dlu;p),$rg,max(60dlu;p),$rg,p,$rg,max(60dlu;p),$dm", "$dm,p,$lg,p,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 
@@ -40,8 +44,30 @@ public class TemperamentTopPanel extends JPanel {
 				pm.getModel(AppState.TEMPERAMENT_PROPERTY));
 		JComboBox<ITemperament> cbTemperament = new JComboBox<ITemperament>();
 		Bindings.bind(cbTemperament, selTemperament);
-		add(cbTemperament, cc.xy(x, y));
+		add(cbTemperament, cc.xyw(x, y, 3));
 
+		x+=4;
+		add(new JLabel("Fréquence du la"), cc.xy(x, y));
+		x+=2;
+		add(new JTextField(), cc.xy(x, y));
+		
+		y+=2;
+		x=2;
+		add(new JLabel("Rapport de fréquences"), cc.xy(x, y));
+		x += 2;
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMinimumFractionDigits(6);
+		JFormattedTextField txFrequencyRatio = new JFormattedTextField(nf);
+		Bindings.bind(txFrequencyRatio, pm.getModel(AppState.FREQUENCY_RATIO_PROPERTY));
+		txFrequencyRatio.setEditable(false);
+		add(txFrequencyRatio, cc.xy(x, y));
+		
+		x += 2;
+		JTextField txFrequencyRatioName = new JTextField();
+		Bindings.bind(txFrequencyRatioName, pm.getModel(AppState.FREQUENCY_RATIO_NAME_PROPERTY));
+		txFrequencyRatioName.setEditable(false);
+		add(txFrequencyRatioName, cc.xy(x, y));
+		
 		x += 2;
 		PlaySelectionAction playAction = new PlaySelectionAction(appState);
 		add(new JButton(playAction), cc.xy(x, y));

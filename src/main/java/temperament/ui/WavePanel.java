@@ -34,12 +34,12 @@ public class WavePanel extends JPanel {
 		int x = 2;
 		int y = 2;
 		JCheckBox chkShowSum = new JCheckBox("montre la somme");
-		Bindings.bind(chkShowSum, pm.getModel(AppState.WAVE_SHOW_SUM));
+		Bindings.bind(chkShowSum, pm.getModel(AppState.WAVE_SHOW_SUM_PROPERTY));
 		result.add(chkShowSum, cc.xy(x, y));
 
 		x += 2;
 		JCheckBox chkShowEachNote = new JCheckBox("montre chaque note");
-		Bindings.bind(chkShowEachNote, pm.getModel(AppState.WAVE_SHOW_EACH_NOTE));
+		Bindings.bind(chkShowEachNote, pm.getModel(AppState.WAVE_SHOW_EACH_NOTE_PROPERTY));
 		result.add(chkShowEachNote, cc.xy(x, y));
 
 		x += 2;
