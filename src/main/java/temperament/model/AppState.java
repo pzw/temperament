@@ -29,7 +29,7 @@ public class AppState extends Model {
 	private double					laFrequency						= 440.0;
 	private List<Integer>			selection						= new ArrayList<Integer>();
 	/** durée visualisée dans WavePanel */
-	private double					waveViewDuration				= 20.0;
+	private double					waveViewDuration				= 50.0;
 	private boolean					waveShowSum						= true;
 	private boolean					waveShowEachNote				= false;
 	private TemperamentTableModel	tableModel						= null;
@@ -68,6 +68,7 @@ public class AppState extends Model {
 		double oldValue = getLaFrequency();
 		laFrequency = newValue;
 		firePropertyChange(LA_FREQUENCY_PROPERTY, oldValue, newValue);
+		firePropertyChange(TEMPERAMENT_PROPERTY, null, getTemperament());
 	}
 
 	public List<Integer> getSelection() {

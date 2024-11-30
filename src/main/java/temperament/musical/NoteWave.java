@@ -74,6 +74,18 @@ public class NoteWave {
 			result[i] = (byte) (result[i] * i / frontLength);
 			result[result.length - 1 - i] = (byte) (result[result.length - 1 - i] * i / frontLength);
 		}
+		
+//		// supprime les byte > 1 à la fin
+//		int i = result.length-1;
+//		boolean doContinue = true;
+//		while (doContinue && i > 0) {
+//			if (result[i] > 2 || result[i] < -2) {
+//				result[i] = 0;
+//			} else {
+//				doContinue = false;
+//			}
+//			i--;
+//		}
 		return result;
 	}
 

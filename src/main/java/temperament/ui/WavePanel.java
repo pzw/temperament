@@ -46,20 +46,11 @@ public class WavePanel extends JPanel {
 		result.add(new JLabel("Durée visualisée [ms]"), cc.xy(x, y));
 
 		x += 2;
-		SpinnerNumberModel spModel = new SpinnerNumberModel(state.getWaveViewDuration(), 5.0, state.getDuration(), 5.0);
-		JSpinner spinner = new JSpinner(spModel);
-		JComponent editor = spinner.getEditor();
-		JFormattedTextField txWaveViewDuration;
-		if (editor instanceof JSpinner.DefaultEditor) {
-			txWaveViewDuration = ((JSpinner.DefaultEditor) editor).getTextField();
-			result.add(spinner, cc.xy(x, y));
-		} else {
-			txWaveViewDuration = new JFormattedTextField();
-			result.add(txWaveViewDuration, cc.xy(x, y));
-		}
-		Bindings.bind(txWaveViewDuration, pm.getModel(AppState.WAVE_VIEW_DURATION_PROPERTY));
-		txWaveViewDuration.addFocusListener(new SelectAllFocusListener());
-
+		SpinnerHelper sh = new SpinnerHelper(state.getWaveViewDuration(), 5.0,  state.getDuration(), 5.0);
+		Bindings.bind(sh.getTextField(), pm.getModel(AppState.WAVE_VIEW_DURATION_PROPERTY));
+		sh.getTextField().addFocusListener(new SelectAllFocusListener());
+		result.add(sh.getMainComponent(), cc.xy(x, y));
+		
 		return result;
 	}
 }
