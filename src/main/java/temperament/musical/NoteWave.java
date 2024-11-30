@@ -5,7 +5,6 @@ import temperament.constants.IConstants;
 public class NoteWave {
 
 	private float[]	wave;
-	private int		duration;
 
 	/**
 	 * note à une certaine fréquence, pendant une durée
@@ -13,20 +12,18 @@ public class NoteWave {
 	 * @param frequency fréquence en Herz
 	 * @param duration  durée en millisecondes
 	 */
-	public NoteWave(double frequency, int duration, double volume) {
-		if (frequency <= 0.0)
-			throw new IllegalArgumentException("Frequency <= 0 hz");
-
-		if (duration <= 0)
-			throw new IllegalArgumentException("Duration <= 0 msecs");
-
-		if (volume > 1.0 || volume < 0.0)
-			throw new IllegalArgumentException("Volume out of range 0.0 - 1.0");
-		this.duration = duration;
-		wave = WaveGenerator.generateSinus(frequency, 127.0 * volume, (double) duration, 0.0,
-				(int) IConstants.SAMPLE_RATE * duration / 1000);
+	public NoteWave(double frequency, double duration, double volume) {
+		this(frequency, duration, 0.0, 0.0, volume);
+	}
+	
+	public NoteWave(double frequency, double duration, double fadeDuration, double volume) {
+		this(frequency, duration, fadeDuration, fadeDuration, volume);
 	}
 
+	public NoteWave(double frequency, double duration, double fadeInDuration, double fadeOutDuration, double volume) {
+		wave = WaveGenerator.generateSinus(frequency, 127.0 * volume, duration, fadeInDuration, fadeOutDuration,
+				(int) (IConstants.SAMPLE_RATE * duration / 1000));
+	}
 	public int getWaveLength() {
 		return wave.length;
 	}
@@ -68,24 +65,7 @@ public class NoteWave {
 		for (int i = 0; i < size; i++) {
 			result[i] = (byte) (wave[i] * 120.0f / max);
 		}
-
-		float frontLength = IConstants.SAMPLE_RATE / 10.0f;
-		for (int i = 0; i < frontLength && i < result.length / 2; i++) {
-			result[i] = (byte) (result[i] * i / frontLength);
-			result[result.length - 1 - i] = (byte) (result[result.length - 1 - i] * i / frontLength);
-		}
 		
-//		// supprime les byte > 1 à la fin
-//		int i = result.length-1;
-//		boolean doContinue = true;
-//		while (doContinue && i > 0) {
-//			if (result[i] > 2 || result[i] < -2) {
-//				result[i] = 0;
-//			} else {
-//				doContinue = false;
-//			}
-//			i--;
-//		}
 		return result;
 	}
 
@@ -95,14 +75,5 @@ public class NoteWave {
 
 	public float getSample(int idx) {
 		return idx < wave.length ? wave[idx] : 0.0f;
-	}
-
-	/**
-	 * retourne la durée en ms
-	 * 
-	 * @return
-	 */
-	public int getDuration() {
-		return duration;
 	}
 }

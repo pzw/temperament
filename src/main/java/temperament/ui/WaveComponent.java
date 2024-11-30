@@ -87,12 +87,15 @@ public class WaveComponent extends JComponent {
 		g.drawLine(0, cy, w, cy);
 		List<Integer> sel = appState.getSelection();
 		if (!sel.isEmpty()) {
+//			double fadeInDuration = appState.getWaveViewDuration() / 20;
+//			double fadeOutDuration = appState.getWaveViewDuration() / 10;
+			double fadeInDuration = 0.0;
+			double fadeOutDuration = 0.0;
 			if (appState.isWaveShowEachNote()) {
 				int idx = 0;
 				for (Integer n : sel) {
 					double f = appState.getNoteFrequency(n);
-					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), 0.0,
-							w);
+					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), fadeInDuration, fadeOutDuration, w);
 					paintSignal(g, wave, appState.getSelectionColor(idx++), 1.0f);
 				}
 			}
@@ -101,8 +104,7 @@ public class WaveComponent extends JComponent {
 				float[] samples = null;
 				for (Integer n : sel) {
 					double f = appState.getNoteFrequency(n);
-					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), 0.0,
-							w);
+					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), fadeInDuration, fadeOutDuration, w);
 					if (null == samples) {
 						samples = wave;
 					} else {

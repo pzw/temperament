@@ -32,7 +32,7 @@ public class NotePlayer extends Thread {
 			if (null != sdl) {
 				// minimiser le glitch de fin de son
 				try {
-					sleep(200);
+					sleep(500);
 				} catch (InterruptedException e) {
 				}
 				sdl.close();

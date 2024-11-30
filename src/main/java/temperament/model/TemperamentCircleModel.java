@@ -39,7 +39,7 @@ public class TemperamentCircleModel {
 		cx = w / 2;
 		cy = h / 2;
 		r = cx > cy ? cy : cx;
-		r -= 10; // petite marge de 10 pixels
+		r -= 20; // petite marge de 20 pixels
 		r2 = r / 20;
 		r -= r2;
 		computeNotePositions();
@@ -75,6 +75,10 @@ public class TemperamentCircleModel {
 
 	public int getNbNotes() {
 		return getTemperament().getNbNotes();
+	}
+	
+	public int getNbNotesGamme() {
+		return getTemperament().getNbNotesGamme();
 	}
 
 	private void initPositions() {
@@ -120,13 +124,14 @@ public class TemperamentCircleModel {
 		ITemperament t = getTemperament();
 		if (null != t) {
 			int nNotes = t.getNbNotes();
+			int nNotesGamme = t.getNbNotesGamme();
 			for (int n = 0; n < nNotes; n++) {
-				computeNotePosition(n, n == nNotes);
+				computeNotePosition(n, n >= nNotesGamme);
 			}
 		}
 	}
 
-	private void computeNotePosition(int noteRank, boolean lastNote) {
+	private void computeNotePosition(int noteRank, boolean octave2) {
 		// trouver l'angle en fonction du rapport de fréquence
 		// 1 => 0
 		// 2 => 360
@@ -138,7 +143,7 @@ public class TemperamentCircleModel {
 		double cos = Math.cos(angle);
 		double sin = Math.sin(angle);
 		int radius = r;
-		if (fRatio >= TemperamentBase.RATIO_OCTAVE) {
+		if (octave2) {
 			radius += 2 * r2;
 		}
 		int x = (int) (cx + cos * radius);

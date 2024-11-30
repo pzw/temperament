@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -65,8 +66,27 @@ public class TemperamentTablePanel extends JPanel {
 				tableSelectionListenerEnabled = true;
 			}
 		});
+		
+		appState.addPropertyChangeListener(AppState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				selectFirstNote();
+			}
+		});
+		
+		selectFirstNote();
 	}
 
+	private void selectFirstNote() {
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				tableView.getSelectionModel().setSelectionInterval(0,  0);
+			}
+		});
+	}
 	public void addSelectionListener(ListSelectionListener listener) {
 		tableView.getSelectionModel().addListSelectionListener(listener);
 	}

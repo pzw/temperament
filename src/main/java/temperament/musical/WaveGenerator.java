@@ -9,15 +9,35 @@ public class WaveGenerator {
 	 * @param pNbSamples nombre d'échantillons désirés
 	 * @return
 	 */
-	public static float[] generateSinus(double pFrequency, double amplitude, double pDuration, double pFadeOutFuration, int pNbSamples) {
+	public static float[] generateSinus(double pFrequency, double amplitude, double pDuration, double pFadeInDuration,
+			double pFadeOutDuration, int pNbSamples) {
 		float[] result = new float[pNbSamples];
 		double deltaT = pDuration * pFrequency * 2.0 * Math.PI / 1000.0 / (double) pNbSamples;
+
+		// calcul du nombre d'échantillons pour la période fading
+		int nbSampleFadeOut = (int) (pNbSamples * pFadeOutDuration / pDuration);
+		int nbSampleFadeIn = (int) (pNbSamples * pFadeInDuration / pDuration);
+		int startFadeOutIndex = pNbSamples - nbSampleFadeOut;
+
 		for (int i = 0; i < pNbSamples; i++) {
 			double t = ((double) i) * deltaT;
-			result[i] = (float) (amplitude * Math.sin(t));
+			double gain = 1.0;
+			if (i < nbSampleFadeIn) {
+				// on est dans la pente montante
+				gain = (double) i / (double) nbSampleFadeIn;
+			} else if (i > startFadeOutIndex) {
+				// on est dans la pente descendante
+				gain = (double) (pNbSamples - i) / (double) nbSampleFadeOut;
+			}
+			result[i] = (float) (amplitude * gain * Math.sin(t));
 		}
 		return result;
 	}
+	
+	public static float[] generateSinus(double pFrequency, double amplitude, double pDuration, int pNbSamples) {
+		return generateSinus(pFrequency, amplitude, pDuration, 0.0, 0.0, pNbSamples);
+	}
+	
 
 	/**
 	 * retourne l'amplitude d'un signal

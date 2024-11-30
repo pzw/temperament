@@ -88,7 +88,7 @@ public class TemperamentCircleView extends JComponent {
 		});
 	}
 
-	private void drawNote(Graphics g, int noteRank, Color noteColor) {
+	private void drawNote(Graphics g, int noteRank, Color noteColor, boolean octave2) {
 		NotePosition np = model.getNotePosition(noteRank);
 		Color borderColor = np.isSelected() ? Color.red : Color.darkGray;
 		int ep = np.isSelected() ? 3 : 1;
@@ -98,12 +98,15 @@ public class TemperamentCircleView extends JComponent {
 		for (int i = 0; i < ep; i++) {
 			drawCircle(g, np.getCenterX(), np.getCenterY(), model.getNoteRadius() - i, borderColor, noteColor);
 		}
-		String note = np.getNoteName();
-		FontMetrics fm = g.getFontMetrics();
-		Rectangle2D bounds = fm.getStringBounds(note, g);
-		int x = np.getTextX() - (int) (bounds.getWidth() / 2.0);
-		g.setColor(borderColor);
-		g.drawString(note, x, np.getTextY());
+
+		if (!octave2) {
+			String note = np.getNoteName();
+			FontMetrics fm = g.getFontMetrics();
+			Rectangle2D bounds = fm.getStringBounds(note, g);
+			int x = np.getTextX() - (int) (bounds.getWidth() / 2.0);
+			g.setColor(Color.darkGray);
+			g.drawString(note, x, np.getTextY());
+		}
 	}
 
 	@Override
@@ -112,9 +115,10 @@ public class TemperamentCircleView extends JComponent {
 		model.setPanelDimensions(getWidth(), getHeight());
 		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
 		if (model.isTemperamentDefined()) {
+			int nbNotesGamme = model.getNbNotesGamme();
 			for (int n = 0; n < model.getNbNotes(); n++) {
 				Color c = n < model.getNbNotes() ? Color.gray : Color.darkGray;
-				drawNote(g, n, c);
+				drawNote(g, n, c, n >= nbNotesGamme);
 			}
 		}
 	}
