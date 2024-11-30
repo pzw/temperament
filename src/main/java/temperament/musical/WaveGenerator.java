@@ -9,7 +9,7 @@ public class WaveGenerator {
 	 * @param pNbSamples nombre d'échantillons désirés
 	 * @return
 	 */
-	public static float[] generateSinus(double pFrequency, double amplitude, double pDuration, int pNbSamples) {
+	public static float[] generateSinus(double pFrequency, double amplitude, double pDuration, double pFadeOutFuration, int pNbSamples) {
 		float[] result = new float[pNbSamples];
 		double deltaT = pDuration * pFrequency * 2.0 * Math.PI / 1000.0 / (double) pNbSamples;
 		for (int i = 0; i < pNbSamples; i++) {

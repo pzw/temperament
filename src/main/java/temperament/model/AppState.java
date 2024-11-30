@@ -8,7 +8,6 @@ import com.jgoodies.binding.beans.Model;
 
 import temperament.musical.ITemperament;
 import temperament.musical.NoteWave;
-import temperament.musical.TemperamentBase;
 import temperament.musical.Temperaments;
 
 public class AppState extends Model {
@@ -32,12 +31,10 @@ public class AppState extends Model {
 	private double					waveViewDuration				= 50.0;
 	private boolean					waveShowSum						= true;
 	private boolean					waveShowEachNote				= false;
-	private TemperamentTableModel	tableModel						= null;
 	private double					frequencyRatio					= 0.0;
 	private String					frequencyRatioName				= "";
 
-	public void setTemperamentTableModel(TemperamentTableModel tableModel) {
-		this.tableModel = tableModel;
+	public void setTemperamentTableModel() {
 	}
 
 	public ITemperament getTemperament() {
@@ -96,10 +93,6 @@ public class AppState extends Model {
 			return 0.0;
 		double frequenceDo = temperament.getFrequenceDo(getLaFrequency());
 		double result = frequenceDo * temperament.getNoteFrequencyRatio(index);
-		if (null != tableModel && tableModel.isOctaveSelected(index)) {
-			// on veut jouer une octave plus haut
-			result *= TemperamentBase.RATIO_OCTAVE;
-		}
 		return result;
 	}
 

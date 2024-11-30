@@ -1,23 +1,14 @@
 package temperament.musical;
 
 public class TemperamentPythagore extends TemperamentBase {
-
+	/** une note de plus pour le si dièze */
+	private static final int NB_NOTES = NB_NOTES_STANDARD+1;
 	public TemperamentPythagore() {
 	}
 
 	@Override
 	protected void initRatios() {
-		ratios = new double[NB_NOTES_STANDARD + 1];
-		initRatiosV2();
-	}
-
-	@Override
-	protected void initNoteNames() {
-		super.initNoteNames();
-		names[NB_NOTES_STANDARD] = "si dièze";
-	}
-
-	private void initRatiosV2() {
+		ratios = new double[2*NB_NOTES];
 		ratios[0] = RATIO_UNISSON;
 		int note = 0;
 		double ratio = 1.0;
@@ -33,7 +24,7 @@ public class TemperamentPythagore extends TemperamentBase {
 			if (0 == note) {
 				// on est revenu à la note de départ, on la stocke dans la note supplémentaire
 				// on laisse un éventuel ratio > 2
-				note = NB_NOTES_STANDARD;
+				note = NB_NOTES-1;
 				doContinue = false;
 			} else {
 				ratio = dansOctave(ratio);
@@ -43,7 +34,20 @@ public class TemperamentPythagore extends TemperamentBase {
 	}
 
 	@Override
+	protected void initNoteNames() {
+		super.initNoteNames();
+		names[NB_NOTES-1] = "si dièze";
+	}
+
+	@Override
 	public String toString() {
 		return "pythagoricien";
 	}
+
+	@Override
+	public int getNbNotesGamme() {
+		return NB_NOTES;
+	}
+	
+	
 }

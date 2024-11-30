@@ -8,25 +8,26 @@ public class TemperamentBase implements ITemperament {
 	public static final double	RATIO_QUARTE			= 4.0 / 3.0;
 	public static final double	RATIO_QUINTE			= 3.0 / 2.0;
 
-	protected final int			NB_NOTES_STANDARD		= 12;
+	protected static final int	NB_NOTES_STANDARD		= 12;
 	private static final int	IDX_LA					= 9;
 	protected String[]			names;
 	protected double[]			ratios;
 
 	public TemperamentBase() {
-		initNoteNames();
 		initRatios();
+		initNoteNames();
+		initOctave();
 	}
 
 	protected void initRatios() {
-		ratios = new double[NB_NOTES_STANDARD + 1];
-		for (int i = 0; i < ratios.length; i++) {
+		ratios = new double[2 * getNbNotesGamme()];
+		for (int i = 0; i < getNbNotes(); i++) {
 			ratios[i] = RATIO_UNISSON;
 		}
 	}
 
 	protected void initNoteNames() {
-		names = new String[NB_NOTES_STANDARD + 1];
+		names = new String[getNbNotes()];
 		names[0] = "do";
 		names[1] = "do #";
 		names[2] = "ré";
@@ -39,11 +40,23 @@ public class TemperamentBase implements ITemperament {
 		names[IDX_LA] = "la";
 		names[10] = "si b";
 		names[11] = "si";
-		names[12] = "do";
+	}
+	
+	protected void initOctave() {
+		int n = getNbNotesGamme();
+		for (int i = 0; i < n; i++) {
+			ratios[i + n] = ratios[i] * RATIO_OCTAVE;
+			names[i+n] = names[i];
+		}
 	}
 
 	@Override
 	public int getNbNotes() {
+		return ratios.length;
+	}
+
+	@Override
+	public int getNbNotesGamme() {
 		return NB_NOTES_STANDARD;
 	}
 
@@ -54,7 +67,11 @@ public class TemperamentBase implements ITemperament {
 
 	@Override
 	public String getNoteName(int noteIndex) {
-		return names[noteIndex];
+		if (noteIndex < names.length) {
+			return names[noteIndex];
+		} else {
+			return "???";
+		}
 	}
 
 	@Override

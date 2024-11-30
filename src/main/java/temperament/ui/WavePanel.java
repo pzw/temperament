@@ -3,12 +3,8 @@ package temperament.ui;
 import java.awt.BorderLayout;
 
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import com.jgoodies.binding.PresentationModel;
 import com.jgoodies.binding.adapter.Bindings;
@@ -46,11 +42,11 @@ public class WavePanel extends JPanel {
 		result.add(new JLabel("Durée visualisée [ms]"), cc.xy(x, y));
 
 		x += 2;
-		SpinnerHelper sh = new SpinnerHelper(state.getWaveViewDuration(), 5.0,  state.getDuration(), 5.0);
+		SpinnerHelper sh = new SpinnerHelper(state.getWaveViewDuration(), 5.0, state.getDuration(), 5.0);
 		Bindings.bind(sh.getTextField(), pm.getModel(AppState.WAVE_VIEW_DURATION_PROPERTY));
 		sh.getTextField().addFocusListener(new SelectAllFocusListener());
 		result.add(sh.getMainComponent(), cc.xy(x, y));
-		
+
 		return result;
 	}
 }

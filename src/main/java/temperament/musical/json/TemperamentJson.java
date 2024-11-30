@@ -35,7 +35,7 @@ public class TemperamentJson implements ITemperament {
 
 	@Override
 	public int getNbNotes() {
-		return null == notes ? 0 : notes.size() - 1;
+		return null == notes ? 0 : notes.size();
 	}
 
 	private int checkIndex(int noteIndex) {
@@ -78,6 +78,11 @@ public class TemperamentJson implements ITemperament {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public int getNbNotesGamme() {
+		return getNbNotes();
 	}
 
 	@Override

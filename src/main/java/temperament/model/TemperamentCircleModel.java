@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import temperament.musical.ITemperament;
+import temperament.musical.TemperamentBase;
 
 public class TemperamentCircleModel {
 	private NotePosition[]	positions;
@@ -78,8 +79,8 @@ public class TemperamentCircleModel {
 
 	private void initPositions() {
 		ITemperament t = getTemperament();
-		positions = new NotePosition[t.getNbNotes() + 1];
-		for (int n = 0; n <= getNbNotes(); n++) {
+		positions = new NotePosition[t.getNbNotes()];
+		for (int n = 0; n < getNbNotes(); n++) {
 			double fRatio = t.getNoteFrequencyRatio(n);
 			positions[n] = new NotePosition(this, n, fRatio);
 		}
@@ -119,7 +120,7 @@ public class TemperamentCircleModel {
 		ITemperament t = getTemperament();
 		if (null != t) {
 			int nNotes = t.getNbNotes();
-			for (int n = 0; n <= nNotes; n++) {
+			for (int n = 0; n < nNotes; n++) {
 				computeNotePosition(n, n == nNotes);
 			}
 		}
@@ -137,7 +138,7 @@ public class TemperamentCircleModel {
 		double cos = Math.cos(angle);
 		double sin = Math.sin(angle);
 		int radius = r;
-		if (lastNote) {
+		if (fRatio >= TemperamentBase.RATIO_OCTAVE) {
 			radius += 2 * r2;
 		}
 		int x = (int) (cx + cos * radius);

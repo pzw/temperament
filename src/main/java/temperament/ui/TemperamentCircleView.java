@@ -112,7 +112,7 @@ public class TemperamentCircleView extends JComponent {
 		model.setPanelDimensions(getWidth(), getHeight());
 		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
 		if (model.isTemperamentDefined()) {
-			for (int n = 0; n <= model.getNbNotes(); n++) {
+			for (int n = 0; n < model.getNbNotes(); n++) {
 				Color c = n < model.getNbNotes() ? Color.gray : Color.darkGray;
 				drawNote(g, n, c);
 			}
