@@ -23,7 +23,7 @@ public class NoteWave {
 		if (volume > 1.0 || volume < 0.0)
 			throw new IllegalArgumentException("Volume out of range 0.0 - 1.0");
 		this.duration = duration;
-		wave = WaveGenerator.generateSinus(frequency, 127.0 * volume, (double) duration,
+		wave = WaveGenerator.generateSinus(frequency, 127.0 * volume, (double) duration, 0.0,
 				(int) IConstants.SAMPLE_RATE * duration / 1000);
 	}
 

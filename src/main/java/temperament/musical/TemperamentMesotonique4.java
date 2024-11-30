@@ -13,7 +13,6 @@ public class TemperamentMesotonique4 extends TemperamentBase {
 	private static final int	IDX_LA			= 9;
 	private static final int	IDX_SI_BEMOL	= 10;
 	private static final int	IDX_SI			= 11;
-	private static final int	IDX_DO2			= 12;
 
 	public TemperamentMesotonique4() {
 	}
@@ -31,7 +30,6 @@ public class TemperamentMesotonique4 extends TemperamentBase {
 		ratios[IDX_FA_DIEZE] = dansOctave(ratios[IDX_SI] * ratioQuinte);
 		ratios[IDX_DO_DIEZE] = dansOctave(ratios[IDX_FA_DIEZE] * ratioQuinte);
 		ratios[IDX_SOL_DIEZE] = dansOctave(ratios[IDX_DO_DIEZE] * ratioQuinte);
-		ratios[IDX_DO2] = RATIO_OCTAVE;
 		ratios[IDX_FA] = dansOctave(ratios[IDX_DO] / ratioQuinte);
 		ratios[IDX_SI_BEMOL] = dansOctave(ratios[IDX_FA] / ratioQuinte);
 		ratios[IDX_MI_BEMOL] = dansOctave(ratios[IDX_SI_BEMOL] / ratioQuinte);

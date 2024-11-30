@@ -16,14 +16,13 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 	private static final int	IDX_LA			= 11;
 	private static final int	IDX_SI_BEMOL	= 12;
 	private static final int	IDX_SI			= 13;
-	private static final int	IDX_DO2			= 14;
 
 	public TemperamentAbbatialePayerne() {
 	}
 
 	@Override
 	protected void initRatios() {
-		ratios = new double[NB_NOTES + 1];
+		ratios = new double[2*NB_NOTES];
 		// poser les quintes
 		double ratioQuinte = Math.pow(5.0, 0.25);
 		// attention : les quintes dont fausses de 1/4 comma
@@ -50,32 +49,29 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		// tierces relatives au la : fa -> la -> do dièze
 		ratios[IDX_FA] = dansOctave(ratios[IDX_LA] / RATIO_TIERCE_MAJEURE);
 		ratios[IDX_DO_DIEZE] = dansOctave(ratios[IDX_LA] * RATIO_TIERCE_MAJEURE);
-
-		ratios[IDX_DO2] = RATIO_OCTAVE;
 	}
 
 	@Override
 	protected void initNoteNames() {
-		names = new String[NB_NOTES + 1];
+		names = new String[2*NB_NOTES];
 		names[IDX_DO] = "do";
-		names[IDX_DO_DIEZE] = "do dièze";
+		names[IDX_DO_DIEZE] = "do #";
 		names[IDX_RE] = "ré";
-		names[IDX_MI_BEMOL] = "mi bémol";
-		names[IDX_RE_DIEZE] = "ré dièze";
+		names[IDX_MI_BEMOL] = "mi b";
+		names[IDX_RE_DIEZE] = "ré #";
 		names[IDX_MI] = "mi";
 		names[IDX_FA] = "fa";
-		names[IDX_FA_DIEZE] = "fa dièze";
+		names[IDX_FA_DIEZE] = "fa #";
 		names[IDX_SOL] = "sol";
-		names[IDX_LA_BEMOL] = "la bémol";
-		names[IDX_SOL_DIEZE] = "sol dièze";
+		names[IDX_LA_BEMOL] = "la b";
+		names[IDX_SOL_DIEZE] = "sol #";
 		names[IDX_LA] = "la";
-		names[IDX_SI_BEMOL] = "si bémol";
+		names[IDX_SI_BEMOL] = "si b";
 		names[IDX_SI] = "si";
-		names[IDX_DO2] = "do";
 	}
 
 	@Override
-	public int getNbNotes() {
+	public int getNbNotesGamme() {
 		return NB_NOTES;
 	}
 

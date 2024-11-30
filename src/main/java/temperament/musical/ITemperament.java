@@ -6,7 +6,7 @@ public interface ITemperament {
 	 * 
 	 * @return
 	 */
-	public int getNbNotes();
+	public int getNbNotesGamme();
 
 	/**
 	 * retourne le rapport de fréquence d'une note du tempérament
@@ -39,4 +39,10 @@ public interface ITemperament {
 	 * @return
 	 */
 	public double getFrequenceDo(double frequenceLa);
+	
+	/**
+	 * retourne le nombre de notes générées (comprend une éventuelle 2ème octave)
+	 * @return
+	 */
+	public int getNbNotes();
 }
