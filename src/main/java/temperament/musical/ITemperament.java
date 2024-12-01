@@ -47,7 +47,7 @@ public interface ITemperament {
 	 * 
 	 * @return
 	 */
-	public int getIndexLa();
+	public int getLa();
 
 	/**
 	 * retourne la fréquence du do en fonction de la fréquence du la (do juste

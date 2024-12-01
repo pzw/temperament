@@ -1,8 +1,5 @@
 package temperament.musical;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TemperamentAbbatialePayerne extends TemperamentBase {
 	private static final int	NB_NOTES		= 14;
 	private static final int	IDX_DO			= 0;
@@ -36,7 +33,7 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 	private void initRatiosV1() {
 		ratiosFifthsCircle = new double[2 * getNbNotesGamme()];
 		ratios = new double[2 * getNbNotesGamme()];
-		
+
 		// processus :
 		// 1 : poser les quintes do - sol - ré - la
 		// 2 : poser les tierces majeures à partir du do : do-la bémol, do-mi, mi-sol
@@ -47,30 +44,30 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 
 		// 1 : poser les quintes do - sol - ré - la
 		// attention : les quintes dont fausses de 1/4 comma
-		ratiosFifthsCircle[IDX_DO] = RATIO_UNISSON;
-		ratiosFifthsCircle[IDX_SOL] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_DO]);
-		ratiosFifthsCircle[IDX_RE] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_SOL]);
-		ratiosFifthsCircle[IDX_LA] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_RE]);
+		ratiosFifthsCircle[getDo()] = RATIO_UNISSON;
+		ratiosFifthsCircle[getSol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDo()]);
+		ratiosFifthsCircle[getRe()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSol()]);
+		ratiosFifthsCircle[getLa()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getRe()]);
 
 		// 2 : poser les tierces majeures à partir du do : do-la bémol, do-mi, mi-sol
 		// dièze
-		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[IDX_DO]);
-		ratiosFifthsCircle[IDX_MI] = tierceMajeureMontante(ratiosFifthsCircle[IDX_DO]);
-		ratiosFifthsCircle[IDX_SOL_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[IDX_MI]);
+		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[getDo()]);
+		ratiosFifthsCircle[getMi()] = tierceMajeureMontante(ratiosFifthsCircle[getDo()]);
+		ratiosFifthsCircle[getSolDieze()] = tierceMajeureMontante(ratiosFifthsCircle[getMi()]);
 
 		// 3 : poser les tierces majeures à partir du sol : sol-mi bémol, sol-si, si-ré#
-		ratiosFifthsCircle[IDX_MI_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[IDX_SOL]);
-		ratiosFifthsCircle[IDX_SI] = tierceMajeureMontante(ratiosFifthsCircle[IDX_SOL]);
-		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[IDX_SI]);
+		ratiosFifthsCircle[getMiBemol()] = tierceMajeureDescendante(ratiosFifthsCircle[getSol()]);
+		ratiosFifthsCircle[getSi()] = tierceMajeureMontante(ratiosFifthsCircle[getSol()]);
+		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[getSi()]);
 
 		// 4 : poser les tierces majeures à partir du ré : ré-si bémol, ré-fa dièze
-		ratiosFifthsCircle[IDX_SI_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[IDX_RE]);
-		ratiosFifthsCircle[IDX_FA_DIEZE] = tierceMajeureMontante( ratiosFifthsCircle[IDX_RE]);
+		ratiosFifthsCircle[getSiBemol()] = tierceMajeureDescendante(ratiosFifthsCircle[getRe()]);
+		ratiosFifthsCircle[getFaDieze()] = tierceMajeureMontante(ratiosFifthsCircle[getRe()]);
 
 		// 5 : poser les tierces majeures à partir du la : la-fa, la-do dièze
-		ratiosFifthsCircle[IDX_FA] = tierceMajeureDescendante(ratiosFifthsCircle[IDX_LA]);
-		ratiosFifthsCircle[IDX_DO_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[IDX_LA]);
-		
+		ratiosFifthsCircle[getFa()] = tierceMajeureDescendante(ratiosFifthsCircle[getLa()]);
+		ratiosFifthsCircle[getDoDieze()] = tierceMajeureMontante(ratiosFifthsCircle[getLa()]);
+
 		initRatiosFromRatiosFifthsCircle();
 	}
 
@@ -85,26 +82,28 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		// placement séparé des deux notes associées aux feintes brisées
 
 		// comme le tempérament mésotonique au 1/4 de comma
-		ratiosFifthsCircle[IDX_DO] = 1.0;
-		ratiosFifthsCircle[IDX_SOL] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_DO]);
-		ratiosFifthsCircle[IDX_RE] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_SOL]);
-		ratiosFifthsCircle[IDX_LA] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_RE]);
-		ratiosFifthsCircle[IDX_MI] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_LA]);
-		ratiosFifthsCircle[IDX_SI] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_MI]);
-		ratiosFifthsCircle[IDX_FA_DIEZE] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_SI]);
-		ratiosFifthsCircle[IDX_DO_DIEZE] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_FA_DIEZE]);
-		ratiosFifthsCircle[IDX_SOL_DIEZE] = quinteMesotoniqueMontante(ratiosFifthsCircle[IDX_DO_DIEZE]);
-		
-		ratiosFifthsCircle[IDX_FA] = quinteMesotoniqueDescendante(ratiosFifthsCircle[IDX_DO] * RATIO_OCTAVE_8);
-		ratiosFifthsCircle[IDX_SI_BEMOL] = quinteMesotoniqueDescendante(ratiosFifthsCircle[IDX_FA]);
-		ratiosFifthsCircle[IDX_MI_BEMOL] = quinteMesotoniqueDescendante(ratiosFifthsCircle[IDX_SI_BEMOL]);
+		ratiosFifthsCircle[getDo()] = 1.0;
+		ratiosFifthsCircle[getSol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDo()]);
+		ratiosFifthsCircle[getRe()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSol()]);
+		ratiosFifthsCircle[getLa()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getRe()]);
+		ratiosFifthsCircle[getMi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getLa()]);
+		ratiosFifthsCircle[getSi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getMi()]);
+		ratiosFifthsCircle[getFaDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSi()]);
+		ratiosFifthsCircle[getDoDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getFaDieze()]);
+		ratiosFifthsCircle[getSolDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDoDieze()]);
+
+		ratiosFifthsCircle[getFa()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getDo()] * RATIO_OCTAVE_8);
+		ratiosFifthsCircle[getSiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getFa()]);
+		ratiosFifthsCircle[getMiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getSiBemol()]);
 
 		// placement des notes associées aux feintes brisées
-		// ré dièze : une tierce majeure au-dessus de SI (hausse de 2 octaves pour rapprocher du mi bémol)
-		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[IDX_SI]) * 4.0;
-		// la bémol : une tierce majeure au-dessous de DO (baisse de 2 octaves pour rapprocher du sol dièze)
-		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[IDX_DO]) / 4.0;
-		
+		// ré dièze : une tierce majeure au-dessus de SI (hausse de 2 octaves pour
+		// rapprocher du mi bémol)
+		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[getSi()]) * 4.0;
+		// la bémol : une tierce majeure au-dessous de DO (baisse de 2 octaves pour
+		// rapprocher du sol dièze)
+		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[getDo()]) / 4.0;
+
 		initRatiosFromRatiosFifthsCircle();
 	}
 
@@ -132,31 +131,57 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		return NB_NOTES;
 	}
 
+	public int getDo() {
+		return IDX_DO;
+	}
+
+	public int getDoDieze() {
+		return IDX_DO_DIEZE;
+	}
+
+	public int getRe() {
+		return IDX_RE;
+	}
+
+	public int getMiBemol() {
+		return IDX_MI_BEMOL;
+	}
+
+	public int getMi() {
+		return IDX_MI;
+	}
+
+	public int getFa() {
+		return IDX_FA;
+	}
+
+	public int getFaDieze() {
+		return IDX_FA_DIEZE;
+	}
+
+	public int getSol() {
+		return IDX_SOL;
+	}
+
+	public int getSolDieze() {
+		return IDX_SOL_DIEZE;
+	}
+
 	@Override
-	public int getIndexLa() {
+	public int getLa() {
 		return IDX_LA;
+	}
+
+	public int getSiBemol() {
+		return IDX_SI_BEMOL;
+	}
+
+	public int getSi() {
+		return IDX_SI;
 	}
 
 	@Override
 	public String toString() {
 		return "Abbatiale Payerne";
-	}
-
-	@Override
-	public List<NotesInterval> getFifthsIntervals() {
-		ArrayList<NotesInterval> result = new ArrayList<NotesInterval>();
-		result.add(new NotesInterval(this, IDX_DO, IDX_SOL));
-		result.add(new NotesInterval(this, IDX_SOL, IDX_RE));
-		result.add(new NotesInterval(this, IDX_RE, IDX_LA));
-		result.add(new NotesInterval(this, IDX_LA, IDX_MI));
-		result.add(new NotesInterval(this, IDX_MI, IDX_SI));
-		result.add(new NotesInterval(this, IDX_SI, IDX_FA_DIEZE));
-		result.add(new NotesInterval(this, IDX_FA_DIEZE, IDX_DO_DIEZE));
-		result.add(new NotesInterval(this, IDX_DO_DIEZE, IDX_SOL_DIEZE));
-		result.add(new NotesInterval(this, IDX_SOL_DIEZE, IDX_MI_BEMOL));
-		result.add(new NotesInterval(this, IDX_MI_BEMOL, IDX_SI_BEMOL));
-		result.add(new NotesInterval(this, IDX_SI_BEMOL, IDX_FA));
-		result.add(new NotesInterval(this, IDX_FA, IDX_DO));
-		return result;
 	}
 }

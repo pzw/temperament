@@ -17,18 +17,18 @@ public class TemperamentEgal extends TemperamentBase {
 
 		// place artificiellement les notes dans l'échelle des quintes, sur 7 octaves
 		ratiosFifthsCircle = new double[2 * NB_NOTES_STANDARD];
-		ratiosFifthsCircle[IDX_DO] = ratios[IDX_DO];
-		ratiosFifthsCircle[IDX_SOL] = ratios[IDX_SOL];
-		ratiosFifthsCircle[IDX_RE] = ratios[IDX_RE] * RATIO_OCTAVE_2;
-		ratiosFifthsCircle[IDX_LA] = ratios[IDX_LA] * RATIO_OCTAVE_2;
-		ratiosFifthsCircle[IDX_MI] = ratios[IDX_MI] * RATIO_OCTAVE_3;
-		ratiosFifthsCircle[IDX_SI] = ratios[IDX_SI] * RATIO_OCTAVE_3;
-		ratiosFifthsCircle[IDX_FA_DIEZE] = ratios[IDX_FA_DIEZE] * RATIO_OCTAVE_4;
-		ratiosFifthsCircle[IDX_DO_DIEZE] = ratios[IDX_DO_DIEZE] * RATIO_OCTAVE_5;
-		ratiosFifthsCircle[IDX_SOL_DIEZE] = ratios[IDX_SOL_DIEZE] * RATIO_OCTAVE_5;
-		ratiosFifthsCircle[IDX_MI_BEMOL] = ratios[IDX_MI_BEMOL] * RATIO_OCTAVE_6;
-		ratiosFifthsCircle[IDX_SI_BEMOL] = ratios[IDX_SI_BEMOL] * RATIO_OCTAVE_6;
-		ratiosFifthsCircle[IDX_FA] = ratios[IDX_FA] * RATIO_OCTAVE_7;
+		ratiosFifthsCircle[getDo()] = ratios[getDo()];
+		ratiosFifthsCircle[getSol()] = ratios[getSol()];
+		ratiosFifthsCircle[getRe()] = ratios[getRe()] * RATIO_OCTAVE_2;
+		ratiosFifthsCircle[getLa()] = ratios[getLa()] * RATIO_OCTAVE_2;
+		ratiosFifthsCircle[getMi()] = ratios[getMi()] * RATIO_OCTAVE_3;
+		ratiosFifthsCircle[getSi()] = ratios[getSi()] * RATIO_OCTAVE_3;
+		ratiosFifthsCircle[getFaDieze()] = ratios[getFaDieze()] * RATIO_OCTAVE_4;
+		ratiosFifthsCircle[getDoDieze()] = ratios[getDoDieze()] * RATIO_OCTAVE_5;
+		ratiosFifthsCircle[getSolDieze()] = ratios[getSolDieze()] * RATIO_OCTAVE_5;
+		ratiosFifthsCircle[getMiBemol()] = ratios[getMiBemol()] * RATIO_OCTAVE_6;
+		ratiosFifthsCircle[getSiBemol()] = ratios[getSiBemol()] * RATIO_OCTAVE_6;
+		ratiosFifthsCircle[getFa()] = ratios[getFa()] * RATIO_OCTAVE_7;
 	}
 
 	@Override

@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TemperamentBase implements ITemperament {
-	protected static final int		IDX_DO						= 0;
-	protected static final int		IDX_DO_DIEZE				= 1;
-	protected static final int		IDX_RE						= 2;
-	protected static final int		IDX_MI_BEMOL				= 3;
-	protected static final int		IDX_MI						= 4;
-	protected static final int		IDX_FA						= 5;
-	protected static final int		IDX_FA_DIEZE				= 6;
-	protected static final int		IDX_SOL						= 7;
-	protected static final int		IDX_SOL_DIEZE				= 8;
-	protected static final int		IDX_LA						= 9;
-	protected static final int		IDX_SI_BEMOL				= 10;
-	protected static final int		IDX_SI						= 11;
+	private static final int		IDX_DO						= 0;
+	private static final int		IDX_DO_DIEZE				= 1;
+	private static final int		IDX_RE						= 2;
+	private static final int		IDX_MI_BEMOL				= 3;
+	private static final int		IDX_MI						= 4;
+	private static final int		IDX_FA						= 5;
+	private static final int		IDX_FA_DIEZE				= 6;
+	private static final int		IDX_SOL						= 7;
+	private static final int		IDX_SOL_DIEZE				= 8;
+	private static final int		IDX_LA						= 9;
+	private static final int		IDX_SI_BEMOL				= 10;
+	private static final int		IDX_SI						= 11;
 	public static final double		RATIO_UNISSON				= 1.0;
 	public static final double		RATIO_OCTAVE				= 2.0;
 	public static final double		RATIO_OCTAVE_2				= 2.0;
@@ -133,13 +133,8 @@ public abstract class TemperamentBase implements ITemperament {
 	}
 
 	@Override
-	public int getIndexLa() {
-		return IDX_LA;
-	}
-
-	@Override
 	public double getFrequenceDo(double frequenceLa) {
-		return frequenceLa / getNoteFrequencyRatio(getIndexLa());
+		return frequenceLa / getNoteFrequencyRatio(getLa());
 		// return 264;
 	}
 
@@ -180,21 +175,70 @@ public abstract class TemperamentBase implements ITemperament {
 		}
 	}
 
+	public int getDo() {
+		return IDX_DO;
+	}
+
+	public int getDoDieze() {
+		return IDX_DO_DIEZE;
+	}
+
+	public int getRe() {
+		return IDX_RE;
+	}
+
+	public int getMiBemol() {
+		return IDX_MI_BEMOL;
+	}
+
+	public int getMi() {
+		return IDX_MI;
+	}
+
+	public int getFa() {
+		return IDX_FA;
+	}
+
+	public int getFaDieze() {
+		return IDX_FA_DIEZE;
+	}
+
+	public int getSol() {
+		return IDX_SOL;
+	}
+
+	public int getSolDieze() {
+		return IDX_SOL_DIEZE;
+	}
+
+	@Override
+	public int getLa() {
+		return IDX_LA;
+	}
+
+	public int getSiBemol() {
+		return IDX_SI_BEMOL;
+	}
+
+	public int getSi() {
+		return IDX_SI;
+	}
+
 	@Override
 	public List<NotesInterval> getFifthsIntervals() {
 		ArrayList<NotesInterval> result = new ArrayList<NotesInterval>();
-		result.add(new NotesInterval(this, IDX_DO, IDX_SOL));
-		result.add(new NotesInterval(this, IDX_SOL, IDX_RE));
-		result.add(new NotesInterval(this, IDX_RE, IDX_LA));
-		result.add(new NotesInterval(this, IDX_LA, IDX_MI));
-		result.add(new NotesInterval(this, IDX_MI, IDX_SI));
-		result.add(new NotesInterval(this, IDX_SI, IDX_FA_DIEZE));
-		result.add(new NotesInterval(this, IDX_FA_DIEZE, IDX_DO_DIEZE));
-		result.add(new NotesInterval(this, IDX_DO_DIEZE, IDX_SOL_DIEZE));
-		result.add(new NotesInterval(this, IDX_SOL_DIEZE, IDX_MI_BEMOL));
-		result.add(new NotesInterval(this, IDX_MI_BEMOL, IDX_SI_BEMOL));
-		result.add(new NotesInterval(this, IDX_SI_BEMOL, IDX_FA));
-		result.add(new NotesInterval(this, IDX_FA, IDX_DO));
+		result.add(new NotesInterval(this, getDo(), getSol()));
+		result.add(new NotesInterval(this, getSol(), getRe()));
+		result.add(new NotesInterval(this, getRe(), getLa()));
+		result.add(new NotesInterval(this, getLa(), getMi()));
+		result.add(new NotesInterval(this, getMi(), getSi()));
+		result.add(new NotesInterval(this, getSi(), getFaDieze()));
+		result.add(new NotesInterval(this, getFaDieze(), getDoDieze()));
+		result.add(new NotesInterval(this, getDoDieze(), getSolDieze()));
+		result.add(new NotesInterval(this, getSolDieze(), getMiBemol()));
+		result.add(new NotesInterval(this, getMiBemol(), getSiBemol()));
+		result.add(new NotesInterval(this, getSiBemol(), getFa()));
+		result.add(new NotesInterval(this, getFa(), getDo()));
 		return result;
 	}
 }
