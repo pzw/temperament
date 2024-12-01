@@ -22,7 +22,7 @@ public class PlayGammeAction extends AbstractAction {
 		double volume = 0.3;
 		NoteWave gamme = appState.buildNoteWave(0, dureeNote, volume);
 		if (null != gamme) {
-			int nbNotes = appState.getTemperament().getNbNotesGamme();
+			int nbNotes = appState.getTemperament().getNbNotesToPlayGamme();
 			for (int i = 1; i <= nbNotes; i++) {
 				int duree = i < nbNotes ? dureeNote : 2 * dureeNote;
 				NoteWave note = appState.buildNoteWave(i, duree, volume);

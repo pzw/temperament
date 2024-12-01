@@ -59,6 +59,11 @@ public class TemperamentJson implements ITemperament {
 	}
 
 	@Override
+	public double getNoteFrequencyRatioInFifthsCirle(int noteIndex) {
+		return 1.0;
+	}
+
+	@Override
 	public String getNoteName(int noteIndex) {
 		int idx = checkIndex(noteIndex);
 		if (idx < 0)
@@ -85,6 +90,11 @@ public class TemperamentJson implements ITemperament {
 
 	@Override
 	public int getNbNotesGamme() {
+		return getNbNotes();
+	}
+
+	@Override
+	public int getNbNotesToPlayGamme() {
 		return getNbNotes();
 	}
 

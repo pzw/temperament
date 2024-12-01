@@ -1,37 +1,29 @@
 package temperament.musical;
 
 public class TemperamentPythagore2 extends TemperamentBase {
-	private static final int	IDX_DO			= 0;
-	private static final int	IDX_DO_DIEZE	= 1;
-	private static final int	IDX_RE			= 2;
-	private static final int	IDX_MI_BEMOL	= 3;
-	private static final int	IDX_MI			= 4;
-	private static final int	IDX_FA			= 5;
-	private static final int	IDX_FA_DIEZE	= 6;
-	private static final int	IDX_SOL			= 7;
-	private static final int	IDX_SOL_DIEZE	= 8;
-	private static final int	IDX_LA			= 9;
-	private static final int	IDX_SI_BEMOL	= 10;
-	private static final int	IDX_SI			= 11;
-
 	public TemperamentPythagore2() {
 	}
 
 	@Override
 	protected void initRatios() {
-		super.initRatios();
-		ratios[IDX_DO] = 1.0;
-		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * RATIO_QUINTE);
-		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * RATIO_QUINTE);
-		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * RATIO_QUINTE);
-		ratios[IDX_MI] = dansOctave(ratios[IDX_LA] * RATIO_QUINTE);
-		ratios[IDX_SI] = dansOctave(ratios[IDX_MI] * RATIO_QUINTE);
-		ratios[IDX_FA_DIEZE] = dansOctave(ratios[IDX_SI] * RATIO_QUINTE);
-		ratios[IDX_DO_DIEZE] = dansOctave(ratios[IDX_FA_DIEZE] * RATIO_QUINTE);
-		ratios[IDX_SOL_DIEZE] = dansOctave(ratios[IDX_DO_DIEZE] * RATIO_QUINTE);
-		ratios[IDX_FA] = dansOctave(ratios[IDX_DO] / RATIO_QUINTE);
-		ratios[IDX_SI_BEMOL] = dansOctave(ratios[IDX_FA] / RATIO_QUINTE);
-		ratios[IDX_MI_BEMOL] = dansOctave(ratios[IDX_SI_BEMOL] / RATIO_QUINTE);
+		ratiosFifthsCircle = new double[2 * getNbNotesGamme()];
+		ratios = new double[2 * getNbNotesGamme()];
+
+		ratiosFifthsCircle[IDX_DO] = 1.0;
+		ratiosFifthsCircle[IDX_SOL] = quinteMontante(ratiosFifthsCircle[IDX_DO]);
+		ratiosFifthsCircle[IDX_RE] = quinteMontante(ratiosFifthsCircle[IDX_SOL]);
+		ratiosFifthsCircle[IDX_LA] = quinteMontante(ratiosFifthsCircle[IDX_RE]);
+		ratiosFifthsCircle[IDX_MI] = quinteMontante(ratiosFifthsCircle[IDX_LA]);
+		ratiosFifthsCircle[IDX_SI] = quinteMontante(ratiosFifthsCircle[IDX_MI]);
+		ratiosFifthsCircle[IDX_FA_DIEZE] = quinteMontante(ratiosFifthsCircle[IDX_SI]);
+		ratiosFifthsCircle[IDX_DO_DIEZE] = quinteMontante(ratiosFifthsCircle[IDX_FA_DIEZE]);
+		ratiosFifthsCircle[IDX_SOL_DIEZE] = quinteMontante(ratiosFifthsCircle[IDX_DO_DIEZE]);
+		
+		ratiosFifthsCircle[IDX_FA] = quinteDescendante(ratiosFifthsCircle[IDX_DO] * RATIO_OCTAVE_8);
+		ratiosFifthsCircle[IDX_SI_BEMOL] = quinteDescendante(ratiosFifthsCircle[IDX_FA]);
+		ratiosFifthsCircle[IDX_MI_BEMOL] = quinteDescendante(ratiosFifthsCircle[IDX_SI_BEMOL]);
+
+		initRatiosFromRatiosFifthsCircle();
 	}
 
 	@Override

@@ -9,12 +9,28 @@ public interface ITemperament {
 	public int getNbNotesGamme();
 
 	/**
+	 * retourne le nombre de notes à utiliser pour jouer la gamme
+	 * 
+	 * @return
+	 */
+	public int getNbNotesToPlayGamme();
+
+	/**
 	 * retourne le rapport de fréquence d'une note du tempérament
 	 * 
 	 * @param noteIndex
 	 * @return
 	 */
 	public double getNoteFrequencyRatio(int noteIndex);
+
+	/**
+	 * retourne le rapport de fréquence d'une note dans une échelle de 7 octaves,
+	 * allant de 1.0 à 128.0
+	 * 
+	 * @param noteIndex
+	 * @return
+	 */
+	public double getNoteFrequencyRatioInFifthsCirle(int noteIndex);
 
 	/**
 	 * retourne le nom d'une note
@@ -39,9 +55,10 @@ public interface ITemperament {
 	 * @return
 	 */
 	public double getFrequenceDo(double frequenceLa);
-	
+
 	/**
 	 * retourne le nombre de notes générées (comprend une éventuelle 2ème octave)
+	 * 
 	 * @return
 	 */
 	public int getNbNotes();

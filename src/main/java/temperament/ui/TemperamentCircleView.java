@@ -15,14 +15,14 @@ import javax.swing.SwingUtilities;
 
 import temperament.model.AppState;
 import temperament.model.NotePosition;
-import temperament.model.TemperamentCircleModel;
+import temperament.model.TemperamentBaseCircleModel;
 
 public class TemperamentCircleView extends JComponent {
-	private static final long		serialVersionUID	= 1L;
-	private TemperamentCircleModel	model;
-	private AppState				appState;
+	private static final long			serialVersionUID	= 1L;
+	private TemperamentBaseCircleModel	model;
+	private AppState					appState;
 
-	public TemperamentCircleView(AppState appState, TemperamentCircleModel model) {
+	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model) {
 		super();
 		this.appState = appState;
 		this.model = model;
