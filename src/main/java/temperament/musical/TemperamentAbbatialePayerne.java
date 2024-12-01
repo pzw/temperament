@@ -28,6 +28,7 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 	/**
 	 * première variante pour initialiser les ratios de fréquence (donne le même résultat que la 2e variante)
 	 */
+	@SuppressWarnings("unused")
 	private void initRatiosV1() {
 		// processus : 
 		// 1 : poser les quintes do - sol - ré - la

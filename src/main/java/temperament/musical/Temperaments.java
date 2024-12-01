@@ -3,8 +3,6 @@ package temperament.musical;
 import java.util.ArrayList;
 import java.util.List;
 
-import temperament.musical.json.TemperamentJson;
-
 public class Temperaments {
 	private static Temperaments		_instance	= null;
 	private ArrayList<ITemperament>	temperaments;

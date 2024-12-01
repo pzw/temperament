@@ -1,16 +1,16 @@
 package temperament.model;
 
 public class NotePosition {
-	private TemperamentCircleModel	circleModel;
-	private int						x;
-	private int						y;
-	private int						noteIndex;
-	private double					frequencyRatio;
-	private int						xTx;
-	private int						yTx;
-	private boolean					selected		= false;
+	private TemperamentBaseCircleModel	circleModel;
+	private int							x;
+	private int							y;
+	private int							noteIndex;
+	private double						frequencyRatio;
+	private int							xTx;
+	private int							yTx;
+	private boolean						selected	= false;
 
-	public NotePosition(TemperamentCircleModel parentState, int noteIndex, double frequencyRatio) {
+	public NotePosition(TemperamentBaseCircleModel parentState, int noteIndex, double frequencyRatio) {
 		this.circleModel = parentState;
 		this.noteIndex = noteIndex;
 		this.frequencyRatio = frequencyRatio;
