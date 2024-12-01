@@ -17,12 +17,12 @@ import temperament.model.AppState;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentCircleModel;
 
-public class TemperamentChromaticCircleView extends JComponent {
+public class TemperamentCircleView extends JComponent {
 	private static final long		serialVersionUID	= 1L;
 	private TemperamentCircleModel	model;
 	private AppState				appState;
 
-	public TemperamentChromaticCircleView(AppState appState, TemperamentCircleModel model) {
+	public TemperamentCircleView(AppState appState, TemperamentCircleModel model) {
 		super();
 		this.appState = appState;
 		this.model = model;
