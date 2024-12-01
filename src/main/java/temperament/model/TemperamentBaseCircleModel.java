@@ -97,7 +97,7 @@ public abstract class TemperamentBaseCircleModel {
 
 	public NotePosition getPositionLa() {
 		ITemperament t = getTemperament();
-		return positions[t.getLa()];
+		return positions[t.La()];
 	}
 
 	public boolean isTemperamentDefined() {

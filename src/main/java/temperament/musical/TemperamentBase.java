@@ -134,7 +134,7 @@ public abstract class TemperamentBase implements ITemperament {
 
 	@Override
 	public double getFrequenceDo(double frequenceLa) {
-		return frequenceLa / getNoteFrequencyRatio(getLa());
+		return frequenceLa / getNoteFrequencyRatio(La());
 		// return 264;
 	}
 
@@ -175,70 +175,70 @@ public abstract class TemperamentBase implements ITemperament {
 		}
 	}
 
-	public int getDo() {
+	public int Do() {
 		return IDX_DO;
 	}
 
-	public int getDoDieze() {
+	public int DoDieze() {
 		return IDX_DO_DIEZE;
 	}
 
-	public int getRe() {
+	public int Re() {
 		return IDX_RE;
 	}
 
-	public int getMiBemol() {
+	public int MiBemol() {
 		return IDX_MI_BEMOL;
 	}
 
-	public int getMi() {
+	public int Mi() {
 		return IDX_MI;
 	}
 
-	public int getFa() {
+	public int Fa() {
 		return IDX_FA;
 	}
 
-	public int getFaDieze() {
+	public int FaDieze() {
 		return IDX_FA_DIEZE;
 	}
 
-	public int getSol() {
+	public int Sol() {
 		return IDX_SOL;
 	}
 
-	public int getSolDieze() {
+	public int SolDieze() {
 		return IDX_SOL_DIEZE;
 	}
 
 	@Override
-	public int getLa() {
+	public int La() {
 		return IDX_LA;
 	}
 
-	public int getSiBemol() {
+	public int SiBemol() {
 		return IDX_SI_BEMOL;
 	}
 
-	public int getSi() {
+	public int Si() {
 		return IDX_SI;
 	}
 
 	@Override
 	public List<NotesInterval> getFifthsIntervals() {
 		ArrayList<NotesInterval> result = new ArrayList<NotesInterval>();
-		result.add(new NotesInterval(this, getDo(), getSol()));
-		result.add(new NotesInterval(this, getSol(), getRe()));
-		result.add(new NotesInterval(this, getRe(), getLa()));
-		result.add(new NotesInterval(this, getLa(), getMi()));
-		result.add(new NotesInterval(this, getMi(), getSi()));
-		result.add(new NotesInterval(this, getSi(), getFaDieze()));
-		result.add(new NotesInterval(this, getFaDieze(), getDoDieze()));
-		result.add(new NotesInterval(this, getDoDieze(), getSolDieze()));
-		result.add(new NotesInterval(this, getSolDieze(), getMiBemol()));
-		result.add(new NotesInterval(this, getMiBemol(), getSiBemol()));
-		result.add(new NotesInterval(this, getSiBemol(), getFa()));
-		result.add(new NotesInterval(this, getFa(), getDo()));
+		result.add(new NotesInterval(this, Do(), Sol()));
+		result.add(new NotesInterval(this, Sol(), Re()));
+		result.add(new NotesInterval(this, Re(), La()));
+		result.add(new NotesInterval(this, La(), Mi()));
+		result.add(new NotesInterval(this, Mi(), Si()));
+		result.add(new NotesInterval(this, Si(), FaDieze()));
+		result.add(new NotesInterval(this, FaDieze(), DoDieze()));
+		result.add(new NotesInterval(this, DoDieze(), SolDieze()));
+		result.add(new NotesInterval(this, SolDieze(), MiBemol()));
+		result.add(new NotesInterval(this, MiBemol(), SiBemol()));
+		result.add(new NotesInterval(this, SiBemol(), Fa()));
+		result.add(new NotesInterval(this, Fa(), Do()));
 		return result;
 	}
 }

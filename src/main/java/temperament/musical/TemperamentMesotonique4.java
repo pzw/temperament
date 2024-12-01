@@ -9,20 +9,20 @@ public class TemperamentMesotonique4 extends TemperamentBase {
 		ratiosFifthsCircle = new double[2 * getNbNotesGamme()];
 		ratios = new double[2 * getNbNotesGamme()];
 		// quintes montantes à partir du DO-1
-		ratiosFifthsCircle[getDo()] = 1.0;
-		ratiosFifthsCircle[getSol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDo()]);
-		ratiosFifthsCircle[getRe()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSol()]);
-		ratiosFifthsCircle[getLa()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getRe()]);
-		ratiosFifthsCircle[getMi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getLa()]);
-		ratiosFifthsCircle[getSi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getMi()]);
-		ratiosFifthsCircle[getFaDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSi()]);
-		ratiosFifthsCircle[getDoDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getFaDieze()]);
-		ratiosFifthsCircle[getSolDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDoDieze()]);
+		ratiosFifthsCircle[Do()] = 1.0;
+		ratiosFifthsCircle[Sol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Do()]);
+		ratiosFifthsCircle[Re()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Sol()]);
+		ratiosFifthsCircle[La()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Re()]);
+		ratiosFifthsCircle[Mi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[La()]);
+		ratiosFifthsCircle[Si()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Mi()]);
+		ratiosFifthsCircle[FaDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Si()]);
+		ratiosFifthsCircle[DoDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[FaDieze()]);
+		ratiosFifthsCircle[SolDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[DoDieze()]);
 
 		// quintes descendantes à partir du DO-8
-		ratiosFifthsCircle[getFa()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getDo()] * RATIO_OCTAVE_8);
-		ratiosFifthsCircle[getSiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getFa()]);
-		ratiosFifthsCircle[getMiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getSiBemol()]);
+		ratiosFifthsCircle[Fa()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Do()] * RATIO_OCTAVE_8);
+		ratiosFifthsCircle[SiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Fa()]);
+		ratiosFifthsCircle[MiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[SiBemol()]);
 
 		initRatiosFromRatiosFifthsCircle();
 	}

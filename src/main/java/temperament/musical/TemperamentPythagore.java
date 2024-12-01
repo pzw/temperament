@@ -13,19 +13,19 @@ public class TemperamentPythagore extends TemperamentBase {
 		ratios = new double[2 * NB_NOTES];
 		ratiosFifthsCircle = new double[2 * NB_NOTES];
 
-		ratiosFifthsCircle[getDo()] = RATIO_UNISSON;
-		ratiosFifthsCircle[getSol()] = quinteMontante(ratiosFifthsCircle[getDo()]);
-		ratiosFifthsCircle[getRe()] = quinteMontante(ratiosFifthsCircle[getSol()]);
-		ratiosFifthsCircle[getLa()] = quinteMontante(ratiosFifthsCircle[getRe()]);
-		ratiosFifthsCircle[getMi()] = quinteMontante(ratiosFifthsCircle[getLa()]);
-		ratiosFifthsCircle[getSi()] = quinteMontante(ratiosFifthsCircle[getMi()]);
-		ratiosFifthsCircle[getFaDieze()] = quinteMontante(ratiosFifthsCircle[getSi()]);
-		ratiosFifthsCircle[getDoDieze()] = quinteMontante(ratiosFifthsCircle[getFaDieze()]);
-		ratiosFifthsCircle[getSolDieze()] = quinteMontante(ratiosFifthsCircle[getDoDieze()]);
-		ratiosFifthsCircle[getMiBemol()] = quinteMontante(ratiosFifthsCircle[getSolDieze()]);
-		ratiosFifthsCircle[getSiBemol()] = quinteMontante(ratiosFifthsCircle[getMiBemol()]);
-		ratiosFifthsCircle[getFa()] = quinteMontante(ratiosFifthsCircle[getSiBemol()]);
-		ratiosFifthsCircle[IDX_SI_DIEZE] = quinteMontante(ratiosFifthsCircle[getFa()]);
+		ratiosFifthsCircle[Do()] = RATIO_UNISSON;
+		ratiosFifthsCircle[Sol()] = quinteMontante(ratiosFifthsCircle[Do()]);
+		ratiosFifthsCircle[Re()] = quinteMontante(ratiosFifthsCircle[Sol()]);
+		ratiosFifthsCircle[La()] = quinteMontante(ratiosFifthsCircle[Re()]);
+		ratiosFifthsCircle[Mi()] = quinteMontante(ratiosFifthsCircle[La()]);
+		ratiosFifthsCircle[Si()] = quinteMontante(ratiosFifthsCircle[Mi()]);
+		ratiosFifthsCircle[FaDieze()] = quinteMontante(ratiosFifthsCircle[Si()]);
+		ratiosFifthsCircle[DoDieze()] = quinteMontante(ratiosFifthsCircle[FaDieze()]);
+		ratiosFifthsCircle[SolDieze()] = quinteMontante(ratiosFifthsCircle[DoDieze()]);
+		ratiosFifthsCircle[MiBemol()] = quinteMontante(ratiosFifthsCircle[SolDieze()]);
+		ratiosFifthsCircle[SiBemol()] = quinteMontante(ratiosFifthsCircle[MiBemol()]);
+		ratiosFifthsCircle[Fa()] = quinteMontante(ratiosFifthsCircle[SiBemol()]);
+		ratiosFifthsCircle[IDX_SI_DIEZE] = quinteMontante(ratiosFifthsCircle[Fa()]);
 
 		// on ne doit pas toucher le si dièze
 		for (int i = 0; i < NB_NOTES_STANDARD; i++) {

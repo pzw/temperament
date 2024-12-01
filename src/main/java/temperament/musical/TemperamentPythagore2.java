@@ -9,19 +9,19 @@ public class TemperamentPythagore2 extends TemperamentBase {
 		ratiosFifthsCircle = new double[2 * getNbNotesGamme()];
 		ratios = new double[2 * getNbNotesGamme()];
 
-		ratiosFifthsCircle[getDo()] = 1.0;
-		ratiosFifthsCircle[getSol()] = quinteMontante(ratiosFifthsCircle[getDo()]);
-		ratiosFifthsCircle[getRe()] = quinteMontante(ratiosFifthsCircle[getSol()]);
-		ratiosFifthsCircle[getLa()] = quinteMontante(ratiosFifthsCircle[getRe()]);
-		ratiosFifthsCircle[getMi()] = quinteMontante(ratiosFifthsCircle[getLa()]);
-		ratiosFifthsCircle[getSi()] = quinteMontante(ratiosFifthsCircle[getMi()]);
-		ratiosFifthsCircle[getFaDieze()] = quinteMontante(ratiosFifthsCircle[getSi()]);
-		ratiosFifthsCircle[getDoDieze()] = quinteMontante(ratiosFifthsCircle[getFaDieze()]);
-		ratiosFifthsCircle[getSolDieze()] = quinteMontante(ratiosFifthsCircle[getDoDieze()]);
+		ratiosFifthsCircle[Do()] = 1.0;
+		ratiosFifthsCircle[Sol()] = quinteMontante(ratiosFifthsCircle[Do()]);
+		ratiosFifthsCircle[Re()] = quinteMontante(ratiosFifthsCircle[Sol()]);
+		ratiosFifthsCircle[La()] = quinteMontante(ratiosFifthsCircle[Re()]);
+		ratiosFifthsCircle[Mi()] = quinteMontante(ratiosFifthsCircle[La()]);
+		ratiosFifthsCircle[Si()] = quinteMontante(ratiosFifthsCircle[Mi()]);
+		ratiosFifthsCircle[FaDieze()] = quinteMontante(ratiosFifthsCircle[Si()]);
+		ratiosFifthsCircle[DoDieze()] = quinteMontante(ratiosFifthsCircle[FaDieze()]);
+		ratiosFifthsCircle[SolDieze()] = quinteMontante(ratiosFifthsCircle[DoDieze()]);
 
-		ratiosFifthsCircle[getFa()] = quinteDescendante(ratiosFifthsCircle[getDo()] * RATIO_OCTAVE_8);
-		ratiosFifthsCircle[getSiBemol()] = quinteDescendante(ratiosFifthsCircle[getFa()]);
-		ratiosFifthsCircle[getMiBemol()] = quinteDescendante(ratiosFifthsCircle[getSiBemol()]);
+		ratiosFifthsCircle[Fa()] = quinteDescendante(ratiosFifthsCircle[Do()] * RATIO_OCTAVE_8);
+		ratiosFifthsCircle[SiBemol()] = quinteDescendante(ratiosFifthsCircle[Fa()]);
+		ratiosFifthsCircle[MiBemol()] = quinteDescendante(ratiosFifthsCircle[SiBemol()]);
 
 		initRatiosFromRatiosFifthsCircle();
 	}

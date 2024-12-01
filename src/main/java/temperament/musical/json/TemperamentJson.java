@@ -74,7 +74,7 @@ public class TemperamentJson implements ITemperament {
 	}
 
 	@Override
-	public int getLa() {
+	public int La() {
 		if (null == notes)
 			return 0;
 		for (int i = 0; i < notes.size(); i++) {
@@ -102,7 +102,7 @@ public class TemperamentJson implements ITemperament {
 
 	@Override
 	public double getFrequenceDo(double frequenceLa) {
-		return frequenceLa / getNoteFrequencyRatio(getLa());
+		return frequenceLa / getNoteFrequencyRatio(La());
 	}
 
 	public boolean isWellDefined() {

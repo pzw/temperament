@@ -44,29 +44,29 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 
 		// 1 : poser les quintes do - sol - ré - la
 		// attention : les quintes dont fausses de 1/4 comma
-		ratiosFifthsCircle[getDo()] = RATIO_UNISSON;
-		ratiosFifthsCircle[getSol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDo()]);
-		ratiosFifthsCircle[getRe()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSol()]);
-		ratiosFifthsCircle[getLa()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getRe()]);
+		ratiosFifthsCircle[Do()] = RATIO_UNISSON;
+		ratiosFifthsCircle[Sol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Do()]);
+		ratiosFifthsCircle[Re()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Sol()]);
+		ratiosFifthsCircle[La()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Re()]);
 
 		// 2 : poser les tierces majeures à partir du do : do-la bémol, do-mi, mi-sol
 		// dièze
-		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[getDo()]);
-		ratiosFifthsCircle[getMi()] = tierceMajeureMontante(ratiosFifthsCircle[getDo()]);
-		ratiosFifthsCircle[getSolDieze()] = tierceMajeureMontante(ratiosFifthsCircle[getMi()]);
+		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[Do()]);
+		ratiosFifthsCircle[Mi()] = tierceMajeureMontante(ratiosFifthsCircle[Do()]);
+		ratiosFifthsCircle[SolDieze()] = tierceMajeureMontante(ratiosFifthsCircle[Mi()]);
 
 		// 3 : poser les tierces majeures à partir du sol : sol-mi bémol, sol-si, si-ré#
-		ratiosFifthsCircle[getMiBemol()] = tierceMajeureDescendante(ratiosFifthsCircle[getSol()]);
-		ratiosFifthsCircle[getSi()] = tierceMajeureMontante(ratiosFifthsCircle[getSol()]);
-		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[getSi()]);
+		ratiosFifthsCircle[MiBemol()] = tierceMajeureDescendante(ratiosFifthsCircle[Sol()]);
+		ratiosFifthsCircle[Si()] = tierceMajeureMontante(ratiosFifthsCircle[Sol()]);
+		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[Si()]);
 
 		// 4 : poser les tierces majeures à partir du ré : ré-si bémol, ré-fa dièze
-		ratiosFifthsCircle[getSiBemol()] = tierceMajeureDescendante(ratiosFifthsCircle[getRe()]);
-		ratiosFifthsCircle[getFaDieze()] = tierceMajeureMontante(ratiosFifthsCircle[getRe()]);
+		ratiosFifthsCircle[SiBemol()] = tierceMajeureDescendante(ratiosFifthsCircle[Re()]);
+		ratiosFifthsCircle[FaDieze()] = tierceMajeureMontante(ratiosFifthsCircle[Re()]);
 
 		// 5 : poser les tierces majeures à partir du la : la-fa, la-do dièze
-		ratiosFifthsCircle[getFa()] = tierceMajeureDescendante(ratiosFifthsCircle[getLa()]);
-		ratiosFifthsCircle[getDoDieze()] = tierceMajeureMontante(ratiosFifthsCircle[getLa()]);
+		ratiosFifthsCircle[Fa()] = tierceMajeureDescendante(ratiosFifthsCircle[La()]);
+		ratiosFifthsCircle[DoDieze()] = tierceMajeureMontante(ratiosFifthsCircle[La()]);
 
 		initRatiosFromRatiosFifthsCircle();
 	}
@@ -82,27 +82,27 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		// placement séparé des deux notes associées aux feintes brisées
 
 		// comme le tempérament mésotonique au 1/4 de comma
-		ratiosFifthsCircle[getDo()] = 1.0;
-		ratiosFifthsCircle[getSol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDo()]);
-		ratiosFifthsCircle[getRe()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSol()]);
-		ratiosFifthsCircle[getLa()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getRe()]);
-		ratiosFifthsCircle[getMi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getLa()]);
-		ratiosFifthsCircle[getSi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getMi()]);
-		ratiosFifthsCircle[getFaDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getSi()]);
-		ratiosFifthsCircle[getDoDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getFaDieze()]);
-		ratiosFifthsCircle[getSolDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[getDoDieze()]);
+		ratiosFifthsCircle[Do()] = 1.0;
+		ratiosFifthsCircle[Sol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Do()]);
+		ratiosFifthsCircle[Re()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Sol()]);
+		ratiosFifthsCircle[La()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Re()]);
+		ratiosFifthsCircle[Mi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[La()]);
+		ratiosFifthsCircle[Si()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Mi()]);
+		ratiosFifthsCircle[FaDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Si()]);
+		ratiosFifthsCircle[DoDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[FaDieze()]);
+		ratiosFifthsCircle[SolDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[DoDieze()]);
 
-		ratiosFifthsCircle[getFa()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getDo()] * RATIO_OCTAVE_8);
-		ratiosFifthsCircle[getSiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getFa()]);
-		ratiosFifthsCircle[getMiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[getSiBemol()]);
+		ratiosFifthsCircle[Fa()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Do()] * RATIO_OCTAVE_8);
+		ratiosFifthsCircle[SiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Fa()]);
+		ratiosFifthsCircle[MiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[SiBemol()]);
 
 		// placement des notes associées aux feintes brisées
 		// ré dièze : une tierce majeure au-dessus de SI (hausse de 2 octaves pour
 		// rapprocher du mi bémol)
-		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[getSi()]) * 4.0;
+		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[Si()]) * 4.0;
 		// la bémol : une tierce majeure au-dessous de DO (baisse de 2 octaves pour
 		// rapprocher du sol dièze)
-		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[getDo()]) / 4.0;
+		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[Do()]) / 4.0;
 
 		initRatiosFromRatiosFifthsCircle();
 	}
@@ -131,52 +131,52 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		return NB_NOTES;
 	}
 
-	public int getDo() {
+	public int Do() {
 		return IDX_DO;
 	}
 
-	public int getDoDieze() {
+	public int DoDieze() {
 		return IDX_DO_DIEZE;
 	}
 
-	public int getRe() {
+	public int Re() {
 		return IDX_RE;
 	}
 
-	public int getMiBemol() {
+	public int MiBemol() {
 		return IDX_MI_BEMOL;
 	}
 
-	public int getMi() {
+	public int Mi() {
 		return IDX_MI;
 	}
 
-	public int getFa() {
+	public int Fa() {
 		return IDX_FA;
 	}
 
-	public int getFaDieze() {
+	public int FaDieze() {
 		return IDX_FA_DIEZE;
 	}
 
-	public int getSol() {
+	public int Sol() {
 		return IDX_SOL;
 	}
 
-	public int getSolDieze() {
+	public int SolDieze() {
 		return IDX_SOL_DIEZE;
 	}
 
 	@Override
-	public int getLa() {
+	public int La() {
 		return IDX_LA;
 	}
 
-	public int getSiBemol() {
+	public int SiBemol() {
 		return IDX_SI_BEMOL;
 	}
 
-	public int getSi() {
+	public int Si() {
 		return IDX_SI;
 	}
 
