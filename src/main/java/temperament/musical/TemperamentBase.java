@@ -159,6 +159,12 @@ public abstract class TemperamentBase implements ITemperament {
 		return Math.abs(v1 - v2) < 0.00000001;
 	}
 
+	public static boolean isWellKnownInterval(double ratio) {
+		return almostEqual(ratio, RATIO_TIERCE_MINEURE) || almostEqual(ratio, RATIO_TIERCE_MAJEURE)
+				|| almostEqual(ratio, RATIO_QUARTE) || almostEqual(ratio, RATIO_QUINTE)
+				|| almostEqual(ratio, RATIO_OCTAVE);
+	}
+
 	public static String getFrequencyRatioName(double ratio) {
 		if (almostEqual(ratio, RATIO_TIERCE_MINEURE)) {
 			return "tierce mineure";
