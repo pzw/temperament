@@ -21,7 +21,8 @@ public class AppState extends Model {
 	public static final String	WAVE_SHOW_EACH_NOTE_PROPERTY	= "waveShowEachNote";
 	public static final String	FREQUENCY_RATIO_PROPERTY		= "frequencyRatio";
 	public static final String	FREQUENCY_RATIO_NAME_PROPERTY	= "frequencyRatioName";
-
+	public static final String	DISPLAY_FIFTHS					= "displayFifths";
+	public static final String	DISPLAY_MAJOR_THIRDS			= "displayMajorThirds";
 	private ITemperament		temperament						= Temperaments.getInstance().getTemperaments().get(0);
 	private double				duration						= 2000;
 	private double				laFrequency						= 440.0;
@@ -32,6 +33,8 @@ public class AppState extends Model {
 	private boolean				waveShowEachNote				= false;
 	private double				frequencyRatio					= 0.0;
 	private String				frequencyRatioName				= "";
+	private boolean				displayFifths					= false;
+	private boolean				displayMajorThirds				= false;
 
 	public void setTemperamentTableModel() {
 	}
@@ -114,9 +117,9 @@ public class AppState extends Model {
 			return Color.white;
 		case 3:
 			return Color.cyan;
-		case 4 :
+		case 4:
 			return Color.magenta;
-		case 5 :
+		case 5:
 			return Color.orange;
 		}
 		return Color.magenta;
@@ -173,4 +176,31 @@ public class AppState extends Model {
 		firePropertyChange(FREQUENCY_RATIO_NAME_PROPERTY, oldvalue, newValue);
 	}
 
+	public boolean isDisplayFifths() {
+		return displayFifths;
+	}
+
+	public void setDisplayFifths(boolean newValue) {
+		boolean oldValue = isDisplayFifths();
+		this.displayFifths = newValue;
+		firePropertyChange(DISPLAY_FIFTHS, oldValue, newValue);
+		if (isDisplayMajorThirds() && isDisplayFifths()) {
+			setDisplayMajorThirds(false);
+		}
+	}
+
+	public boolean isDisplayMajorThirds() {
+		return displayMajorThirds;
+	}
+
+	public void setDisplayMajorThirds(boolean newValue) {
+		boolean oldValue = isDisplayMajorThirds();
+		this.displayMajorThirds = newValue;
+		firePropertyChange(DISPLAY_MAJOR_THIRDS, oldValue, newValue);
+		if (isDisplayMajorThirds() && isDisplayFifths()) {
+			setDisplayFifths(false);
+		}
+	}
+
+	
 }

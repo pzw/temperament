@@ -247,4 +247,25 @@ public abstract class TemperamentBase implements ITemperament {
 		result.add(new NotesInterval(this, Fa(), Do()));
 		return result;
 	}
+
+	@Override
+	public List<NotesInterval> getMajorThirdsIntervals() {
+		ArrayList<NotesInterval> result = new ArrayList<NotesInterval>();
+		result.add(new NotesInterval(this, Do(), Mi()));
+		result.add(new NotesInterval(this, DoDieze(), Fa()));
+		result.add(new NotesInterval(this, Re(), FaDieze()));
+		result.add(new NotesInterval(this, MiBemol(), Sol()));
+		result.add(new NotesInterval(this, Mi(), SolDieze()));
+		result.add(new NotesInterval(this, Fa(), La()));
+		result.add(new NotesInterval(this, FaDieze(), SiBemol()));
+		result.add(new NotesInterval(this, Sol(), Si()));
+		result.add(new NotesInterval(this, SolDieze(), Do()));
+		result.add(new NotesInterval(this, La(), DoDieze()));
+		result.add(new NotesInterval(this, SiBemol(), Re()));
+		result.add(new NotesInterval(this, Si(), MiBemol()));
+		
+		return result;
+	}
+	
+	
 }

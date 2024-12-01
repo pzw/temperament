@@ -1,5 +1,8 @@
 package temperament.musical;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TemperamentAbbatialePayerne extends TemperamentBase {
 	private static final int	NB_NOTES		= 14;
 	private static final int	IDX_DO			= 0;
@@ -143,6 +146,10 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		return IDX_RE;
 	}
 
+	public int ReDieze() {
+		return IDX_RE_DIEZE;
+	}
+
 	public int MiBemol() {
 		return IDX_MI_BEMOL;
 	}
@@ -167,6 +174,10 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		return IDX_SOL_DIEZE;
 	}
 
+	public int LaBemol() {
+		return IDX_LA_BEMOL;
+	}
+
 	@Override
 	public int La() {
 		return IDX_LA;
@@ -184,4 +195,24 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 	public String toString() {
 		return "Abbatiale Payerne";
 	}
+
+	@Override
+	public List<NotesInterval> getMajorThirdsIntervals() {
+		ArrayList<NotesInterval> result = new ArrayList<NotesInterval>();
+		result.add(new NotesInterval(this, Do(), Mi()));
+		result.add(new NotesInterval(this, DoDieze(), Fa()));
+		result.add(new NotesInterval(this, Re(), FaDieze()));
+		result.add(new NotesInterval(this, MiBemol(), Sol()));
+		result.add(new NotesInterval(this, Mi(), SolDieze()));
+		result.add(new NotesInterval(this, Fa(), La()));
+		result.add(new NotesInterval(this, FaDieze(), SiBemol()));
+		result.add(new NotesInterval(this, Sol(), Si()));
+		result.add(new NotesInterval(this, LaBemol(), Do()));
+		result.add(new NotesInterval(this, La(), DoDieze()));
+		result.add(new NotesInterval(this, SiBemol(), Re()));
+		result.add(new NotesInterval(this, Si(), ReDieze()));
+
+		return result;
+	}
+
 }

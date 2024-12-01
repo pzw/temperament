@@ -26,26 +26,28 @@ public class TemperamentCircleView extends JComponent {
 	private static final long			serialVersionUID	= 1L;
 	private TemperamentBaseCircleModel	model;
 	private AppState					appState;
-	private boolean						showFifthsIntervals;
+	private boolean						showIntervals;
 	private NumberFormat				nfInterval;
 	private Font						intervalFont;
 	private Color						wellKnownInterval	= new Color(197, 252, 154);
 	private Color						otherInterval		= new Color(252, 191, 177);
 
-	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model, boolean showFifthsIntervals) {
+	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model, boolean showIntervals) {
 		super();
 		nfInterval = NumberFormat.getNumberInstance();
 		nfInterval.setMaximumFractionDigits(3);
 
 		this.appState = appState;
 		this.model = model;
-		this.showFifthsIntervals = showFifthsIntervals;
+		this.showIntervals = showIntervals;
 
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
+				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())
+						|| AppState.DISPLAY_FIFTHS.equals(evt.getPropertyName())
+						|| AppState.DISPLAY_MAJOR_THIRDS.equals(evt.getPropertyName())) {
 					repaintLater();
 				} else if (AppState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 					repaint();
@@ -78,7 +80,7 @@ public class TemperamentCircleView extends JComponent {
 			}
 
 		});
-		intervalFont = new Font("SansSerif", Font.PLAIN, 11);
+		intervalFont = new Font("SansSerif", Font.PLAIN, 12);
 	}
 
 	private void drawCircle(Graphics g, int xc, int yc, int r, Color borderColor, Color fillColor) {
@@ -150,19 +152,26 @@ public class TemperamentCircleView extends JComponent {
 		g.setFont(save);
 	}
 
+	private void paintIntervals(Graphics g, List<NotesInterval> intervals) {
+		if (null != intervals) {
+			for (NotesInterval ni : intervals) {
+				paintInterval(g, ni);
+			}
+		}
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		model.setPanelDimensions(getWidth(), getHeight());
 		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
 		if (model.isTemperamentDefined()) {
-			if (showFifthsIntervals) {
-				List<NotesInterval> intervals = model.getFifthsIntervals();
-				if (null != intervals) {
-					for (NotesInterval ni : intervals) {
-						paintInterval(g, ni);
-					}
-				}
+			if (showIntervals && appState.isDisplayFifths()) {
+				paintIntervals(g, model.getFifthsIntervals());
+			}
+
+			if (showIntervals && appState.isDisplayMajorThirds()) {
+				paintIntervals(g, model.getMajorThirdsIntervals());
 			}
 
 			int nbNotesGamme = model.getNbNotesGamme();

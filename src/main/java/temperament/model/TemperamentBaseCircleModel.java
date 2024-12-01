@@ -108,7 +108,12 @@ public abstract class TemperamentBaseCircleModel {
 		ITemperament t = getTemperament();
 		return t.getFifthsIntervals();
 	}
-	
+
+	public List<NotesInterval> getMajorThirdsIntervals() {
+		ITemperament t = getTemperament();
+		return t.getMajorThirdsIntervals();
+	}
+
 	public NotePosition findNote(Point p) {
 		for (int i = 0; i < positions.length; i++) {
 			if (positions[i].isInNotePosition(p.x, p.y)) {

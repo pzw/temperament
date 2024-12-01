@@ -64,10 +64,18 @@ public interface ITemperament {
 	 * @return
 	 */
 	public int getNbNotes();
-	
+
 	/**
 	 * retourne les intervalles de quintes du tempérament
+	 * 
 	 * @return
 	 */
 	public List<NotesInterval> getFifthsIntervals();
+
+	/**
+	 * retourne les intervalles de tierces majeures
+	 * 
+	 * @return
+	 */
+	public List<NotesInterval> getMajorThirdsIntervals();
 }

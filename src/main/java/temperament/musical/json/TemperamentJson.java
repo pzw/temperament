@@ -124,6 +124,11 @@ public class TemperamentJson implements ITemperament {
 		return null;
 	}
 
+	@Override
+	public List<NotesInterval> getMajorThirdsIntervals() {
+		return null;
+	}
+
 	private class JSonNote {
 		private String	name;
 		private double	ratioMul;

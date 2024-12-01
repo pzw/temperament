@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -27,8 +28,8 @@ public class TemperamentTopPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public TemperamentTopPanel(AppState appState) {
-		FormLayout layout = new FormLayout("$dm,p,$rg,max(60dlu;p),$rg,max(60dlu;p),$rg,p,$rg,max(60dlu;p),$dm",
-				"$dm,p,$lg,p,$dm");
+		FormLayout layout = new FormLayout(
+				"$dm,p,$rg,max(60dlu;p),$rg,max(60dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,$rg,p,$dm", "$dm,p,$lg,p,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 
@@ -54,7 +55,15 @@ public class TemperamentTopPanel extends JPanel {
 		sh.getTextField().addFocusListener(new SelectAllFocusListener());
 		add(sh.getMainComponent(), cc.xy(x, y));
 
-		add(new JTextField(), cc.xy(x, y));
+		// add(new JTextField(), cc.xy(x, y));
+
+		x += 2;
+		PlaySelectionAction playAction = new PlaySelectionAction(appState);
+		add(new JButton(playAction), cc.xy(x, y));
+
+		x += 2;
+		PlayGammeAction playGamme = new PlayGammeAction(appState);
+		add(new JButton(playGamme), cc.xy(x, y));
 
 		y += 2;
 		x = 2;
@@ -74,12 +83,14 @@ public class TemperamentTopPanel extends JPanel {
 		add(txFrequencyRatioName, cc.xy(x, y));
 
 		x += 2;
-		PlaySelectionAction playAction = new PlaySelectionAction(appState);
-		add(new JButton(playAction), cc.xy(x, y));
+		JCheckBox chkDisplayMajorThirds = new JCheckBox("affiche les tierces majeures");
+		Bindings.bind(chkDisplayMajorThirds, pm.getModel(AppState.DISPLAY_MAJOR_THIRDS));
+		add(chkDisplayMajorThirds, cc.xyw(x, y, 3));
 
-		x += 2;
-		PlayGammeAction playGamme = new PlayGammeAction(appState);
-		add(new JButton(playGamme), cc.xy(x, y));
+		x += 4;
+		JCheckBox chkDisplayFifths = new JCheckBox("affiche les quintes");
+		Bindings.bind(chkDisplayFifths, pm.getModel(AppState.DISPLAY_FIFTHS));
+		add(chkDisplayFifths, cc.xyw(x, y, 3));
 	}
 
 }
