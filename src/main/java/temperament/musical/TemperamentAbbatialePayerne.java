@@ -22,33 +22,74 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 
 	@Override
 	protected void initRatios() {
+		initRatiosV2();
+	}
+
+	/**
+	 * première variante pour initialiser les ratios de fréquence (donne le même résultat que la 2e variante)
+	 */
+	private void initRatiosV1() {
+		// processus : 
+		// 1 : poser les quintes do - sol - ré - la
+		// 2 : poser les tierces majeures à partir du do : do-la bémol, do-mi, mi-sol dièze
+		// 3 : poser les tierces majeures à partir du sol : sol-mi bémol, sol-si, si-ré#
+		// 4 : poser les tierces majeures à partir du ré : ré-si bémol, ré-fa dièze
+		// 5 : poser les tierces majeures à partir du la : la-fa, la-do dièze
+		
 		ratios = new double[2*NB_NOTES];
-		// poser les quintes
-		double ratioQuinte = Math.pow(5.0, 0.25);
+		// 1 : poser les quintes do - sol - ré - la
 		// attention : les quintes dont fausses de 1/4 comma
 		ratios[IDX_DO] = RATIO_UNISSON;
-		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * ratioQuinte);
-		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * ratioQuinte);
-		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * ratioQuinte);
+		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * RATIO_QUINTE_MESOTONIQUE4);
 
-		// poser les tierces par rapport aux quintes déjà placées
-		// tierces relatives au do : la bémol -> do -> mi -> sol dièze
+		// 2 : poser les tierces majeures à partir du do : do-la bémol, do-mi, mi-sol dièze
 		ratios[IDX_LA_BEMOL] = dansOctave(ratios[IDX_DO] / RATIO_TIERCE_MAJEURE);
 		ratios[IDX_MI] = dansOctave(ratios[IDX_DO] * RATIO_TIERCE_MAJEURE);
 		ratios[IDX_SOL_DIEZE] = dansOctave(ratios[IDX_MI] * RATIO_TIERCE_MAJEURE);
 
-		// tierces relatives au sol : mi bémol -> sol -> si -> ré dièze
+		// 3 : poser les tierces majeures à partir du sol : sol-mi bémol, sol-si, si-ré#
 		ratios[IDX_MI_BEMOL] = dansOctave(ratios[IDX_SOL] / RATIO_TIERCE_MAJEURE);
 		ratios[IDX_SI] = dansOctave(ratios[IDX_SOL] * RATIO_TIERCE_MAJEURE);
 		ratios[IDX_RE_DIEZE] = dansOctave(ratios[IDX_SI] * RATIO_TIERCE_MAJEURE);
 
-		// tierces relatives au ré : si bémol -> ré -> fa dièze
+		// 4 : poser les tierces majeures à partir du ré : ré-si bémol, ré-fa dièze
 		ratios[IDX_SI_BEMOL] = dansOctave(ratios[IDX_RE] / RATIO_TIERCE_MAJEURE);
 		ratios[IDX_FA_DIEZE] = dansOctave(ratios[IDX_RE] * RATIO_TIERCE_MAJEURE);
 
-		// tierces relatives au la : fa -> la -> do dièze
+		// 5 : poser les tierces majeures à partir du la : la-fa, la-do dièze
 		ratios[IDX_FA] = dansOctave(ratios[IDX_LA] / RATIO_TIERCE_MAJEURE);
 		ratios[IDX_DO_DIEZE] = dansOctave(ratios[IDX_LA] * RATIO_TIERCE_MAJEURE);
+	}
+
+	/**
+	 * deuxième variante pour initialiser les ratios de fréquence (donne le même résultat que la 2e variante)
+	 */
+	protected void initRatiosV2() {
+		super.initRatios();
+		// processus : même notes que mésotonique au 1/4 de comma
+		// placement séparé des deux notes associées aux feintes brisées
+		
+		// comme le tempérament mésotonique au 1/4 de comma
+		ratios[IDX_DO] = 1.0;
+		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_MI] = dansOctave(ratios[IDX_LA] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_SI] = dansOctave(ratios[IDX_MI] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_FA_DIEZE] = dansOctave(ratios[IDX_SI] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_DO_DIEZE] = dansOctave(ratios[IDX_FA_DIEZE] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_SOL_DIEZE] = dansOctave(ratios[IDX_DO_DIEZE] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_FA] = dansOctave(ratios[IDX_DO] / RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_SI_BEMOL] = dansOctave(ratios[IDX_FA] / RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_MI_BEMOL] = dansOctave(ratios[IDX_SI_BEMOL] / RATIO_QUINTE_MESOTONIQUE4);
+		
+		// placement des notes associées aux feintes brisées
+		// ré dièze : une tierce majeure au-dessus de SI
+		ratios[IDX_RE_DIEZE] = dansOctave(ratios[IDX_SI] * RATIO_TIERCE_MAJEURE);
+		// la bémol : une tierce majeure au-dessous de DO
+		ratios[IDX_LA_BEMOL] = dansOctave(ratios[IDX_DO] / RATIO_TIERCE_MAJEURE);
 	}
 
 	@Override

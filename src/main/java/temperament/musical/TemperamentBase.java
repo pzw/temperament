@@ -1,17 +1,17 @@
 package temperament.musical;
 
 public class TemperamentBase implements ITemperament {
-	public static final double	RATIO_UNISSON			= 1.0;
-	public static final double	RATIO_OCTAVE			= 2.0;
-	public static final double	RATIO_TIERCE_MINEURE	= 6.0 / 5.0;
-	public static final double	RATIO_TIERCE_MAJEURE	= 5.0 / 4.0;
-	public static final double	RATIO_QUARTE			= 4.0 / 3.0;
-	public static final double	RATIO_QUINTE			= 3.0 / 2.0;
-
-	protected static final int	NB_NOTES_STANDARD		= 12;
-	private static final int	IDX_LA					= 9;
-	protected String[]			names;
-	protected double[]			ratios;
+	public static final double		RATIO_UNISSON				= 1.0;
+	public static final double		RATIO_OCTAVE				= 2.0;
+	public static final double		RATIO_TIERCE_MINEURE		= 6.0 / 5.0;
+	public static final double		RATIO_TIERCE_MAJEURE		= 5.0 / 4.0;
+	public static final double		RATIO_QUARTE				= 4.0 / 3.0;
+	public static final double		RATIO_QUINTE				= 3.0 / 2.0;
+	protected static final int		NB_NOTES_STANDARD			= 12;
+	protected static final double	RATIO_QUINTE_MESOTONIQUE4	= Math.pow(5.0, 0.25);
+	private static final int		IDX_LA						= 9;
+	protected String[]				names;
+	protected double[]				ratios;
 
 	public TemperamentBase() {
 		initRatios();
@@ -41,12 +41,12 @@ public class TemperamentBase implements ITemperament {
 		names[10] = "si b";
 		names[11] = "si";
 	}
-	
+
 	protected void initOctave() {
 		int n = getNbNotesGamme();
 		for (int i = 0; i < n; i++) {
 			ratios[i + n] = ratios[i] * RATIO_OCTAVE;
-			names[i+n] = names[i];
+			names[i + n] = names[i];
 		}
 	}
 
@@ -82,7 +82,7 @@ public class TemperamentBase implements ITemperament {
 	@Override
 	public double getFrequenceDo(double frequenceLa) {
 		return frequenceLa / getNoteFrequencyRatio(getIndexLa());
-		//return 264;
+		// return 264;
 	}
 
 	/**

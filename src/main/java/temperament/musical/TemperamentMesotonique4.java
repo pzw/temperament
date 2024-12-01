@@ -20,19 +20,18 @@ public class TemperamentMesotonique4 extends TemperamentBase {
 	@Override
 	protected void initRatios() {
 		super.initRatios();
-		double ratioQuinte = Math.pow(5.0, 0.25);
 		ratios[IDX_DO] = 1.0;
-		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * ratioQuinte);
-		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * ratioQuinte);
-		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * ratioQuinte);
-		ratios[IDX_MI] = dansOctave(ratios[IDX_LA] * ratioQuinte);
-		ratios[IDX_SI] = dansOctave(ratios[IDX_MI] * ratioQuinte);
-		ratios[IDX_FA_DIEZE] = dansOctave(ratios[IDX_SI] * ratioQuinte);
-		ratios[IDX_DO_DIEZE] = dansOctave(ratios[IDX_FA_DIEZE] * ratioQuinte);
-		ratios[IDX_SOL_DIEZE] = dansOctave(ratios[IDX_DO_DIEZE] * ratioQuinte);
-		ratios[IDX_FA] = dansOctave(ratios[IDX_DO] / ratioQuinte);
-		ratios[IDX_SI_BEMOL] = dansOctave(ratios[IDX_FA] / ratioQuinte);
-		ratios[IDX_MI_BEMOL] = dansOctave(ratios[IDX_SI_BEMOL] / ratioQuinte);
+		ratios[IDX_SOL] = dansOctave(ratios[IDX_DO] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_RE] = dansOctave(ratios[IDX_SOL] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_LA] = dansOctave(ratios[IDX_RE] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_MI] = dansOctave(ratios[IDX_LA] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_SI] = dansOctave(ratios[IDX_MI] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_FA_DIEZE] = dansOctave(ratios[IDX_SI] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_DO_DIEZE] = dansOctave(ratios[IDX_FA_DIEZE] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_SOL_DIEZE] = dansOctave(ratios[IDX_DO_DIEZE] * RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_FA] = dansOctave(ratios[IDX_DO] / RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_SI_BEMOL] = dansOctave(ratios[IDX_FA] / RATIO_QUINTE_MESOTONIQUE4);
+		ratios[IDX_MI_BEMOL] = dansOctave(ratios[IDX_SI_BEMOL] / RATIO_QUINTE_MESOTONIQUE4);
 	}
 
 	@Override
