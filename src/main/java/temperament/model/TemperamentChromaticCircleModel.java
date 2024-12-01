@@ -1,11 +1,13 @@
 package temperament.model;
 
 import temperament.musical.ITemperament;
+
 /**
- * modèle pour le positionnement des notes dans un cercle : version par quintes dans 7 octaves
+ * modèle pour le positionnement des notes dans un cercle : version chromatique
+ * dans une octave
  */
-public class TemperamentCircleModel2 extends TemperamentBaseCircleModel {
-	public TemperamentCircleModel2(AppState appState) {
+public class TemperamentChromaticCircleModel extends TemperamentBaseCircleModel {
+	public TemperamentChromaticCircleModel(AppState appState) {
 		super(appState);
 	}
 

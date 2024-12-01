@@ -1,13 +1,11 @@
 package temperament.model;
 
 import temperament.musical.ITemperament;
-
 /**
- * modèle pour le positionnement des notes dans un cercle : version chromatique
- * dans une octave
+ * modèle pour le positionnement des notes dans un cercle : version par quintes dans 7 octaves
  */
-public class TemperamentCircleModel extends TemperamentBaseCircleModel {
-	public TemperamentCircleModel(AppState appState) {
+public class TemperamentFifthsCircleModel extends TemperamentBaseCircleModel {
+	public TemperamentFifthsCircleModel(AppState appState) {
 		super(appState);
 	}
 
@@ -17,9 +15,9 @@ public class TemperamentCircleModel extends TemperamentBaseCircleModel {
 		// 1 => 0
 		// 2 => 360
 		ITemperament t = getTemperament();
-		double log2 = Math.log(2.0);
-		double fRatio = t.getNoteFrequencyRatio(noteRank);
-		double log = Math.log(fRatio) / log2;
+		double log128 = Math.log(128.0);
+		double fRatio = t.getNoteFrequencyRatioInFifthsCirle(noteRank);
+		double log = Math.log(fRatio) / log128;
 		double angleDegre = 90.0 - log * 360.0;
 		double angle = angleDegre * Math.PI / 180.0;
 		double cos = Math.cos(angle);

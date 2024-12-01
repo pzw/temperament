@@ -1,17 +1,36 @@
 package temperament.musical;
 
-public class TemperamentBase implements ITemperament {
+public abstract class TemperamentBase implements ITemperament {
+	protected static final int		IDX_DO						= 0;
+	protected static final int		IDX_DO_DIEZE				= 1;
+	protected static final int		IDX_RE						= 2;
+	protected static final int		IDX_MI_BEMOL				= 3;
+	protected static final int		IDX_MI						= 4;
+	protected static final int		IDX_FA						= 5;
+	protected static final int		IDX_FA_DIEZE				= 6;
+	protected static final int		IDX_SOL						= 7;
+	protected static final int		IDX_SOL_DIEZE				= 8;
+	protected static final int		IDX_LA						= 9;
+	protected static final int		IDX_SI_BEMOL				= 10;
+	protected static final int		IDX_SI						= 11;
 	public static final double		RATIO_UNISSON				= 1.0;
 	public static final double		RATIO_OCTAVE				= 2.0;
+	public static final double		RATIO_OCTAVE_2				= 2.0;
+	public static final double		RATIO_OCTAVE_3				= 4.0;
+	public static final double		RATIO_OCTAVE_4				= 8.0;
+	public static final double		RATIO_OCTAVE_5				= 16.0;
+	public static final double		RATIO_OCTAVE_6				= 32.0;
+	public static final double		RATIO_OCTAVE_7				= 64.0;
+	public static final double		RATIO_OCTAVE_8				= 128.0;
 	public static final double		RATIO_TIERCE_MINEURE		= 6.0 / 5.0;
 	public static final double		RATIO_TIERCE_MAJEURE		= 5.0 / 4.0;
 	public static final double		RATIO_QUARTE				= 4.0 / 3.0;
 	public static final double		RATIO_QUINTE				= 3.0 / 2.0;
 	protected static final int		NB_NOTES_STANDARD			= 12;
 	protected static final double	RATIO_QUINTE_MESOTONIQUE4	= Math.pow(5.0, 0.25);
-	private static final int		IDX_LA						= 9;
 	protected String[]				names;
 	protected double[]				ratios;
+	protected double[]				ratiosFifthsCircle;
 
 	public TemperamentBase() {
 		initRatios();
@@ -19,11 +38,36 @@ public class TemperamentBase implements ITemperament {
 		initOctave();
 	}
 
-	protected void initRatios() {
-		ratios = new double[2 * getNbNotesGamme()];
-		for (int i = 0; i < getNbNotes(); i++) {
-			ratios[i] = RATIO_UNISSON;
+	protected abstract void initRatios();
+
+	protected void initRatiosFromRatiosFifthsCircle() {
+		for (int i = 0; i < getNbNotesGamme(); i++) {
+			ratios[i] = dansOctave(ratiosFifthsCircle[i]);
 		}
+	}
+
+	protected double quinteDescendante(double pFrequency) {
+		return pFrequency / RATIO_QUINTE;
+	}
+
+	protected double quinteMontante(double pFrequency) {
+		return pFrequency * RATIO_QUINTE;
+	}
+
+	protected double quinteMesotoniqueDescendante(double pFrequency) {
+		return pFrequency / RATIO_QUINTE_MESOTONIQUE4;
+	}
+
+	protected double quinteMesotoniqueMontante(double pFrequency) {
+		return pFrequency * RATIO_QUINTE_MESOTONIQUE4;
+	}
+
+	protected double tierceMajeureMontante(double pFrequency) {
+		return pFrequency * RATIO_TIERCE_MAJEURE;
+	}
+
+	protected double tierceMajeureDescendante(double pFrequency) {
+		return pFrequency / RATIO_TIERCE_MAJEURE;
 	}
 
 	protected void initNoteNames() {
@@ -46,6 +90,7 @@ public class TemperamentBase implements ITemperament {
 		int n = getNbNotesGamme();
 		for (int i = 0; i < n; i++) {
 			ratios[i + n] = ratios[i] * RATIO_OCTAVE;
+			ratiosFifthsCircle[i + n] = ratiosFifthsCircle[i];
 			names[i + n] = names[i];
 		}
 	}
@@ -61,8 +106,18 @@ public class TemperamentBase implements ITemperament {
 	}
 
 	@Override
+	public int getNbNotesToPlayGamme() {
+		return getNbNotesGamme();
+	}
+
+	@Override
 	public double getNoteFrequencyRatio(int noteIndex) {
 		return ratios[noteIndex];
+	}
+
+	@Override
+	public double getNoteFrequencyRatioInFifthsCirle(int noteIndex) {
+		return ratiosFifthsCircle[noteIndex];
 	}
 
 	@Override
