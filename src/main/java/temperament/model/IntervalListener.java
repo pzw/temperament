@@ -22,9 +22,12 @@ public class IntervalListener implements PropertyChangeListener {
 				double f1 = appState.getNoteFrequency(sel.get(0));
 				double f2 = appState.getNoteFrequency(sel.get(1));
 				ratio = Math.max(f1, f2) / Math.min(f1, f2);
+				appState.setFrequencyRatio(ratio);
+				appState.setFrequencyRatioName(TemperamentBase.getFrequencyRatioName(ratio));
+			} else {
+				appState.setFrequencyRatio(0.0);
+				appState.setFrequencyRatioName("choisir 2 notes");
 			}
-			appState.setFrequencyRatio(ratio);
-			appState.setFrequencyRatioName(TemperamentBase.getFrequencyRatioName(ratio));
 		}
 	}
 

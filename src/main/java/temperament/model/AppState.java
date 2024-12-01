@@ -27,7 +27,7 @@ public class AppState extends Model {
 	private double				laFrequency						= 440.0;
 	private List<Integer>		selection						= new ArrayList<Integer>();
 	/** durée visualisée dans WavePanel */
-	private double				waveViewDuration				= 50.0;
+	private double				waveViewDuration				= 250.0;
 	private boolean				waveShowSum						= true;
 	private boolean				waveShowEachNote				= false;
 	private double				frequencyRatio					= 0.0;

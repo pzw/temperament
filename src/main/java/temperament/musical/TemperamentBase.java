@@ -170,6 +170,8 @@ public abstract class TemperamentBase implements ITemperament {
 			return "quarte";
 		} else if (almostEqual(ratio, RATIO_QUINTE)) {
 			return "quinte";
+		} else if (almostEqual(ratio, RATIO_OCTAVE)) {
+			return "octave";
 		} else {
 			return "autre";
 		}
