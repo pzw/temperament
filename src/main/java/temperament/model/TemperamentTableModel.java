@@ -13,7 +13,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 	public static final int		COL_NOTE_NAME		= 0;
 	public static final int		COL_FREQUENCY_RATIO	= 1;
 	public static final int		COL_FREQUENCY		= 2;
-	private static final int	COL_NB				= 4;
+	private static final int	COL_NB				= 3;
 	private NumberFormat		format;
 	private AppState			appState;
 

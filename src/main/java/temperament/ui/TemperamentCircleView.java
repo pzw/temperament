@@ -30,7 +30,7 @@ public class TemperamentCircleView extends JComponent {
 	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model, boolean showFifthsIntervals) {
 		super();
 		nfInterval = NumberFormat.getNumberInstance();
-		nfInterval.setMaximumFractionDigits(4);
+		nfInterval.setMaximumFractionDigits(3);
 		
 		this.appState = appState;
 		this.model = model;
@@ -133,6 +133,9 @@ public class TemperamentCircleView extends JComponent {
 		String interval = nfInterval.format(noteInterval.getFrequencyRatio());
 		int xc = (p1.getCenterX() + p2.getCenterX()) / 2;
 		int yc = (p1.getCenterY() + p2.getCenterY()) / 2;
+		g.setColor(Color.lightGray);
+		g.drawLine(p1.getCenterX(), p1.getCenterY(), p2.getCenterX(), p2.getCenterY());
+		g.setColor(Color.darkGray);
 		drawString(g, xc, yc, interval, true);
 	}
 
@@ -142,12 +145,6 @@ public class TemperamentCircleView extends JComponent {
 		model.setPanelDimensions(getWidth(), getHeight());
 		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
 		if (model.isTemperamentDefined()) {
-			int nbNotesGamme = model.getNbNotesGamme();
-			for (int n = 0; n < model.getNbNotes(); n++) {
-				Color c = n < model.getNbNotes() ? Color.gray : Color.darkGray;
-				drawNote(g, n, c, n >= nbNotesGamme);
-			}
-
 			if (showFifthsIntervals) {
 				List<NotesInterval> intervals = model.getFifthsIntervals();
 				if (null != intervals) {
@@ -156,6 +153,13 @@ public class TemperamentCircleView extends JComponent {
 					}
 				}
 			}
+			
+			int nbNotesGamme = model.getNbNotesGamme();
+			for (int n = 0; n < model.getNbNotes(); n++) {
+				Color c = n < model.getNbNotes() ? Color.gray : Color.darkGray;
+				drawNote(g, n, c, n >= nbNotesGamme);
+			}
+
 		}
 	}
 }
