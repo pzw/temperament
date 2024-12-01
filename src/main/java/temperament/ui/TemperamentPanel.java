@@ -20,7 +20,7 @@ public class TemperamentPanel extends JPanel {
 		setLayout(new BorderLayout());
 		add(new TemperamentTopPanel(appState), BorderLayout.NORTH);
 		TemperamentCircleModel circleModel = new TemperamentCircleModel(appState);
-		TemperamentCircleView circleView = new TemperamentCircleView(appState, circleModel);
+		TemperamentChromaticCircleView circleView = new TemperamentChromaticCircleView(appState, circleModel);
 		TemperamentTableModel tableModel = new TemperamentTableModel(appState);
 		TemperamentTablePanel tableView = new TemperamentTablePanel(appState, tableModel);
 		JSplitPane splitTableCircle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tableView, circleView);

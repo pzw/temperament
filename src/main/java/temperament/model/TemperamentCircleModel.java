@@ -38,9 +38,15 @@ public class TemperamentCircleModel {
 		cx = w / 2;
 		cy = h / 2;
 		r = cx > cy ? cy : cx;
+		// la note sera représentée par un cercle de r/20
+		// on placera une deuxième note pour la deuxième octave à r + r/20
+		// place occupée : r + r/40 + r/20 = dimTot
+		// dimTot = 40r/40 + r/40 + 2r/40 = 43r / 40
+		// r = dimTot * 40 / 43
 		r -= 20; // petite marge de 20 pixels
+		// sécurité pour les arrondis, on multiplie par 39 au lieu de 40
+		r = r * 39 / 43;
 		r2 = r / 20;
-		r -= r2;
 		computeNotePositions();
 	}
 
