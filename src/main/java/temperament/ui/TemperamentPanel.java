@@ -11,7 +11,6 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import temperament.model.AppState;
 import temperament.model.IntervalListener;
-import temperament.model.TemperamentBaseCircleModel;
 import temperament.model.TemperamentChromaticCircleModel;
 import temperament.model.TemperamentFifthsCircleModel;
 import temperament.model.TemperamentTableModel;
@@ -26,8 +25,8 @@ public class TemperamentPanel extends JPanel {
 		add(new TemperamentTopPanel(appState), BorderLayout.NORTH);
 		TemperamentFifthsCircleModel fifthsCircleModel = new TemperamentFifthsCircleModel(appState);
 		TemperamentChromaticCircleModel chromaticCircleModel = new TemperamentChromaticCircleModel(appState);
-		TemperamentCircleView fifthsCircleView = new TemperamentCircleView(appState, fifthsCircleModel);
-		TemperamentCircleView chromaticCircleView = new TemperamentCircleView(appState, chromaticCircleModel);
+		TemperamentCircleView fifthsCircleView = new TemperamentCircleView(appState, fifthsCircleModel, true);
+		TemperamentCircleView chromaticCircleView = new TemperamentCircleView(appState, chromaticCircleModel, false);
 		TemperamentTableModel tableModel = new TemperamentTableModel(appState);
 		TemperamentTablePanel tableView = new TemperamentTablePanel(appState, tableModel);
 

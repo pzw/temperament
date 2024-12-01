@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import temperament.musical.ITemperament;
+import temperament.musical.NotesInterval;
 
 public abstract class TemperamentBaseCircleModel {
 	protected NotePosition[]	positions;
@@ -103,6 +104,11 @@ public abstract class TemperamentBaseCircleModel {
 		return null != getTemperament();
 	}
 
+	public List<NotesInterval> getFifthsIntervals() {
+		ITemperament t = getTemperament();
+		return t.getFifthsIntervals();
+	}
+	
 	public NotePosition findNote(Point p) {
 		for (int i = 0; i < positions.length; i++) {
 			if (positions[i].isInNotePosition(p.x, p.y)) {

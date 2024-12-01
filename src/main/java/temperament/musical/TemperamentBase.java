@@ -1,5 +1,8 @@
 package temperament.musical;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class TemperamentBase implements ITemperament {
 	protected static final int		IDX_DO						= 0;
 	protected static final int		IDX_DO_DIEZE				= 1;
@@ -175,5 +178,23 @@ public abstract class TemperamentBase implements ITemperament {
 		} else {
 			return "autre";
 		}
+	}
+
+	@Override
+	public List<NotesInterval> getFifthsIntervals() {
+		ArrayList<NotesInterval> result = new ArrayList<NotesInterval>();
+		result.add(new NotesInterval(this, IDX_DO, IDX_SOL));
+		result.add(new NotesInterval(this, IDX_SOL, IDX_RE));
+		result.add(new NotesInterval(this, IDX_RE, IDX_LA));
+		result.add(new NotesInterval(this, IDX_LA, IDX_MI));
+		result.add(new NotesInterval(this, IDX_MI, IDX_SI));
+		result.add(new NotesInterval(this, IDX_SI, IDX_FA_DIEZE));
+		result.add(new NotesInterval(this, IDX_FA_DIEZE, IDX_DO_DIEZE));
+		result.add(new NotesInterval(this, IDX_DO_DIEZE, IDX_SOL_DIEZE));
+		result.add(new NotesInterval(this, IDX_SOL_DIEZE, IDX_MI_BEMOL));
+		result.add(new NotesInterval(this, IDX_MI_BEMOL, IDX_SI_BEMOL));
+		result.add(new NotesInterval(this, IDX_SI_BEMOL, IDX_FA));
+		result.add(new NotesInterval(this, IDX_FA, IDX_DO));
+		return result;
 	}
 }

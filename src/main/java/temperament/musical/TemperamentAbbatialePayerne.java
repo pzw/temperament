@@ -1,5 +1,8 @@
 package temperament.musical;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TemperamentAbbatialePayerne extends TemperamentBase {
 	private static final int	NB_NOTES		= 14;
 	private static final int	IDX_DO			= 0;
@@ -97,9 +100,9 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		ratiosFifthsCircle[IDX_MI_BEMOL] = quinteMesotoniqueDescendante(ratiosFifthsCircle[IDX_SI_BEMOL]);
 
 		// placement des notes associées aux feintes brisées
-		// ré dièze : une tierce majeure au-dessus de SI
+		// ré dièze : une tierce majeure au-dessus de SI (hausse de 2 octaves pour rapprocher du mi bémol)
 		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[IDX_SI]) * 4.0;
-		// la bémol : une tierce majeure au-dessous de DO
+		// la bémol : une tierce majeure au-dessous de DO (baisse de 2 octaves pour rapprocher du sol dièze)
 		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[IDX_DO]) / 4.0;
 		
 		initRatiosFromRatiosFifthsCircle();
@@ -139,4 +142,21 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		return "Abbatiale Payerne";
 	}
 
+	@Override
+	public List<NotesInterval> getFifthsIntervals() {
+		ArrayList<NotesInterval> result = new ArrayList<NotesInterval>();
+		result.add(new NotesInterval(this, IDX_DO, IDX_SOL));
+		result.add(new NotesInterval(this, IDX_SOL, IDX_RE));
+		result.add(new NotesInterval(this, IDX_RE, IDX_LA));
+		result.add(new NotesInterval(this, IDX_LA, IDX_MI));
+		result.add(new NotesInterval(this, IDX_MI, IDX_SI));
+		result.add(new NotesInterval(this, IDX_SI, IDX_FA_DIEZE));
+		result.add(new NotesInterval(this, IDX_FA_DIEZE, IDX_DO_DIEZE));
+		result.add(new NotesInterval(this, IDX_DO_DIEZE, IDX_SOL_DIEZE));
+		result.add(new NotesInterval(this, IDX_SOL_DIEZE, IDX_MI_BEMOL));
+		result.add(new NotesInterval(this, IDX_MI_BEMOL, IDX_SI_BEMOL));
+		result.add(new NotesInterval(this, IDX_SI_BEMOL, IDX_FA));
+		result.add(new NotesInterval(this, IDX_FA, IDX_DO));
+		return result;
+	}
 }

@@ -9,6 +9,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -16,16 +18,24 @@ import javax.swing.SwingUtilities;
 import temperament.model.AppState;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentBaseCircleModel;
+import temperament.musical.NotesInterval;
 
 public class TemperamentCircleView extends JComponent {
 	private static final long			serialVersionUID	= 1L;
 	private TemperamentBaseCircleModel	model;
 	private AppState					appState;
-
-	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model) {
+	private boolean						showFifthsIntervals;
+	private NumberFormat nfInterval;
+	
+	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model, boolean showFifthsIntervals) {
 		super();
+		nfInterval = NumberFormat.getNumberInstance();
+		nfInterval.setMaximumFractionDigits(4);
+		
 		this.appState = appState;
 		this.model = model;
+		this.showFifthsIntervals = showFifthsIntervals;
+
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
@@ -88,6 +98,20 @@ public class TemperamentCircleView extends JComponent {
 		});
 	}
 
+	private void drawString(Graphics g, int xCenter, int yCenter, String s, boolean fillBackground) {
+		FontMetrics fm = g.getFontMetrics();
+		Rectangle2D bounds = fm.getStringBounds(s, g);
+		int halfW = (int) (bounds.getWidth() / 2.0);
+		if (fillBackground) {
+			Color save = g.getColor();
+			g.setColor(Color.lightGray);
+			g.fillRect(xCenter-halfW, yCenter-fm.getAscent(), 2 * halfW, fm.getAscent() + fm.getDescent());
+			g.setColor(save);
+		}
+		g.drawString(s, xCenter-halfW, yCenter);
+		
+	}
+	
 	private void drawNote(Graphics g, int noteRank, Color noteColor, boolean octave2) {
 		NotePosition np = model.getNotePosition(noteRank);
 		Color borderColor = np.isSelected() ? Color.red : Color.darkGray;
@@ -98,13 +122,18 @@ public class TemperamentCircleView extends JComponent {
 		drawCircle(g, np.getCenterX(), np.getCenterY(), model.getNoteRadius(), borderColor, noteColor);
 
 		if (!octave2) {
-			String note = np.getNoteName();
-			FontMetrics fm = g.getFontMetrics();
-			Rectangle2D bounds = fm.getStringBounds(note, g);
-			int x = np.getTextX() - (int) (bounds.getWidth() / 2.0);
 			g.setColor(Color.darkGray);
-			g.drawString(note, x, np.getTextY());
+			drawString(g, np.getTextX(), np.getTextY(), np.getNoteName(), false);
 		}
+	}
+
+	private void paintInterval(Graphics g, NotesInterval noteInterval) {
+		NotePosition p1 = model.getNotePosition(noteInterval.getNoteIndex1());
+		NotePosition p2 = model.getNotePosition(noteInterval.getNoteIndex2());
+		String interval = nfInterval.format(noteInterval.getFrequencyRatio());
+		int xc = (p1.getCenterX() + p2.getCenterX()) / 2;
+		int yc = (p1.getCenterY() + p2.getCenterY()) / 2;
+		drawString(g, xc, yc, interval, true);
 	}
 
 	@Override
@@ -117,6 +146,15 @@ public class TemperamentCircleView extends JComponent {
 			for (int n = 0; n < model.getNbNotes(); n++) {
 				Color c = n < model.getNbNotes() ? Color.gray : Color.darkGray;
 				drawNote(g, n, c, n >= nbNotesGamme);
+			}
+
+			if (showFifthsIntervals) {
+				List<NotesInterval> intervals = model.getFifthsIntervals();
+				if (null != intervals) {
+					for (NotesInterval ni : intervals) {
+						paintInterval(g, ni);
+					}
+				}
 			}
 		}
 	}

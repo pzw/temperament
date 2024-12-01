@@ -1,5 +1,7 @@
 package temperament.musical;
 
+import java.util.List;
+
 public interface ITemperament {
 	/**
 	 * retourne le nombre de notes que contient le tempérament
@@ -62,4 +64,10 @@ public interface ITemperament {
 	 * @return
 	 */
 	public int getNbNotes();
+	
+	/**
+	 * retourne les intervalles de quintes du tempérament
+	 * @return
+	 */
+	public List<NotesInterval> getFifthsIntervals();
 }

@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import temperament.musical.ITemperament;
+import temperament.musical.NotesInterval;
 
 /**
  * tempérament basé sur le contenu d'un fichier JSON (actuellement pas utilisé)
@@ -115,6 +117,11 @@ public class TemperamentJson implements ITemperament {
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<NotesInterval> getFifthsIntervals() {
+		return null;
 	}
 
 	private class JSonNote {
