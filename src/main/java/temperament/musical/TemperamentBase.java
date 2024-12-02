@@ -75,18 +75,18 @@ public abstract class TemperamentBase implements ITemperament {
 
 	protected void initNoteNames() {
 		names = new String[getNbNotes()];
-		names[0] = "do";
-		names[1] = "do #";
-		names[2] = "ré";
-		names[3] = "mi b";
-		names[4] = "mi";
-		names[5] = "fa";
-		names[6] = "fa #";
-		names[7] = "sol";
-		names[8] = "sol #";
-		names[IDX_LA] = "la";
-		names[10] = "si b";
-		names[11] = "si";
+		names[Do()] = "do";
+		names[DoDieze()] = "do #";
+		names[Re()] = "ré";
+		names[MiBemol()] = "mi b";
+		names[Mi()] = "mi";
+		names[Fa()] = "fa";
+		names[FaDieze()] = "fa #";
+		names[Sol()] = "sol";
+		names[SolDieze()] = "sol #";
+		names[La()] = "la";
+		names[SiBemol()] = "si b";
+		names[Si()] = "si";
 	}
 
 	protected void initOctave() {
@@ -145,6 +145,8 @@ public abstract class TemperamentBase implements ITemperament {
 	 * @return
 	 */
 	public double dansOctave(double ratio) {
+		if (0 == ratio) return 0.0;
+		
 		double result = ratio;
 		while (result > RATIO_OCTAVE) {
 			result = result / RATIO_OCTAVE;
