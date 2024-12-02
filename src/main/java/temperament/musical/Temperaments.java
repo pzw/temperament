@@ -21,6 +21,8 @@ public class Temperaments {
 		temperaments.add(new TemperamentPythagore2());
 		temperaments.add(new TemperamentMesotonique4());
 		temperaments.add(new TemperamentAbbatialePayerne());
+		temperaments.add(new TemperamentWerckmeister1());
+		temperaments.add(new TemperamentWerckmeister3());
 		// temperaments.add(new TemperamentJson("assets/test.json"));
 	}
 

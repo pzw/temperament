@@ -49,6 +49,22 @@ public abstract class TemperamentBase implements ITemperament {
 		}
 	}
 
+	protected void initRatiosFifthsCircleFromRatios() {
+		ratiosFifthsCircle = new double[2 * getNbNotesGamme()];
+		ratiosFifthsCircle[Do()] = ratios[Do()];
+		ratiosFifthsCircle[Sol()] = ratios[Sol()];
+		ratiosFifthsCircle[Re()] = ratios[Re()] * RATIO_OCTAVE_2;
+		ratiosFifthsCircle[La()] = ratios[La()] * RATIO_OCTAVE_2;
+		ratiosFifthsCircle[Mi()] = ratios[Mi()] * RATIO_OCTAVE_3;
+		ratiosFifthsCircle[Si()] = ratios[Si()] * RATIO_OCTAVE_3;
+		ratiosFifthsCircle[FaDieze()] = ratios[FaDieze()] * RATIO_OCTAVE_4;
+		ratiosFifthsCircle[DoDieze()] = ratios[DoDieze()] * RATIO_OCTAVE_5;
+		ratiosFifthsCircle[SolDieze()] = ratios[SolDieze()] * RATIO_OCTAVE_5;
+		ratiosFifthsCircle[MiBemol()] = ratios[MiBemol()] * RATIO_OCTAVE_6;
+		ratiosFifthsCircle[SiBemol()] = ratios[SiBemol()] * RATIO_OCTAVE_6;
+		ratiosFifthsCircle[Fa()] = ratios[Fa()] * RATIO_OCTAVE_7;
+	}
+
 	protected double quinteDescendante(double pFrequency) {
 		return pFrequency / RATIO_QUINTE;
 	}
@@ -145,8 +161,9 @@ public abstract class TemperamentBase implements ITemperament {
 	 * @return
 	 */
 	public double dansOctave(double ratio) {
-		if (0 == ratio) return 0.0;
-		
+		if (0 == ratio)
+			return 0.0;
+
 		double result = ratio;
 		while (result > RATIO_OCTAVE) {
 			result = result / RATIO_OCTAVE;
@@ -265,9 +282,8 @@ public abstract class TemperamentBase implements ITemperament {
 		result.add(new NotesInterval(this, La(), DoDieze()));
 		result.add(new NotesInterval(this, SiBemol(), Re()));
 		result.add(new NotesInterval(this, Si(), MiBemol()));
-		
+
 		return result;
 	}
-	
-	
+
 }
