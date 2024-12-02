@@ -22,24 +22,42 @@ public class TemperamentPythagore extends TemperamentBase {
 		ratiosFifthsCircle[FaDieze()] = quinteMontante(ratiosFifthsCircle[Si()]);
 		ratiosFifthsCircle[DoDieze()] = quinteMontante(ratiosFifthsCircle[FaDieze()]);
 		ratiosFifthsCircle[SolDieze()] = quinteMontante(ratiosFifthsCircle[DoDieze()]);
-		ratiosFifthsCircle[MiBemol()] = quinteMontante(ratiosFifthsCircle[SolDieze()]);
-		ratiosFifthsCircle[SiBemol()] = quinteMontante(ratiosFifthsCircle[MiBemol()]);
-		ratiosFifthsCircle[Fa()] = quinteMontante(ratiosFifthsCircle[SiBemol()]);
-		ratiosFifthsCircle[IDX_SI_DIEZE] = quinteMontante(ratiosFifthsCircle[Fa()]);
+		ratiosFifthsCircle[ReDieze()] = quinteMontante(ratiosFifthsCircle[SolDieze()]);
+		ratiosFifthsCircle[LaDieze()] = quinteMontante(ratiosFifthsCircle[ReDieze()]);
+		ratiosFifthsCircle[MiDieze()] = quinteMontante(ratiosFifthsCircle[LaDieze()]);
+		ratiosFifthsCircle[SiDieze()] = quinteMontante(ratiosFifthsCircle[MiDieze()]);
 
 		// on ne doit pas toucher le si dièze
 		for (int i = 0; i < NB_NOTES_STANDARD; i++) {
 			ratios[i] = dansOctave(ratiosFifthsCircle[i]);
 		}
-		ratios[IDX_SI_DIEZE] = ratiosFifthsCircle[IDX_SI_DIEZE] / RATIO_OCTAVE_7;
+		ratios[SiDieze()] = ratiosFifthsCircle[SiDieze()] / RATIO_OCTAVE_7;
 	}
 
 	@Override
 	protected void initNoteNames() {
 		super.initNoteNames();
-		names[IDX_SI_DIEZE] = "si #";
+		names[ReDieze()] = "ré #";
+		names[LaDieze()] = "la #";
+		names[MiDieze()] = "mi #";
+		names[SiDieze()] = "si #";
 	}
 
+	protected int LaDieze() {
+		return SiBemol();
+	}
+	
+	protected int ReDieze() {
+		return MiBemol();
+	}
+	
+	protected int MiDieze() {
+		return Fa();
+	}
+	
+	protected int SiDieze() {
+		return IDX_SI_DIEZE;
+	}
 	@Override
 	public String toString() {
 		return "pythagoricien : 12 quintes montantes";
