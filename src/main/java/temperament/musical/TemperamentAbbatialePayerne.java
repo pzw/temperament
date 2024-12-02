@@ -3,7 +3,7 @@ package temperament.musical;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemperamentAbbatialePayerne extends TemperamentBase {
+public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 	private static final int	NB_NOTES		= 14;
 	private static final int	IDX_DO			= 0;
 	private static final int	IDX_DO_DIEZE	= 1;
@@ -25,7 +25,17 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 
 	@Override
 	protected void initRatios() {
-		initRatiosV2();
+		super.initRatios();
+		
+		// placement des notes associées aux feintes brisées
+		// ré dièze : une tierce majeure au-dessus de SI (hausse de 2 octaves pour
+		// rapprocher du mi bémol)
+		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[Si()]) * 4.0;
+		// la bémol : une tierce majeure au-dessous de DO (baisse de 2 octaves pour
+		// rapprocher du sol dièze)
+		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[Do()]) / 4.0;
+
+		initRatiosFromRatiosFifthsCircle();
 	}
 
 	/**
@@ -74,59 +84,12 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		initRatiosFromRatiosFifthsCircle();
 	}
 
-	/**
-	 * deuxième variante pour initialiser les ratios de fréquence (donne le même
-	 * résultat que la 2e variante)
-	 */
-	protected void initRatiosV2() {
-		ratiosFifthsCircle = new double[2 * getNbNotesGamme()];
-		ratios = new double[2 * getNbNotesGamme()];
-		// processus : même notes que mésotonique au 1/4 de comma
-		// placement séparé des deux notes associées aux feintes brisées
-
-		// comme le tempérament mésotonique au 1/4 de comma
-		ratiosFifthsCircle[Do()] = 1.0;
-		ratiosFifthsCircle[Sol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Do()]);
-		ratiosFifthsCircle[Re()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Sol()]);
-		ratiosFifthsCircle[La()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Re()]);
-		ratiosFifthsCircle[Mi()] = quinteMesotoniqueMontante(ratiosFifthsCircle[La()]);
-		ratiosFifthsCircle[Si()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Mi()]);
-		ratiosFifthsCircle[FaDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Si()]);
-		ratiosFifthsCircle[DoDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[FaDieze()]);
-		ratiosFifthsCircle[SolDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[DoDieze()]);
-
-		ratiosFifthsCircle[Fa()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Do()] * RATIO_OCTAVE_8);
-		ratiosFifthsCircle[SiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Fa()]);
-		ratiosFifthsCircle[MiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[SiBemol()]);
-
-		// placement des notes associées aux feintes brisées
-		// ré dièze : une tierce majeure au-dessus de SI (hausse de 2 octaves pour
-		// rapprocher du mi bémol)
-		ratiosFifthsCircle[IDX_RE_DIEZE] = tierceMajeureMontante(ratiosFifthsCircle[Si()]) * 4.0;
-		// la bémol : une tierce majeure au-dessous de DO (baisse de 2 octaves pour
-		// rapprocher du sol dièze)
-		ratiosFifthsCircle[IDX_LA_BEMOL] = tierceMajeureDescendante(ratiosFifthsCircle[Do()]) / 4.0;
-
-		initRatiosFromRatiosFifthsCircle();
-	}
 
 	@Override
 	protected void initNoteNames() {
-		names = new String[2 * NB_NOTES];
-		names[IDX_DO] = "do";
-		names[IDX_DO_DIEZE] = "do #";
-		names[IDX_RE] = "ré";
-		names[IDX_MI_BEMOL] = "mi b";
-		names[IDX_RE_DIEZE] = "ré #";
-		names[IDX_MI] = "mi";
-		names[IDX_FA] = "fa";
-		names[IDX_FA_DIEZE] = "fa #";
-		names[IDX_SOL] = "sol";
-		names[IDX_LA_BEMOL] = "la b";
-		names[IDX_SOL_DIEZE] = "sol #";
-		names[IDX_LA] = "la";
-		names[IDX_SI_BEMOL] = "si b";
-		names[IDX_SI] = "si";
+		super.initNoteNames();
+		names[ReDieze()] = "ré #";
+		names[LaBemol()] = "la b";
 	}
 
 	@Override
@@ -211,7 +174,6 @@ public class TemperamentAbbatialePayerne extends TemperamentBase {
 		result.add(new NotesInterval(this, La(), DoDieze()));
 		result.add(new NotesInterval(this, SiBemol(), Re()));
 		result.add(new NotesInterval(this, Si(), ReDieze()));
-
 		return result;
 	}
 
