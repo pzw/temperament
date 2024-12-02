@@ -57,13 +57,27 @@ public class NoteWave {
 		return result;
 	}
 
-	public byte[] normalize() {
+	public byte[] convert8bits() {
 		float max = getMaxValue();
 
 		int size = wave.length;
 		byte[] result = new byte[size];
 		for (int i = 0; i < size; i++) {
-			result[i] = (byte) (wave[i] * 120.0f / max);
+			result[i] = (byte) (wave[i] * 127.0f / max);
+		}
+		
+		return result;
+	}
+	
+	public byte[] convert16bit() {
+		float max = getMaxValue();
+
+		int size = wave.length;
+		byte[] result = new byte[2*size];
+		for (int i = 0; i < size; i++) {
+			short tmp = (short) (wave[i] * 32767 / max);
+			result[2*i] = (byte) (tmp % 256);
+			result[2*i+1] = (byte) (tmp / 256);
 		}
 		
 		return result;
