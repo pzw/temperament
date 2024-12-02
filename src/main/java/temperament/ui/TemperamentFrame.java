@@ -2,6 +2,7 @@ package temperament.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
@@ -17,6 +18,7 @@ public class TemperamentFrame extends JFrame {
 		setLayout(new BorderLayout());
 		add(buildMainPanel(), BorderLayout.CENTER);
 		pack();
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 	}
 
 	@Override
