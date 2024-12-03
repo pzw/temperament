@@ -163,7 +163,14 @@ public class TemperamentCircleView extends JComponent {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		model.setPanelDimensions(getWidth(), getHeight());
+		int w = getWidth();
+		int h = getHeight();
+		
+		// fond blanc
+		g.setColor(Color.white);
+		g.fillRect(0,  0, w, h);
+		
+		model.setPanelDimensions(w, h);
 		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
 		if (model.isTemperamentDefined()) {
 			if (showIntervals && appState.isDisplayFifths()) {
