@@ -13,8 +13,10 @@ public class TemperamentTableModel extends AbstractTableModel {
 	public static final int		COL_NOTE_NAME		= 0;
 	public static final int		COL_FREQUENCY_RATIO	= 1;
 	public static final int		COL_FREQUENCY		= 2;
-	private static final int	COL_NB				= 3;
+	public static final int		COL_CENTS			= 3;
+	private static final int	COL_NB				= 4;
 	private NumberFormat		format;
+	private NumberFormat formatCents;
 	private AppState			appState;
 
 	public TemperamentTableModel(AppState appState) {
@@ -32,6 +34,10 @@ public class TemperamentTableModel extends AbstractTableModel {
 		format = NumberFormat.getNumberInstance();
 		format.setMaximumFractionDigits(5);
 		format.setMinimumFractionDigits(5);
+		
+		formatCents = NumberFormat.getNumberInstance();
+		formatCents.setMaximumFractionDigits(1);
+		formatCents.setMinimumFractionDigits(1);
 	}
 
 	private ITemperament getTemperament() {
@@ -62,10 +68,16 @@ public class TemperamentTableModel extends AbstractTableModel {
 				case COL_FREQUENCY_RATIO:
 					result = format.format(t.getNoteFrequencyRatio(rowIndex));
 					break;
-				case COL_FREQUENCY:
+				case COL_FREQUENCY: {
 					double frequenceDo = t.getFrequenceDo(appState.getLaFrequency());
 					result = format.format(frequenceDo * t.getNoteFrequencyRatio(rowIndex));
 					break;
+				}
+				case COL_CENTS: {
+					double cents = 1200.0 * Math.log(t.getNoteFrequencyRatio(rowIndex)) / Math.log(2.0);
+					result = formatCents.format(cents);
+					break;
+				}
 				}
 			}
 		}
@@ -81,6 +93,8 @@ public class TemperamentTableModel extends AbstractTableModel {
 			return "Ratio";
 		case COL_FREQUENCY:
 			return "Frequence [Hz]";
+		case COL_CENTS:
+			return "Cents";
 		}
 		return "";
 	}

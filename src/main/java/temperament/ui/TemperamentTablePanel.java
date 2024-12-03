@@ -40,6 +40,7 @@ public class TemperamentTablePanel extends JPanel {
 		renderer.setHorizontalAlignment(JLabel.RIGHT);
 		tcm.getColumn(TemperamentTableModel.COL_FREQUENCY).setCellRenderer(renderer);
 		tcm.getColumn(TemperamentTableModel.COL_FREQUENCY_RATIO).setCellRenderer(renderer);
+		tcm.getColumn(TemperamentTableModel.COL_CENTS).setCellRenderer(renderer);
 
 		tableView.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
