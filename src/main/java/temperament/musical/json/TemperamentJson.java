@@ -145,6 +145,21 @@ public class TemperamentJson implements ITemperament {
 		return -1;
 	}
 
+	@Override
+	public int findNoteIndexByRatio(double ratio) {
+		int bestIndex = -1;
+		double bestDiff = 1000;
+		for (int i = 0; i < getNbNotes(); i++) {
+			double noteRatio = getNoteFrequencyRatio(i);
+			double diff = Math.abs(ratio - noteRatio);
+			if (diff < bestDiff) {
+				bestDiff = diff;
+				bestIndex = i;
+			}
+		}
+		return bestDiff < 0.1 ? bestIndex : -1;
+	}
+	
 	private class JSonNote {
 		private String	name;
 		private double	ratioMul;

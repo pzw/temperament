@@ -20,6 +20,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import temperament.model.AppState;
 import temperament.model.PlayGammeAction;
 import temperament.model.PlaySelectionAction;
+import temperament.model.SelectTierceQuinteAction;
 import temperament.musical.ITemperament;
 import temperament.musical.Temperaments;
 
@@ -29,7 +30,7 @@ public class TemperamentTopPanel extends JPanel {
 
 	public TemperamentTopPanel(AppState appState) {
 		FormLayout layout = new FormLayout(
-				"$dm,p,$rg,max(60dlu;p),$rg,max(60dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,$rg,p,$dm", "$dm,p,$lg,p,$dm");
+				"$dm,p,$rg,max(60dlu;p),$rg,max(60dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,$rg,p,$rg,p,$dm", "$dm,p,$lg,p,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 
@@ -58,12 +59,16 @@ public class TemperamentTopPanel extends JPanel {
 		// add(new JTextField(), cc.xy(x, y));
 
 		x += 2;
-		PlaySelectionAction playAction = new PlaySelectionAction(appState);
-		add(new JButton(playAction), cc.xy(x, y));
-
-		x += 2;
 		PlayGammeAction playGamme = new PlayGammeAction(appState);
 		add(new JButton(playGamme), cc.xy(x, y));
+
+		x += 2;
+		SelectTierceQuinteAction tierceQuinte = new SelectTierceQuinteAction(appState);
+		add(new JButton(tierceQuinte), cc.xy(x, y));
+
+		x += 2;
+		PlaySelectionAction playAction = new PlaySelectionAction(appState);
+		add(new JButton(playAction), cc.xy(x, y));
 
 		y += 2;
 		x = 2;

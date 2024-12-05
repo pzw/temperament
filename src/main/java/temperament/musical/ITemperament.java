@@ -95,4 +95,11 @@ public interface ITemperament {
 	 * @return
 	 */
 	public int findNoteIndexByFullName(String fullName);
+
+	/**
+	 * recherche une note selon son rapport de fréquence
+	 * @param ratio
+	 * @return
+	 */
+	public int findNoteIndexByRatio(double ratio);
 }

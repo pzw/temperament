@@ -340,4 +340,19 @@ public abstract class TemperamentBase implements ITemperament {
 		return result;
 	}
 
+	@Override
+	public int findNoteIndexByRatio(double ratio) {
+		int bestIndex = -1;
+		double bestDiff = 1000;
+		for (int i = 0; i < getNbNotes(); i++) {
+			double noteRatio = getNoteFrequencyRatio(i);
+			double diff = Math.abs(ratio - noteRatio);
+			if (diff < bestDiff) {
+				bestDiff = diff;
+				bestIndex = i;
+			}
+		}
+		return bestDiff < 0.1 ? bestIndex : -1;
+	}
+	
 }
