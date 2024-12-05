@@ -26,6 +26,7 @@ public class Temperaments {
 		temperaments.add(new TemperamentWerckmeister1());
 		temperaments.add(new TemperamentWerckmeister2());
 		temperaments.add(new TemperamentWerckmeister3());
+		temperaments.add(new TemperamentWerckmeister4());
 		temperaments.add(new TemperamentJson("assets/tierce_quinte.json"));
 	}
 
