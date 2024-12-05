@@ -36,8 +36,8 @@ public class TemperamentTableModel extends AbstractTableModel {
 		format.setMinimumFractionDigits(5);
 		
 		formatCents = NumberFormat.getNumberInstance();
-		formatCents.setMaximumFractionDigits(1);
-		formatCents.setMinimumFractionDigits(1);
+		formatCents.setMaximumFractionDigits(0);
+		formatCents.setMinimumFractionDigits(0);
 	}
 
 	private ITemperament getTemperament() {

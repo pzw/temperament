@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import temperament.musical.ITemperament;
 import temperament.musical.NotesInterval;
+import temperament.musical.TemperamentBase;
 
 /**
  * tempérament basé sur le contenu d'un fichier JSON (actuellement pas utilisé)
@@ -54,15 +55,15 @@ public class TemperamentJson implements ITemperament {
 
 	@Override
 	public double getNoteFrequencyRatio(int noteIndex) {
-		int idx = checkIndex(noteIndex);
-		if (idx < 0)
-			return 1.0;
-		return notes.get(noteIndex).getNoteFrequencyRatio();
+		return TemperamentBase.dansOctave(getNoteFrequencyRatioInFifthsCirle(noteIndex));
 	}
 
 	@Override
 	public double getNoteFrequencyRatioInFifthsCirle(int noteIndex) {
-		return 1.0;
+		int idx = checkIndex(noteIndex);
+		if (idx < 0)
+			return 1.0;
+		return notes.get(noteIndex).getNoteFrequencyRatio();
 	}
 
 	@Override
@@ -127,6 +128,21 @@ public class TemperamentJson implements ITemperament {
 	@Override
 	public List<NotesInterval> getMajorThirdsIntervals() {
 		return null;
+	}
+
+	@Override
+	public String getNoteFullName(int noteIndex) {
+		return getNoteName(noteIndex);
+	}
+
+	@Override
+	public int findNoteIndexByFullName(String fullName) {
+		for (int i = 0; i < getNbNotes(); i++) {
+			String n = getNoteFullName(i);
+			if (n.equals(fullName))
+				return i;
+		}
+		return -1;
 	}
 
 	private class JSonNote {

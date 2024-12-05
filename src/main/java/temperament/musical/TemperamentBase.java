@@ -29,6 +29,24 @@ public abstract class TemperamentBase implements ITemperament {
 	public static final double		RATIO_TIERCE_MAJEURE		= 5.0 / 4.0;
 	public static final double		RATIO_QUARTE				= 4.0 / 3.0;
 	public static final double		RATIO_QUINTE				= 3.0 / 2.0;
+	public static final String		NOM_DO						= "do";
+	public static final String		NOM_DO_DIEZE				= "do #";
+	public static final String		NOM_RE_BEMOL				= "ré b";
+	public static final String		NOM_RE						= "ré";
+	public static final String		NOM_RE_DIEZE				= "ré #";
+	public static final String		NOM_MI_BEMOL				= "mi b";
+	public static final String		NOM_MI						= "mi";
+	public static final String		NOM_MI_DIEZE				= "mi #";
+	public static final String		NOM_FA						= "fa";
+	public static final String		NOM_FA_DIEZE				= "fa #";
+	public static final String		NOM_SOL						= "sol";
+	public static final String		NOM_SOL_DIEZE				= "sol #";
+	public static final String		NOM_LA_BEMOL				= "la b";
+	public static final String		NOM_LA						= "la";
+	public static final String		NOM_LA_DIEZE				= "la #";
+	public static final String		NOM_SI_BEMOL				= "si b";
+	public static final String		NOM_SI						= "si";
+	public static final String		NOM_SI_DIEZE				= "si #";
 	protected static final int		NB_NOTES_STANDARD			= 12;
 	protected static final double	RATIO_QUINTE_MESOTONIQUE4	= Math.pow(5.0, 0.25);
 	protected String[]				names;
@@ -91,18 +109,18 @@ public abstract class TemperamentBase implements ITemperament {
 
 	protected void initNoteNames() {
 		names = new String[getNbNotes()];
-		names[Do()] = "do";
-		names[DoDieze()] = "do #";
-		names[Re()] = "ré";
-		names[MiBemol()] = "mi b";
-		names[Mi()] = "mi";
-		names[Fa()] = "fa";
-		names[FaDieze()] = "fa #";
-		names[Sol()] = "sol";
-		names[SolDieze()] = "sol #";
-		names[La()] = "la";
-		names[SiBemol()] = "si b";
-		names[Si()] = "si";
+		names[Do()] = NOM_DO;
+		names[DoDieze()] = NOM_DO_DIEZE;
+		names[Re()] = NOM_RE;
+		names[MiBemol()] = NOM_MI_BEMOL;
+		names[Mi()] = NOM_MI;
+		names[Fa()] = NOM_FA;
+		names[FaDieze()] = NOM_FA_DIEZE;
+		names[Sol()] = NOM_SOL;
+		names[SolDieze()] = NOM_SOL_DIEZE;
+		names[La()] = NOM_LA;
+		names[SiBemol()] = NOM_SI_BEMOL;
+		names[Si()] = NOM_SI;
 	}
 
 	protected void initOctave() {
@@ -160,7 +178,7 @@ public abstract class TemperamentBase implements ITemperament {
 	 * @param ratio
 	 * @return
 	 */
-	public double dansOctave(double ratio) {
+	public static double dansOctave(double ratio) {
 		if (0 == ratio)
 			return 0.0;
 
@@ -283,6 +301,42 @@ public abstract class TemperamentBase implements ITemperament {
 		result.add(new NotesInterval(this, SiBemol(), Re()));
 		result.add(new NotesInterval(this, Si(), MiBemol()));
 
+		return result;
+	}
+
+	@Override
+	public String getNoteFullName(int noteIndex) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getNoteName(noteIndex));
+		double r = getNoteFrequencyRatio(noteIndex);
+		sb.append("/");
+		sb.append(r >= 2.0 ? "2" : "1");
+		return sb.toString();
+	}
+
+	private int findNoteIndexByFullNameExact(String fullName) {
+		for (int i = 0; i < getNbNotes(); i++) {
+			String n = getNoteFullName(i);
+			if (n.equals(fullName))
+				return i;
+		}
+		return -1;
+	}
+
+	@Override
+	public int findNoteIndexByFullName(String fullName) {
+		int result = findNoteIndexByFullNameExact(fullName);
+		if (-1 == result) {
+			if (fullName.startsWith(NOM_RE_DIEZE)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(NOM_RE_DIEZE, NOM_MI_BEMOL));
+			} else if (fullName.startsWith(NOM_MI_BEMOL)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(NOM_MI_BEMOL, NOM_RE_DIEZE));
+			} else if (fullName.startsWith(NOM_SOL_DIEZE)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(NOM_SOL_DIEZE, NOM_LA_BEMOL));
+			} else if (fullName.startsWith(NOM_LA_BEMOL)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(NOM_LA_BEMOL, NOM_SOL_DIEZE));
+			}
+		}
 		return result;
 	}
 

@@ -78,4 +78,21 @@ public interface ITemperament {
 	 * @return
 	 */
 	public List<NotesInterval> getMajorThirdsIntervals();
+
+	/**
+	 * retourne un "nom complet" de la note, qui comprend son nom et l'octave à
+	 * laquelle elle appartient.
+	 * 
+	 * @param noteIndex
+	 * @return
+	 */
+	public String getNoteFullName(int noteIndex);
+
+	/**
+	 * essaie de trouver l'index d'une note selon son nom complet
+	 * 
+	 * @param fullName
+	 * @return
+	 */
+	public int findNoteIndexByFullName(String fullName);
 }

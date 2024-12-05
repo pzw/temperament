@@ -21,7 +21,8 @@ import temperament.musical.WaveGenerator;
 public class WaveComponent extends JComponent {
 	private static final long	serialVersionUID	= 1L;
 	private AppState			appState;
-
+	private Color backgroundColor = Color.black;
+	
 	public WaveComponent(AppState appState) {
 		this.appState = appState;
 
@@ -80,7 +81,7 @@ public class WaveComponent extends JComponent {
 		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		int w = getWidth();
 		int h = getHeight();
-		g.setColor(Color.black);
+		g.setColor(backgroundColor);
 		g.fillRect(0, 0, w, h);
 		int cy = h / 2;
 		g.setColor(Color.gray);

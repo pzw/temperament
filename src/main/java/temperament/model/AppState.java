@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import com.jgoodies.binding.beans.Model;
 
 import temperament.musical.ITemperament;
@@ -45,8 +47,20 @@ public class AppState extends Model {
 
 	public void setTemperament(ITemperament newValue) {
 		ITemperament oldValue = getTemperament();
+		List<String> saveSelection = getSelectionAsStrings();
+		// System.out.println("SaveSelection : " +saveSelection);
 		temperament = newValue;
 		firePropertyChange(TEMPERAMENT_PROPERTY, oldValue, newValue.toString());
+		if (null != saveSelection && saveSelection.size() > 0) {
+			SwingUtilities.invokeLater(new Runnable() {
+
+				@Override
+				public void run() {
+					List<Integer> sel = getSelectionByFullNames(saveSelection);
+					setSelection(sel);
+				}
+			});
+		}
 	}
 
 	public double getDuration() {
@@ -112,7 +126,7 @@ public class AppState extends Model {
 		case 0:
 			return Color.green;
 		case 1:
-			return Color.yellow;
+			return Color.blue;
 		case 2:
 			return Color.white;
 		case 3:
@@ -202,5 +216,28 @@ public class AppState extends Model {
 		}
 	}
 
+	private List<String> getSelectionAsStrings() {
+		ArrayList<String> result = new ArrayList<String>();
+		if (null != selection && selection.size() > 0) {
+			for (int noteIndex : selection) {
+				result.add(temperament.getNoteFullName(noteIndex));
+			}
+		}
+		return result;
+	}
 	
+	private List<Integer> getSelectionByFullNames(List<String> pSelection) {
+		// System.out.println("get t = " + temperament.toString() + ":<" + pSelection.toString() + ">");
+		List<Integer> result = new ArrayList<Integer>();
+		if (null != pSelection) {
+			for (String n : pSelection) {
+				int noteIndex = temperament.findNoteIndexByFullName(n);
+				if (noteIndex >= 0) {
+					result.add(noteIndex);
+				}
+			}
+		}
+		// System.out.println("result : " + result.toString());
+		return result;
+	}
 }

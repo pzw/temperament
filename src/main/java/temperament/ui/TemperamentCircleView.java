@@ -31,6 +31,7 @@ public class TemperamentCircleView extends JComponent {
 	private Font						intervalFont;
 	private Color						wellKnownInterval	= new Color(197, 252, 154);
 	private Color						otherInterval		= new Color(252, 191, 177);
+	private Color						backgroundColor		= Color.white;
 
 	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model, boolean showIntervals) {
 		super();
@@ -165,11 +166,13 @@ public class TemperamentCircleView extends JComponent {
 		super.paintComponent(g);
 		int w = getWidth();
 		int h = getHeight();
-		
+
 		// fond blanc
-		g.setColor(Color.white);
-		g.fillRect(0,  0, w, h);
-		
+		if (null != backgroundColor) {
+			g.setColor(backgroundColor);
+			g.fillRect(0, 0, w, h);
+		}
+
 		model.setPanelDimensions(w, h);
 		drawCircle(g, model.getCenterX(), model.getCenterY(), model.getCircleRadius(), Color.black, null);
 		if (model.isTemperamentDefined()) {

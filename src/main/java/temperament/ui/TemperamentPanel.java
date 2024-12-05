@@ -30,7 +30,7 @@ public class TemperamentPanel extends JPanel {
 		TemperamentTableModel tableModel = new TemperamentTableModel(appState);
 		TemperamentTablePanel tableView = new TemperamentTablePanel(appState, tableModel);
 
-		FormLayout layout = new FormLayout("p:g,10px,p:g", "p:g");
+		FormLayout layout = new FormLayout("p:g,0px,p:g", "p:g");
 		CellConstraints cc = new CellConstraints();
 		JPanel circlesPane = new JPanel(layout);
 		circlesPane.add(chromaticCircleView, cc.xy(1, 1, "f,f"));

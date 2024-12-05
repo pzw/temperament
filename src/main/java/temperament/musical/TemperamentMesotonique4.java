@@ -1,8 +1,6 @@
 package temperament.musical;
 
 public class TemperamentMesotonique4 extends TemperamentBase {
-	public TemperamentMesotonique4() {
-	}
 
 	@Override
 	protected void initRatios() {
@@ -32,3 +30,4 @@ public class TemperamentMesotonique4 extends TemperamentBase {
 		return "mésotonique 1/4 comma";
 	}
 }
+

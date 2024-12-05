@@ -88,8 +88,8 @@ public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 	@Override
 	protected void initNoteNames() {
 		super.initNoteNames();
-		names[ReDieze()] = "ré #";
-		names[LaBemol()] = "la b";
+		names[ReDieze()] = NOM_RE_DIEZE;
+		names[LaBemol()] = NOM_LA_BEMOL;
 	}
 
 	@Override
