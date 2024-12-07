@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -76,7 +77,25 @@ public class TemperamentCircleView extends JComponent {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
-					model.invertNodeSelectionAtPoint(e.getPoint());
+					NotePosition np = model.findNote(e.getPoint());
+					if (null != np) {
+						List<Integer> selection = appState.getSelection();
+						Integer noteIndex = np.getNoteIndex();
+						if ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK) {
+							if (selection.contains(noteIndex)) {
+								selection.remove(noteIndex);
+							} else {
+								selection.add(noteIndex);
+							}
+						} else {
+							// clic only
+							if (!selection.contains(noteIndex)) {
+								selection.clear();
+								selection.add(noteIndex);
+							}
+						}
+						appState.setSelection(selection);
+					}
 				}
 			}
 

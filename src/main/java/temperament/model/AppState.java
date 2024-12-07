@@ -85,7 +85,7 @@ public class AppState extends Model {
 	}
 
 	public List<Integer> getSelection() {
-		return selection;
+		return new ArrayList<Integer>(selection);
 	}
 
 	public void setSelection(List<Integer> newValue) {
@@ -225,9 +225,10 @@ public class AppState extends Model {
 		}
 		return result;
 	}
-	
+
 	private List<Integer> getSelectionByFullNames(List<String> pSelection) {
-		// System.out.println("get t = " + temperament.toString() + ":<" + pSelection.toString() + ">");
+		// System.out.println("get t = " + temperament.toString() + ":<" +
+		// pSelection.toString() + ">");
 		List<Integer> result = new ArrayList<Integer>();
 		if (null != pSelection) {
 			for (String n : pSelection) {

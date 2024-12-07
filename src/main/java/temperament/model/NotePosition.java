@@ -85,4 +85,9 @@ public class NotePosition {
 	public boolean isSelected() {
 		return selected;
 	}
+
+	public int getNoteIndex() {
+		return noteIndex;
+	}
+	
 }
