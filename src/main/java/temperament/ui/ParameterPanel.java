@@ -29,7 +29,7 @@ public class ParameterPanel extends JPanel {
 	public ParameterPanel(AppState appState) {
 		setBorder(BorderFactory.createTitledBorder("Paramètres"));
 		
-		FormLayout layout = new FormLayout("$dm,p,$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,0px:g,$dm", "$dm,p,0px:g,$dm");
+		FormLayout layout = new FormLayout("$dm,p,$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,0px,$dm", "$dm,p,0px:g,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 

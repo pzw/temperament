@@ -12,6 +12,7 @@ import temperament.musical.ITemperament;
 import temperament.musical.NoteWave;
 import temperament.musical.TemperamentBase;
 import temperament.musical.Temperaments;
+import temperament.musical.WellKnownInterval;
 
 public class AppState extends Model {
 	private static final long	serialVersionUID				= 1L;
@@ -22,8 +23,7 @@ public class AppState extends Model {
 	public static final String	WAVE_VIEW_DURATION_PROPERTY		= "waveViewDuration";
 	public static final String	WAVE_SHOW_SUM_PROPERTY			= "waveShowSum";
 	public static final String	WAVE_SHOW_EACH_NOTE_PROPERTY	= "waveShowEachNote";
-	public static final String	FREQUENCY_RATIO_PROPERTY		= "frequencyRatio";
-	public static final String	FREQUENCY_RATIO_NAME_PROPERTY	= "frequencyRatioName";
+	public static final String	SELECTION_DESCRIPTION_PROPERTY	= "selectionDescription";
 	public static final String	DISPLAY_FIFTHS					= "displayFifths";
 	public static final String	DISPLAY_MAJOR_THIRDS			= "displayMajorThirds";
 	public static final String	AUTO_SELECT_MAJOR_THIRD			= "autoSelectMajorThird";
@@ -36,8 +36,7 @@ public class AppState extends Model {
 	private double				waveViewDuration				= 250.0;
 	private boolean				waveShowSum						= true;
 	private boolean				waveShowEachNote				= false;
-	private double				frequencyRatio					= 0.0;
-	private String				frequencyRatioName				= "";
+	private String				selectionDescription			= "";
 	private boolean				displayFifths					= false;
 	private boolean				displayMajorThirds				= false;
 	private boolean				autoSelectMajorThird			= false;
@@ -177,24 +176,14 @@ public class AppState extends Model {
 		firePropertyChange(WAVE_SHOW_EACH_NOTE_PROPERTY, oldValue, newValue);
 	}
 
-	public double getFrequencyRatio() {
-		return frequencyRatio;
+	public String getSelectionDescription() {
+		return selectionDescription;
 	}
 
-	public void setFrequencyRatio(double newValue) {
-		double oldvalue = getFrequencyRatio();
-		frequencyRatio = newValue;
-		firePropertyChange(FREQUENCY_RATIO_PROPERTY, oldvalue, newValue);
-	}
-
-	public String getFrequencyRatioName() {
-		return frequencyRatioName;
-	}
-
-	public void setFrequencyRatioName(String newValue) {
-		String oldvalue = getFrequencyRatioName();
-		frequencyRatioName = newValue;
-		firePropertyChange(FREQUENCY_RATIO_NAME_PROPERTY, oldvalue, newValue);
+	public void setSelectionDescription(String newValue) {
+		String oldvalue = getSelectionDescription();
+		selectionDescription = newValue;
+		firePropertyChange(SELECTION_DESCRIPTION_PROPERTY, oldvalue, newValue);
 	}
 
 	public boolean isDisplayFifths() {
@@ -235,6 +224,7 @@ public class AppState extends Model {
 			setSelection(newSel);
 		}
 	}
+
 	public void setAutoSelectMajorThird(boolean newValue) {
 		boolean oldValue = isAutoSelectMajorThird();
 		this.autoSelectMajorThird = newValue;
@@ -305,4 +295,26 @@ public class AppState extends Model {
 		}
 		return result;
 	}
+
+	/**
+	 * retourne la description d'un intervalle entre deux notes du tempérament
+	 * 
+	 * @param idx1
+	 * @param idx2
+	 * @return
+	 */
+	public String getIntervalDescription(int idx1, int idx2) {
+		StringBuilder result = new StringBuilder();
+		result.append(temperament.getNoteName(idx1));
+		result.append(" - ");
+		result.append(temperament.getNoteName(idx2));
+		result.append(" : ");
+		double f1 = getNoteFrequency(idx1);
+		double f2 = getNoteFrequency(idx2);
+		double ratio = Math.max(f1, f2) / Math.min(f1, f2);
+		String ratioName = WellKnownInterval.getFrequencyRatioName(ratio);
+		result.append(ratioName);
+		return result.toString();
+	}
+
 }

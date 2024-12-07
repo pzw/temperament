@@ -29,12 +29,15 @@ public class TemperamentTopPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public TemperamentTopPanel(AppState appState) {
-		FormLayout layout = new FormLayout("p:g,2px,p:g", "$dm,p,2px,p");
+		FormLayout layout = new FormLayout("$dm,p,10px,p:g,$dm", "$dm,p,2px,p,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
-		add(new SelectionToolsPanel(appState), cc.xy(1, 2, "f,f"));
-		add(new ParameterPanel(appState), cc.xy(3, 2, "f,f"));
-		//add(createOldTopPanel(appState), cc.xyw(1, 3, 3, "f,f"));
+		int x = 2;
+		int y = 2;
+		add(new ParameterPanel(appState), cc.xy(x, y, "f,f"));
+		x += 2;
+		add(new SelectionToolsPanel(appState), cc.xy(x, y, "f,f"));
+		// add(createOldTopPanel(appState), cc.xyw(1, 4, 3, "f,f"));
 	}
 
 	private JPanel createOldTopPanel(AppState appState) {
@@ -87,13 +90,15 @@ public class TemperamentTopPanel extends JPanel {
 		NumberFormat nf = NumberFormat.getNumberInstance();
 		nf.setMinimumFractionDigits(6);
 		JFormattedTextField txFrequencyRatio = new JFormattedTextField(nf);
-		Bindings.bind(txFrequencyRatio, pm.getModel(AppState.FREQUENCY_RATIO_PROPERTY));
+		// Bindings.bind(txFrequencyRatio,
+		// pm.getModel(AppState.FREQUENCY_RATIO_PROPERTY));
 		txFrequencyRatio.setEditable(false);
 		result.add(txFrequencyRatio, cc.xy(x, y));
 
 		x += 2;
 		JTextField txFrequencyRatioName = new JTextField();
-		Bindings.bind(txFrequencyRatioName, pm.getModel(AppState.FREQUENCY_RATIO_NAME_PROPERTY));
+		// Bindings.bind(txFrequencyRatioName,
+		// pm.getModel(AppState.FREQUENCY_RATIO_NAME_PROPERTY));
 		txFrequencyRatioName.setEditable(false);
 		result.add(txFrequencyRatioName, cc.xy(x, y));
 

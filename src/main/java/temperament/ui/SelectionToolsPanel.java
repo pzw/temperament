@@ -44,6 +44,8 @@ public class SelectionToolsPanel extends JPanel {
 		x = 2;
 		y += 2;
 		JTextField txDescription = new JTextField();
+		Bindings.bind(txDescription, pm.getModel(AppState.SELECTION_DESCRIPTION_PROPERTY));
+		txDescription.setEditable(false);
 		add(txDescription, cc.xyw(x, y, 4));
 
 		PlaySelectionAction playAction = new PlaySelectionAction(appState);

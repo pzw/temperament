@@ -4,9 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import temperament.musical.TemperamentBase;
-import temperament.musical.WellKnownInterval;
-
 public class IntervalListener implements PropertyChangeListener {
 	private AppState appState;
 
@@ -18,17 +15,19 @@ public class IntervalListener implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (AppState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 			List<Integer> sel = appState.getSelection();
-			double ratio = 0.0;
-			if (sel.size() == 2) {
-				double f1 = appState.getNoteFrequency(sel.get(0));
-				double f2 = appState.getNoteFrequency(sel.get(1));
-				ratio = Math.max(f1, f2) / Math.min(f1, f2);
-				appState.setFrequencyRatio(ratio);
-				appState.setFrequencyRatioName(WellKnownInterval.getFrequencyRatioName(ratio));
-			} else {
-				appState.setFrequencyRatio(0.0);
-				appState.setFrequencyRatioName("choisir 2 notes");
+			int selSize = sel.size();
+			StringBuilder descr = new StringBuilder();
+			if (2 == selSize) {
+				descr.append(appState.getIntervalDescription(sel.get(0), sel.get(1)));
+			} else if (3 == selSize) {
+				descr.append(appState.getIntervalDescription(sel.get(0), sel.get(1)));
+				descr.append("  /  ");
+				descr.append(appState.getIntervalDescription(sel.get(1), sel.get(2)));
+				descr.append("  /  ");
+				descr.append(appState.getIntervalDescription(sel.get(0), sel.get(2)));
+
 			}
+			appState.setSelectionDescription(descr.toString());
 		}
 	}
 
