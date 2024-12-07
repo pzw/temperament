@@ -29,16 +29,26 @@ public class TemperamentTopPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public TemperamentTopPanel(AppState appState) {
-		FormLayout layout = new FormLayout(
-				"$dm,p,$rg,max(60dlu;p),$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,$rg,p,$rg,p,$dm", "$dm,p,$lg,p,$dm");
+		FormLayout layout = new FormLayout("p:g,2px,p:g", "$dm,p,2px,p");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
+		add(new SelectionToolsPanel(appState), cc.xy(1, 2, "f,f"));
+		add(new ParameterPanel(appState), cc.xy(3, 2, "f,f"));
+		//add(createOldTopPanel(appState), cc.xyw(1, 3, 3, "f,f"));
+	}
+
+	private JPanel createOldTopPanel(AppState appState) {
+		FormLayout layout = new FormLayout(
+				"$dm,p,$rg,max(60dlu;p),$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,$rg,p,$rg,p,$dm",
+				"$dm,p,$lg,p,$dm");
+		CellConstraints cc = new CellConstraints();
+		JPanel result = new JPanel(layout);
 
 		PresentationModel<AppState> pm = new PresentationModel<AppState>(appState);
 
 		int x = 2;
 		int y = 2;
-		add(new JLabel("Tempérament"), cc.xy(x, y));
+		result.add(new JLabel("Tempérament"), cc.xy(x, y));
 
 		x += 2;
 		List<ITemperament> temperaments = Temperaments.getInstance().getTemperaments();
@@ -46,56 +56,58 @@ public class TemperamentTopPanel extends JPanel {
 				pm.getModel(AppState.TEMPERAMENT_PROPERTY));
 		JComboBox<ITemperament> cbTemperament = new JComboBox<ITemperament>();
 		Bindings.bind(cbTemperament, selTemperament);
-		add(cbTemperament, cc.xyw(x, y, 3));
+		result.add(cbTemperament, cc.xyw(x, y, 3));
 
 		x += 4;
-		add(new JLabel("Fréquence du la"), cc.xy(x, y));
+		result.add(new JLabel("Fréquence du la"), cc.xy(x, y));
 		x += 2;
 		SpinnerHelper sh = new SpinnerHelper(appState.getLaFrequency(), 200, 900, 0.5);
 		Bindings.bind(sh.getTextField(), pm.getModel(AppState.LA_FREQUENCY_PROPERTY));
 		sh.getTextField().addFocusListener(new SelectAllFocusListener());
-		add(sh.getMainComponent(), cc.xy(x, y));
+		result.add(sh.getMainComponent(), cc.xy(x, y));
 
 		// add(new JTextField(), cc.xy(x, y));
 
 		x += 2;
 		PlayGammeAction playGamme = new PlayGammeAction(appState);
-		add(new JButton(playGamme), cc.xy(x, y));
+		result.add(new JButton(playGamme), cc.xy(x, y));
 
 		x += 2;
 		SelectTierceQuinteAction tierceQuinte = new SelectTierceQuinteAction(appState);
-		add(new JButton(tierceQuinte), cc.xy(x, y));
+		result.add(new JButton(tierceQuinte), cc.xy(x, y));
 
 		x += 2;
 		PlaySelectionAction playAction = new PlaySelectionAction(appState);
-		add(new JButton(playAction), cc.xy(x, y));
+		result.add(new JButton(playAction), cc.xy(x, y));
 
 		y += 2;
 		x = 2;
-		add(new JLabel("Rapport de fréquences"), cc.xy(x, y));
+		result.add(new JLabel("Rapport de fréquences"), cc.xy(x, y));
 		x += 2;
 		NumberFormat nf = NumberFormat.getNumberInstance();
 		nf.setMinimumFractionDigits(6);
 		JFormattedTextField txFrequencyRatio = new JFormattedTextField(nf);
 		Bindings.bind(txFrequencyRatio, pm.getModel(AppState.FREQUENCY_RATIO_PROPERTY));
 		txFrequencyRatio.setEditable(false);
-		add(txFrequencyRatio, cc.xy(x, y));
+		result.add(txFrequencyRatio, cc.xy(x, y));
 
 		x += 2;
 		JTextField txFrequencyRatioName = new JTextField();
 		Bindings.bind(txFrequencyRatioName, pm.getModel(AppState.FREQUENCY_RATIO_NAME_PROPERTY));
 		txFrequencyRatioName.setEditable(false);
-		add(txFrequencyRatioName, cc.xy(x, y));
+		result.add(txFrequencyRatioName, cc.xy(x, y));
 
 		x += 2;
 		JCheckBox chkDisplayMajorThirds = new JCheckBox("affiche les tierces majeures");
 		Bindings.bind(chkDisplayMajorThirds, pm.getModel(AppState.DISPLAY_MAJOR_THIRDS));
-		add(chkDisplayMajorThirds, cc.xyw(x, y, 3));
+		result.add(chkDisplayMajorThirds, cc.xyw(x, y, 3));
 
 		x += 4;
 		JCheckBox chkDisplayFifths = new JCheckBox("affiche les quintes");
 		Bindings.bind(chkDisplayFifths, pm.getModel(AppState.DISPLAY_FIFTHS));
-		add(chkDisplayFifths, cc.xyw(x, y, 3));
+		result.add(chkDisplayFifths, cc.xyw(x, y, 3));
+
+		return result;
 	}
 
 }

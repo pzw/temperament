@@ -10,6 +10,7 @@ import com.jgoodies.binding.beans.Model;
 
 import temperament.musical.ITemperament;
 import temperament.musical.NoteWave;
+import temperament.musical.TemperamentBase;
 import temperament.musical.Temperaments;
 
 public class AppState extends Model {
@@ -25,6 +26,8 @@ public class AppState extends Model {
 	public static final String	FREQUENCY_RATIO_NAME_PROPERTY	= "frequencyRatioName";
 	public static final String	DISPLAY_FIFTHS					= "displayFifths";
 	public static final String	DISPLAY_MAJOR_THIRDS			= "displayMajorThirds";
+	public static final String	AUTO_SELECT_MAJOR_THIRD			= "autoSelectMajorThird";
+	public static final String	AUTO_SELECT_FIFTH				= "autoSelectFifth";
 	private ITemperament		temperament						= Temperaments.getInstance().getTemperaments().get(0);
 	private double				duration						= 2000;
 	private double				laFrequency						= 440.0;
@@ -37,6 +40,8 @@ public class AppState extends Model {
 	private String				frequencyRatioName				= "";
 	private boolean				displayFifths					= false;
 	private boolean				displayMajorThirds				= false;
+	private boolean				autoSelectMajorThird			= false;
+	private boolean				autoSelectFifth					= false;
 
 	public void setTemperamentTableModel() {
 	}
@@ -90,17 +95,19 @@ public class AppState extends Model {
 
 	public void setSelection(List<Integer> newValue) {
 		List<Integer> oldValue = getSelection();
+		List<Integer> nv = adaptSelection(newValue);
+
 		boolean change = false;
-		if (oldValue.size() != newValue.size()) {
+		if (oldValue.size() != nv.size()) {
 			change = true;
 		} else {
-			for (int idx = 0; idx < newValue.size() && !change; idx++) {
-				change = oldValue.get(idx) != newValue.get(idx);
+			for (int idx = 0; idx < nv.size() && !change; idx++) {
+				change = oldValue.get(idx) != nv.get(idx);
 			}
 		}
-		selection = newValue;
+		selection = nv;
 		if (change) {
-			firePropertyChange(SELECTION_PROPERTY, oldValue, newValue);
+			firePropertyChange(SELECTION_PROPERTY, oldValue, nv);
 		}
 	}
 
@@ -216,6 +223,36 @@ public class AppState extends Model {
 		}
 	}
 
+	public boolean isAutoSelectMajorThird() {
+		return autoSelectMajorThird;
+	}
+
+	private void redoSelection() {
+		List<Integer> sel = getSelection();
+		if (!sel.isEmpty()) {
+			List<Integer> newSel = new ArrayList<Integer>();
+			newSel.add(sel.get(0));
+			setSelection(newSel);
+		}
+	}
+	public void setAutoSelectMajorThird(boolean newValue) {
+		boolean oldValue = isAutoSelectMajorThird();
+		this.autoSelectMajorThird = newValue;
+		firePropertyChange(AUTO_SELECT_MAJOR_THIRD, oldValue, newValue);
+		redoSelection();
+	}
+
+	public boolean isAutoSelectFifth() {
+		return autoSelectFifth;
+	}
+
+	public void setAutoSelectFifth(boolean newValue) {
+		boolean oldValue = isAutoSelectFifth();
+		this.autoSelectFifth = newValue;
+		firePropertyChange(AUTO_SELECT_FIFTH, oldValue, newValue);
+		redoSelection();
+	}
+
 	private List<String> getSelectionAsStrings() {
 		ArrayList<String> result = new ArrayList<String>();
 		if (null != selection && selection.size() > 0) {
@@ -239,6 +276,33 @@ public class AppState extends Model {
 			}
 		}
 		// System.out.println("result : " + result.toString());
+		return result;
+	}
+
+	private ArrayList<Integer> adaptSelection(List<Integer> sel) {
+		ArrayList<Integer> result = new ArrayList<Integer>(sel);
+		if (sel != null && sel.size() == 1 && (autoSelectFifth || autoSelectMajorThird)) {
+			// l'adaptation ne peut se faire que si la sélection ne comprend qu'une note
+			int idxNote1 = sel.get(0);
+			result.clear();
+			result.add(idxNote1);
+
+			double ratio1 = temperament.getNoteFrequencyRatio(idxNote1);
+			if (autoSelectMajorThird) {
+				double ratio3 = ratio1 * TemperamentBase.RATIO_TIERCE_MAJEURE;
+				int idxNote3 = temperament.findNoteIndexByRatio(ratio3);
+				if (idxNote3 != -1) {
+					result.add(idxNote3);
+				}
+			}
+			if (autoSelectFifth) {
+				double ratio5 = ratio1 * TemperamentBase.RATIO_QUINTE;
+				int idxNote5 = temperament.findNoteIndexByRatio(ratio5);
+				if (idxNote5 != -1) {
+					result.add(idxNote5);
+				}
+			}
+		}
 		return result;
 	}
 }

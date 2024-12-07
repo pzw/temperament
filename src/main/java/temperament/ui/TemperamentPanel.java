@@ -30,22 +30,23 @@ public class TemperamentPanel extends JPanel {
 		TemperamentTableModel tableModel = new TemperamentTableModel(appState);
 		TemperamentTablePanel tableView = new TemperamentTablePanel(appState, tableModel);
 
-		FormLayout layout = new FormLayout("p:g,0px,p:g", "p:g");
+		FormLayout layout = new FormLayout("p,0px,p:g,0px,p:g", "p,0px,p:g");
+		layout.setColumnGroups(new int[][] {{3,5}});
 		CellConstraints cc = new CellConstraints();
-		JPanel circlesPane = new JPanel(layout);
-		circlesPane.add(chromaticCircleView, cc.xy(1, 1, "f,f"));
-		circlesPane.add(fifthsCircleView, cc.xy(3, 1, "f,f"));
-		JSplitPane splitTableCircle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tableView, circlesPane);
+		JPanel tableAndCirclesPane = new JPanel(layout);
+		tableAndCirclesPane.add(tableView, cc.xywh(1,1,1,3));
+		tableAndCirclesPane.add(chromaticCircleView, cc.xy(3, 3, "f,f"));
+		tableAndCirclesPane.add(new CircleDisplayParamPanel(appState), cc.xy(5, 1, "center,fill"));
+		tableAndCirclesPane.add(fifthsCircleView, cc.xy(5, 3, "f,f"));
 		appState.addPropertyChangeListener(new IntervalListener(appState));
 
 		WavePanel wavePanel = new WavePanel(appState);
-		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitTableCircle, wavePanel);
+		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, wavePanel);
 		add(splitWave, BorderLayout.CENTER);
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				splitTableCircle.setDividerLocation(0.33);
 				splitWave.setDividerLocation(0.7);
 			}
 		});
