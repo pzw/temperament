@@ -26,7 +26,7 @@ public class AppTest extends TestCase {
 	}
 
 	public void testJSonReader() {
-		TemperamentJson t = new TemperamentJson("assets/test.json");
+		TemperamentJson t = new TemperamentJson("assets/tierce_quinte.json");
 		assertTrue(t.isWellDefined());
 	}
 
