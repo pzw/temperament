@@ -89,10 +89,8 @@ public class TemperamentCircleView extends JComponent {
 							}
 						} else {
 							// clic only
-							if (!selection.contains(noteIndex)) {
-								selection.clear();
-								selection.add(noteIndex);
-							}
+							selection.clear();
+							selection.add(noteIndex);
 						}
 						appState.setSelection(selection);
 					}
