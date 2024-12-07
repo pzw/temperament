@@ -30,7 +30,7 @@ public class TemperamentTopPanel extends JPanel {
 
 	public TemperamentTopPanel(AppState appState) {
 		FormLayout layout = new FormLayout(
-				"$dm,p,$rg,max(60dlu;p),$rg,max(60dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,$rg,p,$rg,p,$dm", "$dm,p,$lg,p,$dm");
+				"$dm,p,$rg,max(60dlu;p),$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,$rg,p,$rg,p,$dm", "$dm,p,$lg,p,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 

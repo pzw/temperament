@@ -25,10 +25,14 @@ public abstract class TemperamentBase implements ITemperament {
 	public static final double		RATIO_OCTAVE_6				= 32.0;
 	public static final double		RATIO_OCTAVE_7				= 64.0;
 	public static final double		RATIO_OCTAVE_8				= 128.0;
+	public static final double		RATIO_SECONDE_MINEURE		= 10.0 / 9.0;
+	public static final double		RATIO_SECONDE_MAJEURE		= 9.0 / 8.0;
 	public static final double		RATIO_TIERCE_MINEURE		= 6.0 / 5.0;
 	public static final double		RATIO_TIERCE_MAJEURE		= 5.0 / 4.0;
 	public static final double		RATIO_QUARTE				= 4.0 / 3.0;
 	public static final double		RATIO_QUINTE				= 3.0 / 2.0;
+	public static final double		RATIO_SIXTE_MINEURE			= 8.0 / 5.0;
+	public static final double		RATIO_SIXTE_MAJEURE			= 5.0 / 3.0;
 	public static final String		NOM_DO						= "do";
 	public static final String		NOM_DO_DIEZE				= "do #";
 	public static final String		NOM_RE_BEMOL				= "ré b";
@@ -169,7 +173,6 @@ public abstract class TemperamentBase implements ITemperament {
 	@Override
 	public double getFrequenceDo(double frequenceLa) {
 		return frequenceLa / getNoteFrequencyRatio(La());
-		// return 264;
 	}
 
 	/**
@@ -202,22 +205,22 @@ public abstract class TemperamentBase implements ITemperament {
 				|| almostEqual(ratio, RATIO_OCTAVE);
 	}
 
-	public static String getFrequencyRatioName(double ratio) {
-		if (almostEqual(ratio, RATIO_TIERCE_MINEURE)) {
-			return "tierce mineure";
-		} else if (almostEqual(ratio, RATIO_TIERCE_MAJEURE)) {
-			return "tierce majeure";
-		} else if (almostEqual(ratio, RATIO_QUARTE)) {
-			return "quarte";
-		} else if (almostEqual(ratio, RATIO_QUINTE)) {
-			return "quinte";
-		} else if (almostEqual(ratio, RATIO_OCTAVE)) {
-			return "octave";
-		} else {
-			return "autre";
-		}
-	}
-
+//	public static String getFrequencyRatioName(double ratio) {
+//		if (almostEqual(ratio, RATIO_TIERCE_MINEURE)) {
+//			return "tierce mineure";
+//		} else if (almostEqual(ratio, RATIO_TIERCE_MAJEURE)) {
+//			return "tierce majeure";
+//		} else if (almostEqual(ratio, RATIO_QUARTE)) {
+//			return "quarte";
+//		} else if (almostEqual(ratio, RATIO_QUINTE)) {
+//			return "quinte";
+//		} else if (almostEqual(ratio, RATIO_OCTAVE)) {
+//			return "octave";
+//		} else {
+//			return "autre";
+//		}
+//	}
+//
 	public int Do() {
 		return IDX_DO;
 	}
@@ -354,5 +357,4 @@ public abstract class TemperamentBase implements ITemperament {
 		}
 		return bestDiff < 0.1 ? bestIndex : -1;
 	}
-	
 }

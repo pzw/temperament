@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import temperament.musical.TemperamentBase;
+import temperament.musical.WellKnownInterval;
 
 public class IntervalListener implements PropertyChangeListener {
 	private AppState appState;
@@ -23,7 +24,7 @@ public class IntervalListener implements PropertyChangeListener {
 				double f2 = appState.getNoteFrequency(sel.get(1));
 				ratio = Math.max(f1, f2) / Math.min(f1, f2);
 				appState.setFrequencyRatio(ratio);
-				appState.setFrequencyRatioName(TemperamentBase.getFrequencyRatioName(ratio));
+				appState.setFrequencyRatioName(WellKnownInterval.getFrequencyRatioName(ratio));
 			} else {
 				appState.setFrequencyRatio(0.0);
 				appState.setFrequencyRatioName("choisir 2 notes");

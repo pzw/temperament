@@ -7,6 +7,7 @@ import java.text.NumberFormat;
 import javax.swing.table.AbstractTableModel;
 
 import temperament.musical.ITemperament;
+import temperament.musical.WellKnownInterval;
 
 public class TemperamentTableModel extends AbstractTableModel {
 	private static final long	serialVersionUID	= 1L;
@@ -16,7 +17,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 	public static final int		COL_CENTS			= 3;
 	private static final int	COL_NB				= 4;
 	private NumberFormat		format;
-	private NumberFormat formatCents;
+	private NumberFormat		formatCents;
 	private AppState			appState;
 
 	public TemperamentTableModel(AppState appState) {
@@ -34,7 +35,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 		format = NumberFormat.getNumberInstance();
 		format.setMaximumFractionDigits(5);
 		format.setMinimumFractionDigits(5);
-		
+
 		formatCents = NumberFormat.getNumberInstance();
 		formatCents.setMaximumFractionDigits(0);
 		formatCents.setMinimumFractionDigits(0);
@@ -74,8 +75,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 					break;
 				}
 				case COL_CENTS: {
-					double cents = 1200.0 * Math.log(t.getNoteFrequencyRatio(rowIndex)) / Math.log(2.0);
-					result = formatCents.format(cents);
+					result = formatCents.format(WellKnownInterval.toCents(t.getNoteFrequencyRatio(rowIndex)));
 					break;
 				}
 				}
