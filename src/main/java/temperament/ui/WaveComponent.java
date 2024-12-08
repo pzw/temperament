@@ -21,9 +21,9 @@ import temperament.player.WaveGenerator;
  */
 public class WaveComponent extends JComponent {
 	private static final long	serialVersionUID	= 1L;
-	private ApplicationState			appState;
-	private Color backgroundColor = Color.black;
-	
+	private ApplicationState	appState;
+	private Color				backgroundColor		= Color.white;
+
 	public WaveComponent(ApplicationState appState) {
 		this.appState = appState;
 
@@ -97,7 +97,8 @@ public class WaveComponent extends JComponent {
 				int idx = 0;
 				for (Integer n : sel) {
 					double f = appState.getNoteFrequency(n);
-					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), fadeInDuration, fadeOutDuration, w);
+					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(),
+							fadeInDuration, fadeOutDuration, w);
 					paintSignal(g, wave, Commons.getSelectionColor(idx++), 1.0f);
 				}
 			}
@@ -106,7 +107,8 @@ public class WaveComponent extends JComponent {
 				float[] samples = null;
 				for (Integer n : sel) {
 					double f = appState.getNoteFrequency(n);
-					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), fadeInDuration, fadeOutDuration, w);
+					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(),
+							fadeInDuration, fadeOutDuration, w);
 					if (null == samples) {
 						samples = wave;
 					} else {

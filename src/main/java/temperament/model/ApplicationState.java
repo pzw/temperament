@@ -45,7 +45,7 @@ public class ApplicationState extends Model {
 	private boolean					waveShowSum						= true;
 	private boolean					waveShowEachNote				= false;
 	private String					selectionDescription			= "";
-	private boolean					displayFifths					= false;
+	private boolean					displayFifths					= true;
 	private boolean					displayMajorThirds				= false;
 	private boolean					autoSelectMajorThird			= false;
 	private boolean					autoSelectFifth					= false;
