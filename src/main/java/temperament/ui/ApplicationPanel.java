@@ -10,6 +10,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import temperament.model.ApplicationState;
+import temperament.model.KeyboardModel;
 import temperament.model.TemperamentChromaticCircleModel;
 import temperament.model.TemperamentFifthsCircleModel;
 import temperament.model.TemperamentTableModel;
@@ -40,8 +41,11 @@ public class ApplicationPanel extends JPanel {
 		tableAndCirclesPane.add(new CircleDisplayParamPanel(appState), cc.xy(5, 1, "center,fill"));
 		tableAndCirclesPane.add(fifthsCircleView, cc.xy(5, 3, "f,f"));
 
+		KeyboardModel keyboardModel = new KeyboardModel(appState);
+		KeyboardPanel keyboardPanel = new KeyboardPanel(keyboardModel);
+		
 		WavePanel wavePanel = new WavePanel(appState);
-		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, wavePanel);
+		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, keyboardPanel);
 		add(splitWave, BorderLayout.CENTER);
 		SwingUtilities.invokeLater(new Runnable() {
 
