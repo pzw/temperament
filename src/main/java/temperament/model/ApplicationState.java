@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 
 import com.jgoodies.binding.beans.Model;
 
+import temperament.Commons;
 import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
 import temperament.musical.TemperamentAbbatialePayerne;
@@ -367,11 +368,17 @@ public class ApplicationState extends Model {
 		double f1 = getNoteFrequency(idx1);
 		double f2 = getNoteFrequency(idx2);
 		double ratio = Math.max(f1, f2) / Math.min(f1, f2);
+		result.append(Commons.nfFrequencyRatio.format(ratio));
+		result.append(" : ");
 		String ratioName = MusicalKnowledge.getFrequencyRatioName(ratio);
 		result.append(ratioName);
 		return result.toString();
 	}
 
+	/**
+	 * mise à jour de la description des intervalles qui existent entre les 2 ou 3
+	 * notes sélectionnées
+	 */
 	private void updateSelectionDescription() {
 		int selSize = selection.size();
 		StringBuilder descr = new StringBuilder();
@@ -383,7 +390,8 @@ public class ApplicationState extends Model {
 			descr.append(getIntervalDescription(selection.get(1), selection.get(2)));
 			descr.append("  /  ");
 			descr.append(getIntervalDescription(selection.get(0), selection.get(2)));
-
+		} else {
+			descr.append("Sélectionner 2 ou 3 notes pour obtenir une description des intervalles");
 		}
 		setSelectionDescription(descr.toString());
 	}

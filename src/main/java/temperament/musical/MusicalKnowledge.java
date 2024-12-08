@@ -27,6 +27,7 @@ public class MusicalKnowledge {
 	public static final double				RATIO_QUINTE_MESOTONIQUE4	= Math.pow(5.0, 0.25);
 	public static final double				RATIO_SIXTE_MINEURE			= 8.0 / 5.0;
 	public static final double				RATIO_SIXTE_MAJEURE			= 5.0 / 3.0;
+	public static final double				COMMA						= 81.0 / 80.0;
 	public static final String				NOM_DO						= "do";
 	public static final String				NOM_DO_DIEZE				= "do #";
 	public static final String				NOM_RE_BEMOL				= "ré b";
@@ -90,6 +91,14 @@ public class MusicalKnowledge {
 		sb.append(" cents");
 	}
 
+	private static void appendCommas(StringBuilder sb, double commas) {
+		if (commas > 0) {
+			sb.append("+");
+		}
+		sb.append(Commons.nfComma.format(commas));
+		sb.append(" comma");
+	}
+
 	public static String getFrequencyRatioName(double ratio) {
 		double bestDiff = 1000.0;
 		WellKnownInterval bestInterval = null;
@@ -109,6 +118,9 @@ public class MusicalKnowledge {
 				// on ajoute la différence en cents par rapport à l'accord juste
 				result.append(" ");
 				appendCents(result, toCents(r2));
+				result.append(" (");
+				appendCommas(result, toComma(r2));
+				result.append(")");
 			}
 		} else {
 			appendCents(result, toCents(ratio));
@@ -126,6 +138,16 @@ public class MusicalKnowledge {
 		return 1200.0 * Math.log(frequencyRatio) / Math.log(2.0);
 	}
 
+	/**
+	 * retourne l'écart entre un ratio et un ratio connu, exprimé en comma
+	 * @param ratio
+	 * @param wellknownRatio
+	 * @return
+	 */
+	public static double toComma(double ratio) {
+		return Math.log(ratio) / Math.log(COMMA);
+	}
+	
 	/**
 	 * détermine si un rapport de fréquence correspond à un intervalle connu
 	 * 

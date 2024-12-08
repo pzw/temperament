@@ -9,9 +9,10 @@ import java.text.NumberFormat;
 public class Commons {
 	public static NumberFormat	nfInterval;
 	public static NumberFormat	nfCents;
-	public static NumberFormat nfFrequency;
-	public static NumberFormat nfFrequencyRatio;
-	
+	public static NumberFormat	nfFrequency;
+	public static NumberFormat	nfFrequencyRatio;
+	public static NumberFormat	nfComma;
+
 	static {
 		nfInterval = NumberFormat.getNumberInstance();
 		nfInterval.setMaximumFractionDigits(3);
@@ -19,7 +20,7 @@ public class Commons {
 		nfCents = NumberFormat.getNumberInstance();
 		nfCents.setMaximumFractionDigits(0);
 		nfCents.setMinimumFractionDigits(0);
-		
+
 		nfFrequency = NumberFormat.getNumberInstance();
 		nfFrequency.setMaximumFractionDigits(5);
 		nfFrequency.setMinimumFractionDigits(5);
@@ -27,6 +28,10 @@ public class Commons {
 		nfFrequencyRatio = NumberFormat.getNumberInstance();
 		nfFrequencyRatio.setMaximumFractionDigits(5);
 		nfFrequencyRatio.setMinimumFractionDigits(5);
+
+		nfComma = NumberFormat.getNumberInstance();
+		nfComma.setMaximumFractionDigits(2);
+		nfComma.setMinimumFractionDigits(2);
 	}
 
 	/**
