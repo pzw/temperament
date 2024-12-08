@@ -39,7 +39,6 @@ public class ApplicationPanel extends JPanel {
 		tableAndCirclesPane.add(chromaticCircleView, cc.xy(3, 3, "f,f"));
 		tableAndCirclesPane.add(new CircleDisplayParamPanel(appState), cc.xy(5, 1, "center,fill"));
 		tableAndCirclesPane.add(fifthsCircleView, cc.xy(5, 3, "f,f"));
-		// appState.addPropertyChangeListener(new IntervalListener(appState));
 
 		WavePanel wavePanel = new WavePanel(appState);
 		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, wavePanel);
