@@ -386,9 +386,9 @@ public class ApplicationState extends Model {
 			descr.append(getIntervalDescription(selection.get(0), selection.get(1)));
 		} else if (3 == selSize) {
 			descr.append(getIntervalDescription(selection.get(0), selection.get(1)));
-			descr.append("  /  ");
+			descr.append("\n");
 			descr.append(getIntervalDescription(selection.get(1), selection.get(2)));
-			descr.append("  /  ");
+			descr.append("\n");
 			descr.append(getIntervalDescription(selection.get(0), selection.get(2)));
 		} else {
 			descr.append("Sélectionner 2 ou 3 notes pour obtenir une description des intervalles");

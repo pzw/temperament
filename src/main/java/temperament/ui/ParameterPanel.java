@@ -26,8 +26,10 @@ public class ParameterPanel extends JPanel {
 	public ParameterPanel(ApplicationState appState) {
 		setBorder(BorderFactory.createTitledBorder("Paramètres"));
 
-		FormLayout layout = new FormLayout("$dm,p,$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,0px,$dm",
-				"$dm,p,0px:g,$dm");
+//		FormLayout layout = new FormLayout("$dm,p,$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,0px,$dm",
+//				"$dm,p,0px:g,$dm");
+		FormLayout layout = new FormLayout("$dm,p,$rg,p,$rg,p,0px,$dm",
+		"$dm,p,$lg,p,0px:g,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 
@@ -44,7 +46,8 @@ public class ParameterPanel extends JPanel {
 		Bindings.bind(cbTemperament, selTemperament);
 		add(cbTemperament, cc.xy(x, y));
 
-		x += 2;
+		y += 2;
+		x = 2;
 		add(new JLabel("Fréquence du la"), cc.xy(x, y));
 
 		x += 2;
@@ -55,7 +58,7 @@ public class ParameterPanel extends JPanel {
 
 		x += 2;
 		PlayGammeAction playGamme = new PlayGammeAction(appState);
-		add(new JButton(playGamme), cc.xy(x, y));
+		add(new JButton(playGamme), cc.xywh(x, 2, 1, 4));
 	}
 
 }
