@@ -8,7 +8,7 @@ import temperament.ui.TemperamentFrame;
  * Hello world!
  *
  */
-public class ApplicationEntryPoint {
+public class Application {
 	public static void main(String[] args) {
 		TemperamentFrame mainFrame = new TemperamentFrame();
 		SwingUtilities.invokeLater(new Runnable() {
