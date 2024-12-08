@@ -1,6 +1,5 @@
 package temperament.model;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,30 +155,6 @@ public class ApplicationState extends Model {
 		double frequenceDo = temperament.getFrequenceDo(getLaFrequency());
 		double result = frequenceDo * temperament.getNoteFrequencyRatio(index);
 		return result;
-	}
-
-	/**
-	 * retourne la couleur à utiliser pour montrer une note sélectionnée
-	 * 
-	 * @param idx
-	 * @return
-	 */
-	public Color getSelectionColor(int idx) {
-		switch (idx % 6) {
-		case 0:
-			return Color.green;
-		case 1:
-			return Color.blue;
-		case 2:
-			return Color.white;
-		case 3:
-			return Color.cyan;
-		case 4:
-			return Color.magenta;
-		case 5:
-			return Color.orange;
-		}
-		return Color.magenta;
 	}
 
 	/**

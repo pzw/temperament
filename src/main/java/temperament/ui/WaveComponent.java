@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import temperament.Commons;
 import temperament.model.ApplicationState;
 import temperament.player.WaveGenerator;
 
@@ -97,7 +98,7 @@ public class WaveComponent extends JComponent {
 				for (Integer n : sel) {
 					double f = appState.getNoteFrequency(n);
 					float[] wave = WaveGenerator.generateSinus(f, getAmplitude(), appState.getWaveViewDuration(), fadeInDuration, fadeOutDuration, w);
-					paintSignal(g, wave, appState.getSelectionColor(idx++), 1.0f);
+					paintSignal(g, wave, Commons.getSelectionColor(idx++), 1.0f);
 				}
 			}
 

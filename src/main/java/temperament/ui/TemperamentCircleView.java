@@ -11,12 +11,12 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.NumberFormat;
 import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
+import temperament.Commons;
 import temperament.model.ApplicationState;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentBaseCircleModel;
@@ -26,9 +26,8 @@ import temperament.musical.NotesInterval;
 public class TemperamentCircleView extends JComponent {
 	private static final long			serialVersionUID	= 1L;
 	private TemperamentBaseCircleModel	model;
-	private ApplicationState					appState;
+	private ApplicationState			appState;
 	private boolean						showIntervals;
-	private NumberFormat				nfInterval;
 	private Font						intervalFont;
 	private Color						wellKnownInterval	= new Color(197, 252, 154);
 	private Color						otherInterval		= new Color(252, 191, 177);
@@ -36,8 +35,6 @@ public class TemperamentCircleView extends JComponent {
 
 	public TemperamentCircleView(ApplicationState appState, TemperamentBaseCircleModel model, boolean showIntervals) {
 		super();
-		nfInterval = NumberFormat.getNumberInstance();
-		nfInterval.setMaximumFractionDigits(3);
 
 		this.appState = appState;
 		this.model = model;
@@ -143,7 +140,7 @@ public class TemperamentCircleView extends JComponent {
 		Color borderColor = np.isSelected() ? Color.red : Color.darkGray;
 		if (np.isSelected()) {
 			int selRank = model.getSelectionRank(noteRank);
-			noteColor = appState.getSelectionColor(selRank);
+			noteColor = Commons.getSelectionColor(selRank);
 		}
 		drawCircle(g, np.getCenterX(), np.getCenterY(), model.getNoteRadius(), borderColor, noteColor);
 
@@ -156,7 +153,7 @@ public class TemperamentCircleView extends JComponent {
 	private void paintInterval(Graphics g, NotesInterval noteInterval) {
 		NotePosition p1 = model.getNotePosition(noteInterval.getNoteIndex1());
 		NotePosition p2 = model.getNotePosition(noteInterval.getNoteIndex2());
-		String interval = nfInterval.format(noteInterval.getFrequencyRatio());
+		String interval = Commons.nfInterval.format(noteInterval.getFrequencyRatio());
 		int xc = (p1.getCenterX() + p2.getCenterX()) / 2;
 		int yc = (p1.getCenterY() + p2.getCenterY()) / 2;
 		g.setColor(Color.lightGray);

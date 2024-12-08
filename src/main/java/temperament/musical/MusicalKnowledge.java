@@ -1,8 +1,9 @@
 package temperament.musical;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import temperament.Commons;
 
 /**
  * rassemble des notions musicales de base
@@ -46,7 +47,6 @@ public class MusicalKnowledge {
 	public static final String				NOM_SI_DIEZE				= "si #";
 
 	private static List<WellKnownInterval>	wellKnownIntervals;
-	private static NumberFormat				nfCents;
 
 	static {
 		wellKnownIntervals = new ArrayList<WellKnownInterval>();
@@ -60,9 +60,6 @@ public class MusicalKnowledge {
 		wellKnownIntervals.add(new WellKnownInterval(RATIO_SIXTE_MINEURE, "sixte mineure"));
 		wellKnownIntervals.add(new WellKnownInterval(RATIO_SIXTE_MAJEURE, "sixte majeure"));
 		wellKnownIntervals.add(new WellKnownInterval(RATIO_OCTAVE, "octave"));
-
-		nfCents = NumberFormat.getNumberInstance();
-		nfCents.setMaximumFractionDigits(0);
 	}
 
 	/**
@@ -89,7 +86,7 @@ public class MusicalKnowledge {
 		if (cents > 0) {
 			sb.append("+");
 		}
-		sb.append(nfCents.format(cents));
+		sb.append(Commons.nfCents.format(cents));
 		sb.append(" cents");
 	}
 

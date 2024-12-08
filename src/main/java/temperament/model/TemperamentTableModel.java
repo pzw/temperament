@@ -2,10 +2,10 @@ package temperament.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.NumberFormat;
 
 import javax.swing.table.AbstractTableModel;
 
+import temperament.Commons;
 import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
 
@@ -19,8 +19,6 @@ public class TemperamentTableModel extends AbstractTableModel {
 	public static final int		COL_FREQUENCY		= 2;
 	public static final int		COL_CENTS			= 3;
 	private static final int	COL_NB				= 4;
-	private NumberFormat		format;
-	private NumberFormat		formatCents;
 	private ApplicationState	appState;
 
 	public TemperamentTableModel(ApplicationState appState) {
@@ -34,14 +32,6 @@ public class TemperamentTableModel extends AbstractTableModel {
 				}
 			}
 		});
-
-		format = NumberFormat.getNumberInstance();
-		format.setMaximumFractionDigits(5);
-		format.setMinimumFractionDigits(5);
-
-		formatCents = NumberFormat.getNumberInstance();
-		formatCents.setMaximumFractionDigits(0);
-		formatCents.setMinimumFractionDigits(0);
 	}
 
 	private ITemperament getTemperament() {
@@ -70,15 +60,15 @@ public class TemperamentTableModel extends AbstractTableModel {
 					result = t.getNoteName(rowIndex);
 					break;
 				case COL_FREQUENCY_RATIO:
-					result = format.format(t.getNoteFrequencyRatio(rowIndex));
+					result = Commons.nfFrequencyRatio.format(t.getNoteFrequencyRatio(rowIndex));
 					break;
 				case COL_FREQUENCY: {
 					double frequenceDo = t.getFrequenceDo(appState.getLaFrequency());
-					result = format.format(frequenceDo * t.getNoteFrequencyRatio(rowIndex));
+					result = Commons.nfFrequency.format(frequenceDo * t.getNoteFrequencyRatio(rowIndex));
 					break;
 				}
 				case COL_CENTS: {
-					result = formatCents.format(MusicalKnowledge.toCents(t.getNoteFrequencyRatio(rowIndex)));
+					result = Commons.nfCents.format(MusicalKnowledge.toCents(t.getNoteFrequencyRatio(rowIndex)));
 					break;
 				}
 				}
