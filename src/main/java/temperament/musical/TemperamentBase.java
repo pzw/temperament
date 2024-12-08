@@ -3,23 +3,26 @@ package temperament.musical;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * classe de base pour la construction des tempéraments
+ */
 public abstract class TemperamentBase implements ITemperament {
-	private static final int		IDX_DO						= 0;
-	private static final int		IDX_DO_DIEZE				= 1;
-	private static final int		IDX_RE						= 2;
-	private static final int		IDX_MI_BEMOL				= 3;
-	private static final int		IDX_MI						= 4;
-	private static final int		IDX_FA						= 5;
-	private static final int		IDX_FA_DIEZE				= 6;
-	private static final int		IDX_SOL						= 7;
-	private static final int		IDX_SOL_DIEZE				= 8;
-	private static final int		IDX_LA						= 9;
-	private static final int		IDX_SI_BEMOL				= 10;
-	private static final int		IDX_SI						= 11;
-	protected static final int		NB_NOTES_STANDARD			= 12;
-	protected String[]				names;
-	protected double[]				ratios;
-	protected double[]				ratiosFifthsCircle;
+	private static final int	IDX_DO				= 0;
+	private static final int	IDX_DO_DIEZE		= 1;
+	private static final int	IDX_RE				= 2;
+	private static final int	IDX_MI_BEMOL		= 3;
+	private static final int	IDX_MI				= 4;
+	private static final int	IDX_FA				= 5;
+	private static final int	IDX_FA_DIEZE		= 6;
+	private static final int	IDX_SOL				= 7;
+	private static final int	IDX_SOL_DIEZE		= 8;
+	private static final int	IDX_LA				= 9;
+	private static final int	IDX_SI_BEMOL		= 10;
+	private static final int	IDX_SI				= 11;
+	protected static final int	NB_NOTES_STANDARD	= 12;
+	protected String[]			names;
+	protected double[]			ratios;
+	protected double[]			ratiosFifthsCircle;
 
 	public TemperamentBase() {
 		initRatios();
@@ -249,13 +252,17 @@ public abstract class TemperamentBase implements ITemperament {
 		int result = findNoteIndexByFullNameExact(fullName);
 		if (-1 == result) {
 			if (fullName.startsWith(MusicalKnowledge.NOM_RE_DIEZE)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_RE_DIEZE, MusicalKnowledge.NOM_MI_BEMOL));
+				result = findNoteIndexByFullNameExact(
+						fullName.replace(MusicalKnowledge.NOM_RE_DIEZE, MusicalKnowledge.NOM_MI_BEMOL));
 			} else if (fullName.startsWith(MusicalKnowledge.NOM_MI_BEMOL)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_MI_BEMOL, MusicalKnowledge.NOM_RE_DIEZE));
+				result = findNoteIndexByFullNameExact(
+						fullName.replace(MusicalKnowledge.NOM_MI_BEMOL, MusicalKnowledge.NOM_RE_DIEZE));
 			} else if (fullName.startsWith(MusicalKnowledge.NOM_SOL_DIEZE)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_SOL_DIEZE, MusicalKnowledge.NOM_LA_BEMOL));
+				result = findNoteIndexByFullNameExact(
+						fullName.replace(MusicalKnowledge.NOM_SOL_DIEZE, MusicalKnowledge.NOM_LA_BEMOL));
 			} else if (fullName.startsWith(MusicalKnowledge.NOM_LA_BEMOL)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_LA_BEMOL, MusicalKnowledge.NOM_SOL_DIEZE));
+				result = findNoteIndexByFullNameExact(
+						fullName.replace(MusicalKnowledge.NOM_LA_BEMOL, MusicalKnowledge.NOM_SOL_DIEZE));
 			}
 		}
 		return result;

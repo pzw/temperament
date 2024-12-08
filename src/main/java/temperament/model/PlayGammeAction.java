@@ -7,9 +7,12 @@ import javax.swing.AbstractAction;
 import temperament.player.NotePlayer;
 import temperament.player.NoteWave;
 
+/**
+ * action pour jouer toutes les notes de la gamme du tempérament courant
+ */
 public class PlayGammeAction extends AbstractAction {
 	private static final long	serialVersionUID	= 1L;
-	private ApplicationState			appState;
+	private ApplicationState	appState;
 
 	public PlayGammeAction(ApplicationState appState) {
 		super("Gamme");

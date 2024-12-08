@@ -12,6 +12,9 @@ import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
 import temperament.musical.Temperaments;
 
+/**
+ * view model de l'application
+ */
 public class ApplicationState extends Model {
 	private static final long	serialVersionUID				= 1L;
 	public static final String	TEMPERAMENT_PROPERTY			= "temperament";

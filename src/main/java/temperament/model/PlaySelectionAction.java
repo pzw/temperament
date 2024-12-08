@@ -8,9 +8,12 @@ import javax.swing.AbstractAction;
 import temperament.player.NotePlayer;
 import temperament.player.NoteWave;
 
+/**
+ * action pour jouer simultanément toutes les notes sélectionnées
+ */
 public class PlaySelectionAction extends AbstractAction {
 	private static final long	serialVersionUID	= 1L;
-	private ApplicationState			appState;
+	private ApplicationState	appState;
 
 	public PlaySelectionAction(ApplicationState appState) {
 		super("Ecouter");

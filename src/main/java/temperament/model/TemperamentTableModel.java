@@ -9,6 +9,9 @@ import javax.swing.table.AbstractTableModel;
 import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
 
+/**
+ * modèle pour la table qui montre les notes du tempérament
+ */
 public class TemperamentTableModel extends AbstractTableModel {
 	private static final long	serialVersionUID	= 1L;
 	public static final int		COL_NOTE_NAME		= 0;
@@ -18,7 +21,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 	private static final int	COL_NB				= 4;
 	private NumberFormat		format;
 	private NumberFormat		formatCents;
-	private ApplicationState			appState;
+	private ApplicationState	appState;
 
 	public TemperamentTableModel(ApplicationState appState) {
 		this.appState = appState;

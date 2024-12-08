@@ -2,6 +2,9 @@ package temperament.musical;
 
 import java.util.List;
 
+/**
+ * définition d'un tempérament musical
+ */
 public interface ITemperament {
 	/**
 	 * retourne le nombre de notes que contient le tempérament
@@ -98,6 +101,7 @@ public interface ITemperament {
 
 	/**
 	 * recherche une note selon son rapport de fréquence
+	 * 
 	 * @param ratio
 	 * @return
 	 */

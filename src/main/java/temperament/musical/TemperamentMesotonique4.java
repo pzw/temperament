@@ -21,7 +21,8 @@ public class TemperamentMesotonique4 extends TemperamentBase {
 		ratiosFifthsCircle[SolDieze()] = quinteMesotoniqueMontante(ratiosFifthsCircle[DoDieze()]);
 
 		// quintes descendantes à partir du DO-8
-		ratiosFifthsCircle[Fa()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Do()] * MusicalKnowledge.RATIO_OCTAVE_8);
+		ratiosFifthsCircle[Fa()] = quinteMesotoniqueDescendante(
+				ratiosFifthsCircle[Do()] * MusicalKnowledge.RATIO_OCTAVE_8);
 		ratiosFifthsCircle[SiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[Fa()]);
 		ratiosFifthsCircle[MiBemol()] = quinteMesotoniqueDescendante(ratiosFifthsCircle[SiBemol()]);
 
@@ -33,4 +34,3 @@ public class TemperamentMesotonique4 extends TemperamentBase {
 		return "mésotonique 1/4 comma";
 	}
 }
-

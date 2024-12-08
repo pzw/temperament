@@ -4,48 +4,50 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * rassemble des notions musicales de base
+ */
 public class MusicalKnowledge {
-
-	public static final double	RATIO_UNISSON				= 1.0;
-	public static final double	RATIO_OCTAVE				= 2.0;
-	public static final double	RATIO_OCTAVE_2				= 2.0;
-	public static final double	RATIO_OCTAVE_3				= 4.0;
-	public static final double	RATIO_OCTAVE_4				= 8.0;
-	public static final double	RATIO_OCTAVE_5				= 16.0;
-	public static final double	RATIO_OCTAVE_6				= 32.0;
-	public static final double	RATIO_OCTAVE_7				= 64.0;
-	public static final double	RATIO_OCTAVE_8				= 128.0;
-	public static final double	RATIO_SECONDE_MINEURE		= 10.0 / 9.0;
-	public static final double	RATIO_SECONDE_MAJEURE		= 9.0 / 8.0;
-	public static final double	RATIO_TIERCE_MINEURE		= 6.0 / 5.0;
-	public static final double	RATIO_TIERCE_MAJEURE		= 5.0 / 4.0;
-	public static final double	RATIO_QUARTE				= 4.0 / 3.0;
-	public static final double	RATIO_QUINTE				= 3.0 / 2.0;
-	public static final double	RATIO_QUINTE_MESOTONIQUE4	= Math.pow(5.0, 0.25);
-	public static final double	RATIO_SIXTE_MINEURE			= 8.0 / 5.0;
-	public static final double	RATIO_SIXTE_MAJEURE			= 5.0 / 3.0;
-	public static final String	NOM_DO						= "do";
-	public static final String	NOM_DO_DIEZE				= "do #";
-	public static final String	NOM_RE_BEMOL				= "ré b";
-	public static final String	NOM_RE						= "ré";
-	public static final String	NOM_RE_DIEZE				= "ré #";
-	public static final String	NOM_MI_BEMOL				= "mi b";
-	public static final String	NOM_MI						= "mi";
-	public static final String	NOM_MI_DIEZE				= "mi #";
-	public static final String	NOM_FA						= "fa";
-	public static final String	NOM_FA_DIEZE				= "fa #";
-	public static final String	NOM_SOL						= "sol";
-	public static final String	NOM_SOL_DIEZE				= "sol #";
-	public static final String	NOM_LA_BEMOL				= "la b";
-	public static final String	NOM_LA						= "la";
-	public static final String	NOM_LA_DIEZE				= "la #";
-	public static final String	NOM_SI_BEMOL				= "si b";
-	public static final String	NOM_SI						= "si";
-	public static final String	NOM_SI_DIEZE				= "si #";
+	public static final double				RATIO_UNISSON				= 1.0;
+	public static final double				RATIO_OCTAVE				= 2.0;
+	public static final double				RATIO_OCTAVE_2				= 2.0;
+	public static final double				RATIO_OCTAVE_3				= 4.0;
+	public static final double				RATIO_OCTAVE_4				= 8.0;
+	public static final double				RATIO_OCTAVE_5				= 16.0;
+	public static final double				RATIO_OCTAVE_6				= 32.0;
+	public static final double				RATIO_OCTAVE_7				= 64.0;
+	public static final double				RATIO_OCTAVE_8				= 128.0;
+	public static final double				RATIO_SECONDE_MINEURE		= 10.0 / 9.0;
+	public static final double				RATIO_SECONDE_MAJEURE		= 9.0 / 8.0;
+	public static final double				RATIO_TIERCE_MINEURE		= 6.0 / 5.0;
+	public static final double				RATIO_TIERCE_MAJEURE		= 5.0 / 4.0;
+	public static final double				RATIO_QUARTE				= 4.0 / 3.0;
+	public static final double				RATIO_QUINTE				= 3.0 / 2.0;
+	public static final double				RATIO_QUINTE_MESOTONIQUE4	= Math.pow(5.0, 0.25);
+	public static final double				RATIO_SIXTE_MINEURE			= 8.0 / 5.0;
+	public static final double				RATIO_SIXTE_MAJEURE			= 5.0 / 3.0;
+	public static final String				NOM_DO						= "do";
+	public static final String				NOM_DO_DIEZE				= "do #";
+	public static final String				NOM_RE_BEMOL				= "ré b";
+	public static final String				NOM_RE						= "ré";
+	public static final String				NOM_RE_DIEZE				= "ré #";
+	public static final String				NOM_MI_BEMOL				= "mi b";
+	public static final String				NOM_MI						= "mi";
+	public static final String				NOM_MI_DIEZE				= "mi #";
+	public static final String				NOM_FA						= "fa";
+	public static final String				NOM_FA_DIEZE				= "fa #";
+	public static final String				NOM_SOL						= "sol";
+	public static final String				NOM_SOL_DIEZE				= "sol #";
+	public static final String				NOM_LA_BEMOL				= "la b";
+	public static final String				NOM_LA						= "la";
+	public static final String				NOM_LA_DIEZE				= "la #";
+	public static final String				NOM_SI_BEMOL				= "si b";
+	public static final String				NOM_SI						= "si";
+	public static final String				NOM_SI_DIEZE				= "si #";
 
 	private static List<WellKnownInterval>	wellKnownIntervals;
 	private static NumberFormat				nfCents;
-	
+
 	static {
 		wellKnownIntervals = new ArrayList<WellKnownInterval>();
 		wellKnownIntervals.add(new WellKnownInterval(RATIO_OCTAVE, "octave"));
@@ -82,7 +84,7 @@ public class MusicalKnowledge {
 		}
 		return result;
 	}
-	
+
 	private static void appendCents(StringBuilder sb, double cents) {
 		if (cents > 0) {
 			sb.append("+");
@@ -129,6 +131,7 @@ public class MusicalKnowledge {
 
 	/**
 	 * détermine si un rapport de fréquence correspond à un intervalle connu
+	 * 
 	 * @param ratio
 	 * @return
 	 */

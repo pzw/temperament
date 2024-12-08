@@ -9,13 +9,16 @@ import java.util.List;
 import temperament.musical.ITemperament;
 import temperament.musical.NotesInterval;
 
+/**
+ * modèle de donnée pour une représentation des notes dans un cercle
+ */
 public abstract class TemperamentBaseCircleModel {
 	protected NotePosition[]	positions;
 	protected int				cx;
 	protected int				cy;
 	protected int				r;
 	protected int				r2;
-	protected ApplicationState			appState;
+	protected ApplicationState	appState;
 
 	public TemperamentBaseCircleModel(ApplicationState appState) {
 		this.appState = appState;

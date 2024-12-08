@@ -1,13 +1,19 @@
 package temperament.model;
 
+/**
+ * position d'une note dans un cercle de notes
+ */
 public class NotePosition {
 	private TemperamentBaseCircleModel	circleModel;
-	private int							x;
-	private int							y;
+	/** position du centre du cercle de la note */
+	private int							x, y;
+	/** index de la note dans le tempérament */
 	private int							noteIndex;
+	/** rapport de fréquence de cette note par rapport au do */
 	private double						frequencyRatio;
-	private int							xTx;
-	private int							yTx;
+	/** position du centre du nom de la note */
+	private int							xTx, yTx;
+	/** indique si la note est actuellement sélectionnée */
 	private boolean						selected	= false;
 
 	public NotePosition(TemperamentBaseCircleModel parentState, int noteIndex, double frequencyRatio) {
@@ -57,11 +63,23 @@ public class NotePosition {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 
+	/**
+	 * détermine si un point est à l'intérieur du cercle qui représente une note
+	 * 
+	 * @param pX
+	 * @param pY
+	 * @return
+	 */
 	public boolean isInNotePosition(int pX, int pY) {
 		double d = distance(pX, pY);
 		return d <= circleModel.getNoteRadius();
 	}
 
+	/**
+	 * retourne la bulle d'aide pour cette node
+	 * 
+	 * @return
+	 */
 	public String getTooltip() {
 		StringBuilder s = new StringBuilder();
 		s.append("<html><body>");
@@ -89,5 +107,5 @@ public class NotePosition {
 	public int getNoteIndex() {
 		return noteIndex;
 	}
-	
+
 }
