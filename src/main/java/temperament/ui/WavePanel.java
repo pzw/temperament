@@ -42,7 +42,7 @@ public class WavePanel extends JPanel {
 		result.add(new JLabel("Durée visualisée [ms]"), cc.xy(x, y));
 
 		x += 2;
-		SpinnerHelper sh = new SpinnerHelper(state.getWaveViewDuration(), 5.0, 2000.0, 5.0);
+		SpinnerHelper sh = new SpinnerHelper(state.getWaveViewDuration(), 20.0, 2000.0, 20.0);
 		Bindings.bind(sh.getTextField(), pm.getModel(ApplicationState.WAVE_VIEW_DURATION_PROPERTY));
 		sh.getTextField().addFocusListener(new SelectAllFocusListener());
 		result.add(sh.getMainComponent(), cc.xy(x, y));
