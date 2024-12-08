@@ -1,10 +1,11 @@
-package temperament.model;
+package temperament.actions;
 
 import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 
+import temperament.model.ApplicationState;
 import temperament.player.NotePlayer;
 import temperament.player.NoteWave;
 

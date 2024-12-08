@@ -1,4 +1,4 @@
-package temperament.model;
+package temperament.actions;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
+import temperament.model.ApplicationState;
 import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
 

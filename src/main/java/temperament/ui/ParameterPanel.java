@@ -12,8 +12,8 @@ import com.jgoodies.binding.list.SelectionInList;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+import temperament.actions.PlayGammeAction;
 import temperament.model.ApplicationState;
-import temperament.model.PlayGammeAction;
 import temperament.musical.ITemperament;
 
 /**

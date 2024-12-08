@@ -11,8 +11,8 @@ import com.jgoodies.binding.adapter.Bindings;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+import temperament.actions.PlaySelectionAction;
 import temperament.model.ApplicationState;
-import temperament.model.PlaySelectionAction;
 
 /**
  * panneau qui présente des outils relatifs à la sélection courante
