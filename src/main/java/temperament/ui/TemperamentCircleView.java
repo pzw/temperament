@@ -111,7 +111,7 @@ public class TemperamentCircleView extends JComponent {
 		g.drawArc(x1, y1, d, d, 0, 360);
 	}
 
-	public void repaintLater() {
+	private void repaintLater() {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override

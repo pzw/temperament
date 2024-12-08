@@ -8,6 +8,7 @@ import java.util.List;
  * supplémentaires : le ré dièze et le la bémol
  */
 public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
+	public static final String ABBATIALE_PAYERNE = "Abbatiale Payerne";
 	private static final int	NB_NOTES		= 14;
 	private static final int	IDX_DO			= 0;
 	private static final int	IDX_DO_DIEZE	= 1;
@@ -156,7 +157,7 @@ public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 
 	@Override
 	public String toString() {
-		return "Abbatiale Payerne";
+		return ABBATIALE_PAYERNE;
 	}
 
 	@Override
