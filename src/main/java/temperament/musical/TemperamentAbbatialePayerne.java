@@ -3,6 +3,10 @@ package temperament.musical;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * tempéramenet mésotonique de l'Abbatiale de Payerne, avec deux notes
+ * supplémentaires : le ré dièze et le la bémol
+ */
 public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 	private static final int	NB_NOTES		= 14;
 	private static final int	IDX_DO			= 0;

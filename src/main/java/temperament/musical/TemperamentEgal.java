@@ -1,5 +1,8 @@
 package temperament.musical;
 
+/**
+ * tempérament égal
+ */
 public class TemperamentEgal extends TemperamentBase {
 
 	@Override

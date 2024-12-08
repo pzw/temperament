@@ -1,32 +1,52 @@
 package temperament.player;
 
-import temperament.constants.IConstants;
-
+/**
+ * onde d'une note, sous forme d'un tableau de float
+ */
 public class NoteWave {
 
 	private float[] wave;
 
 	/**
-	 * note à une certaine fréquence, pendant une durée
+	 * génère une note
 	 * 
 	 * @param frequency fréquence en Herz
 	 * @param duration  durée en millisecondes
+	 * @param volume    amplitude de l'onde
 	 */
 	public NoteWave(double frequency, double duration, double volume) {
 		this(frequency, duration, 0.0, 0.0, volume);
 	}
 
+	/**
+	 * génère une note, avec un fade in / fade out
+	 * 
+	 * @param frequency    fréquence en Herz
+	 * @param duration     durée en millisecondes
+	 * @param fadeDuration durée pour la partie fade in / fade out
+	 * @param volume       amplitude de l'onde
+	 */
 	public NoteWave(double frequency, double duration, double fadeDuration, double volume) {
 		this(frequency, duration, fadeDuration, fadeDuration, volume);
 	}
 
+	/**
+	 * génère une note, avec un fade in / fade out
+	 * 
+	 * @param frequency       fréquence en Herz
+	 * @param duration        durée en millisecondes
+	 * @param fadeInDuration  durée pour la partie fade in
+	 * @param fadeOutDuration durée pour la partie fade out
+	 * @param volume          amplitude de l'onde
+	 */
 	public NoteWave(double frequency, double duration, double fadeInDuration, double fadeOutDuration, double volume) {
 		wave = WaveGenerator.generateSinus(frequency, 127.0 * volume, duration, fadeInDuration, fadeOutDuration,
-				(int) (IConstants.SAMPLE_RATE * duration / 1000));
+				(int) (NotePlayer.SAMPLE_RATE * duration / 1000));
 	}
 
 	/**
-	 * construit l'onde d'une note avec un petit fade in / fade out
+	 * construit l'onde d'une note avec un fade in / fade out relatif à la durée
+	 * totale
 	 * 
 	 * @param frequency
 	 * @param duration
@@ -34,16 +54,27 @@ public class NoteWave {
 	 * @return
 	 */
 	public static NoteWave buildNoteWaveWithFade(double frequency, double duration, double volume) {
-		if (0.0 == frequency) return null;
+		if (0.0 == frequency)
+			return null;
 		double fadeInDuration = duration / 40.0;
 		double fadeOutDuration = duration / 20.0;
 		return new NoteWave(frequency, duration, fadeInDuration, fadeOutDuration, volume);
 	}
 
+	/**
+	 * retourne le nombre d'échantillons de l'onde
+	 * 
+	 * @return
+	 */
 	public int getWaveLength() {
 		return wave.length;
 	}
 
+	/**
+	 * superpose une autre onde à la notre
+	 * 
+	 * @param n
+	 */
 	public void addNote(NoteWave n) {
 		int l = Math.min(getWaveLength(), n.getWaveLength());
 		for (int i = 0; i < l; i++) {
@@ -51,6 +82,11 @@ public class NoteWave {
 		}
 	}
 
+	/**
+	 * ajoute (appond) une autre note à la notre
+	 * 
+	 * @param n
+	 */
 	public void appendNote(NoteWave n) {
 		int l1 = wave.length;
 		int l2 = n.wave.length;
@@ -65,6 +101,11 @@ public class NoteWave {
 		wave = tmp;
 	}
 
+	/**
+	 * retourne l'amplitude maximale de l'onde
+	 * 
+	 * @return
+	 */
 	public float getMaxValue() {
 		float result = 0;
 		for (int i = 0; i < wave.length; i++) {
@@ -73,6 +114,11 @@ public class NoteWave {
 		return result;
 	}
 
+	/**
+	 * conversion en échantillons de 8 bits
+	 * 
+	 * @return
+	 */
 	public byte[] convert8bits() {
 		float max = getMaxValue();
 
@@ -85,6 +131,11 @@ public class NoteWave {
 		return result;
 	}
 
+	/**
+	 * conversion en échantillons de 16 bits
+	 * 
+	 * @return
+	 */
 	public byte[] convert16bit() {
 		float max = getMaxValue();
 
@@ -99,10 +150,12 @@ public class NoteWave {
 		return result;
 	}
 
-	public int getSize() {
-		return wave.length;
-	}
-
+	/**
+	 * retourne la valeur d'un échantillon
+	 * 
+	 * @param idx
+	 * @return
+	 */
 	public float getSample(int idx) {
 		return idx < wave.length ? wave[idx] : 0.0f;
 	}

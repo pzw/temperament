@@ -1,5 +1,9 @@
 package temperament.musical;
 
+/**
+ * gamme de Pythagore, avec empilement des quintes : on arrive plus haut que le
+ * do
+ */
 public class TemperamentPythagore extends TemperamentBase {
 	/** une note de plus pour le si dièze */
 	private static final int	NB_NOTES		= NB_NOTES_STANDARD + 1;
@@ -43,18 +47,19 @@ public class TemperamentPythagore extends TemperamentBase {
 	protected int LaDieze() {
 		return SiBemol();
 	}
-	
+
 	protected int ReDieze() {
 		return MiBemol();
 	}
-	
+
 	protected int MiDieze() {
 		return Fa();
 	}
-	
+
 	protected int SiDieze() {
 		return IDX_SI_DIEZE;
 	}
+
 	@Override
 	public String toString() {
 		return "pythagoricien : 12 quintes montantes";

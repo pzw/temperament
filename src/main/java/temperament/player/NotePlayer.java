@@ -5,11 +5,13 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
-import temperament.constants.IConstants;
-
+/**
+ * classe utilisée pour jouer une note
+ */
 public class NotePlayer extends Thread {
-	private NoteWave	note;
-	private int			nBits;
+	public static final float	SAMPLE_RATE	= 8000f;
+	private NoteWave			note;
+	private int					nBits;
 
 	public NotePlayer(NoteWave note, int nBits) {
 		this.note = note;
@@ -24,7 +26,7 @@ public class NotePlayer extends Thread {
 
 	@Override
 	public void run() {
-		AudioFormat af = new AudioFormat(IConstants.SAMPLE_RATE, nBits, 1, true, false);
+		AudioFormat af = new AudioFormat(SAMPLE_RATE, nBits, 1, true, false);
 		byte[] buffer = nBits == 8 ? note.convert8bits() : note.convert16bit();
 		SourceDataLine sdl = null;
 		try {

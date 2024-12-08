@@ -1,5 +1,8 @@
 package temperament.musical;
 
+/**
+ * tempérament mésotonique avec les quintes diminuées d'un quart de comma
+ */
 public class TemperamentMesotonique4 extends TemperamentBase {
 
 	@Override

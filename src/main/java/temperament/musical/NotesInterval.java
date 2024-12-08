@@ -1,5 +1,9 @@
 package temperament.musical;
 
+/**
+ * représente un intervalle entre deux notes d'un tempérament, représenté par
+ * les index des deux notes dans la gamme du tempérament
+ */
 public class NotesInterval {
 	private ITemperament	temperament;
 	private int				noteLow;
@@ -18,7 +22,7 @@ public class NotesInterval {
 	public int getNoteIndex2() {
 		return noteHigh;
 	}
-	
+
 	public double getFrequencyRatio() {
 		double fLow = temperament.getNoteFrequencyRatio(noteLow);
 		double fHigh = temperament.getNoteFrequencyRatio(noteHigh);

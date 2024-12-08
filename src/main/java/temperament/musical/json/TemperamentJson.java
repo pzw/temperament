@@ -14,7 +14,7 @@ import temperament.musical.MusicalKnowledge;
 import temperament.musical.NotesInterval;
 
 /**
- * tempérament basé sur le contenu d'un fichier JSON (actuellement pas utilisé)
+ * tempérament basé sur le contenu d'un fichier JSON
  */
 public class TemperamentJson implements ITemperament {
 	private String				name		= null;

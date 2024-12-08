@@ -1,5 +1,8 @@
 package temperament.musical;
 
+/**
+ * gamme de Pythagore, avec une quinte du loup entre le mi bémol et le sol dièze
+ */
 public class TemperamentPythagore2 extends TemperamentBase {
 
 	@Override
