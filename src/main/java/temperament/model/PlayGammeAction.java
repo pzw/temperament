@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import temperament.musical.NoteWave;
 import temperament.player.NotePlayer;
+import temperament.player.NoteWave;
 
 public class PlayGammeAction extends AbstractAction {
 	private static final long	serialVersionUID	= 1L;
@@ -18,14 +18,17 @@ public class PlayGammeAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int dureeNote = 400;
+		int noteDuration = 400;
 		double volume = 0.3;
-		NoteWave gamme = appState.buildNoteWave(0, dureeNote, volume);
+		double frequency = appState.getNoteFrequency(0);
+		NoteWave gamme = NoteWave.buildNoteWaveWithFade(frequency, noteDuration, volume);
 		if (null != gamme) {
 			int nbNotes = appState.getTemperament().getNbNotesToPlayGamme();
 			for (int i = 1; i <= nbNotes; i++) {
-				int duree = i < nbNotes ? dureeNote : 2 * dureeNote;
-				NoteWave note = appState.buildNoteWave(i, duree, volume);
+				// last note longer than others
+				int effectiveDuration = i < nbNotes ? noteDuration : 2 * noteDuration;
+				frequency = appState.getNoteFrequency(i);
+				NoteWave note = NoteWave.buildNoteWaveWithFade(frequency, effectiveDuration, volume);
 				if (null != note) {
 					gamme.appendNote(note);
 				}

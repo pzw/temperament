@@ -1,10 +1,10 @@
-package temperament.musical;
+package temperament.player;
 
 import temperament.constants.IConstants;
 
 public class NoteWave {
 
-	private float[]	wave;
+	private float[] wave;
 
 	/**
 	 * note à une certaine fréquence, pendant une durée
@@ -15,7 +15,7 @@ public class NoteWave {
 	public NoteWave(double frequency, double duration, double volume) {
 		this(frequency, duration, 0.0, 0.0, volume);
 	}
-	
+
 	public NoteWave(double frequency, double duration, double fadeDuration, double volume) {
 		this(frequency, duration, fadeDuration, fadeDuration, volume);
 	}
@@ -24,6 +24,22 @@ public class NoteWave {
 		wave = WaveGenerator.generateSinus(frequency, 127.0 * volume, duration, fadeInDuration, fadeOutDuration,
 				(int) (IConstants.SAMPLE_RATE * duration / 1000));
 	}
+
+	/**
+	 * construit l'onde d'une note avec un petit fade in / fade out
+	 * 
+	 * @param frequency
+	 * @param duration
+	 * @param volume
+	 * @return
+	 */
+	public static NoteWave buildNoteWaveWithFade(double frequency, double duration, double volume) {
+		if (0.0 == frequency) return null;
+		double fadeInDuration = duration / 40.0;
+		double fadeOutDuration = duration / 20.0;
+		return new NoteWave(frequency, duration, fadeInDuration, fadeOutDuration, volume);
+	}
+
 	public int getWaveLength() {
 		return wave.length;
 	}
@@ -65,21 +81,21 @@ public class NoteWave {
 		for (int i = 0; i < size; i++) {
 			result[i] = (byte) (wave[i] * 127.0f / max);
 		}
-		
+
 		return result;
 	}
-	
+
 	public byte[] convert16bit() {
 		float max = getMaxValue();
 
 		int size = wave.length;
-		byte[] result = new byte[2*size];
+		byte[] result = new byte[2 * size];
 		for (int i = 0; i < size; i++) {
 			short tmp = (short) (wave[i] * 32767 / max);
-			result[2*i] = (byte) (tmp % 256);
-			result[2*i+1] = (byte) (tmp / 256);
+			result[2 * i] = (byte) (tmp % 256);
+			result[2 * i + 1] = (byte) (tmp / 256);
 		}
-		
+
 		return result;
 	}
 

@@ -10,13 +10,11 @@ import com.jgoodies.binding.beans.Model;
 
 import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
-import temperament.musical.NoteWave;
 import temperament.musical.Temperaments;
 
 public class AppState extends Model {
 	private static final long	serialVersionUID				= 1L;
 	public static final String	TEMPERAMENT_PROPERTY			= "temperament";
-	public static final String	DURATION_PROPERTY				= "duration";
 	public static final String	LA_FREQUENCY_PROPERTY			= "laFrequency";
 	public static final String	SELECTION_PROPERTY				= "selection";
 	public static final String	WAVE_VIEW_DURATION_PROPERTY		= "waveViewDuration";
@@ -28,7 +26,6 @@ public class AppState extends Model {
 	public static final String	AUTO_SELECT_MAJOR_THIRD			= "autoSelectMajorThird";
 	public static final String	AUTO_SELECT_FIFTH				= "autoSelectFifth";
 	private ITemperament		temperament						= Temperaments.getInstance().getTemperaments().get(0);
-	private double				duration						= 2000;
 	private double				laFrequency						= 440.0;
 	private List<Integer>		selection						= new ArrayList<Integer>();
 	/** durée visualisée dans WavePanel */
@@ -64,16 +61,6 @@ public class AppState extends Model {
 				}
 			});
 		}
-	}
-
-	public double getDuration() {
-		return duration;
-	}
-
-	public void setDuration(double newValue) {
-		double oldValue = getDuration();
-		duration = newValue;
-		firePropertyChange(DURATION_PROPERTY, oldValue, newValue);
 	}
 
 	public double getLaFrequency() {
@@ -115,15 +102,6 @@ public class AppState extends Model {
 		double frequenceDo = temperament.getFrequenceDo(getLaFrequency());
 		double result = frequenceDo * temperament.getNoteFrequencyRatio(index);
 		return result;
-	}
-
-	public NoteWave buildNoteWave(int index, double pDuration, double pVolume) {
-		double f = getNoteFrequency(index);
-		if (0.0 == f)
-			return null;
-		double fadeInDuration = pDuration / 40.0;
-		double fadeOutDuration = pDuration / 20.0;
-		return new NoteWave(f, pDuration, fadeInDuration, fadeOutDuration, pVolume);
 	}
 
 	public Color getSelectionColor(int idx) {
@@ -253,8 +231,6 @@ public class AppState extends Model {
 	}
 
 	private List<Integer> getSelectionByFullNames(List<String> pSelection) {
-		// System.out.println("get t = " + temperament.toString() + ":<" +
-		// pSelection.toString() + ">");
 		List<Integer> result = new ArrayList<Integer>();
 		if (null != pSelection) {
 			for (String n : pSelection) {
@@ -264,7 +240,6 @@ public class AppState extends Model {
 				}
 			}
 		}
-		// System.out.println("result : " + result.toString());
 		return result;
 	}
 
@@ -297,6 +272,7 @@ public class AppState extends Model {
 
 	/**
 	 * retourne la description d'un intervalle entre deux notes du tempérament
+	 * actuellement actif
 	 * 
 	 * @param idx1
 	 * @param idx2

@@ -1,8 +1,6 @@
 package temperament.musical;
 
 public class TemperamentPythagore2 extends TemperamentBase {
-	public TemperamentPythagore2() {
-	}
 
 	@Override
 	protected void initRatios() {

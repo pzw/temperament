@@ -2,9 +2,6 @@ package temperament.musical;
 
 public class TemperamentEgal extends TemperamentBase {
 
-	public TemperamentEgal() {
-	}
-
 	@Override
 	protected void initRatios() {
 		double step = Math.pow(MusicalKnowledge.RATIO_OCTAVE, 1.0 / NB_NOTES_STANDARD);

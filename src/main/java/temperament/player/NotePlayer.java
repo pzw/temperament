@@ -6,7 +6,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
 import temperament.constants.IConstants;
-import temperament.musical.NoteWave;
 
 public class NotePlayer extends Thread {
 	private NoteWave	note;

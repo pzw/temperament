@@ -1,8 +1,6 @@
 package temperament.musical;
 
 public class TemperamentWerckmeister1 extends TemperamentBase {
-	public TemperamentWerckmeister1() {
-	}
 
 	@Override
 	protected void initRatios() {

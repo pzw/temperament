@@ -1,4 +1,4 @@
-package temperament.musical;
+package temperament.player;
 
 public class WaveGenerator {
 	/**

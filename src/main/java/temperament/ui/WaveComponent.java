@@ -13,7 +13,7 @@ import java.util.List;
 import javax.swing.JComponent;
 
 import temperament.model.AppState;
-import temperament.musical.WaveGenerator;
+import temperament.player.WaveGenerator;
 
 /**
  * composant qui affiche une ou plusieurs notes

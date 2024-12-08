@@ -20,13 +20,10 @@ public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 	private static final int	IDX_SI_BEMOL	= 12;
 	private static final int	IDX_SI			= 13;
 
-	public TemperamentAbbatialePayerne() {
-	}
-
 	@Override
 	protected void initRatios() {
 		super.initRatios();
-		
+
 		// placement des notes associées aux feintes brisées
 		// ré dièze : une tierce majeure au-dessus de SI (hausse de 2 octaves pour
 		// rapprocher du mi bémol)
@@ -83,7 +80,6 @@ public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 
 		initRatiosFromRatiosFifthsCircle();
 	}
-
 
 	@Override
 	protected void initNoteNames() {

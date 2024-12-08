@@ -5,9 +5,6 @@ public class TemperamentPythagore extends TemperamentBase {
 	private static final int	NB_NOTES		= NB_NOTES_STANDARD + 1;
 	private static final int	IDX_SI_DIEZE	= NB_NOTES - 1;
 
-	public TemperamentPythagore() {
-	}
-
 	@Override
 	protected void initRatios() {
 		ratios = new double[2 * NB_NOTES];
