@@ -23,7 +23,7 @@ public class NotesInterval {
 		double fLow = temperament.getNoteFrequencyRatio(noteLow);
 		double fHigh = temperament.getNoteFrequencyRatio(noteHigh);
 		if (fHigh < fLow) {
-			fHigh = fHigh * TemperamentBase.RATIO_OCTAVE;
+			fHigh = fHigh * MusicalKnowledge.RATIO_OCTAVE;
 		}
 		return fHigh / fLow;
 	}

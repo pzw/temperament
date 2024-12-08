@@ -7,7 +7,7 @@ public class TemperamentWerckmeister4 extends TemperamentBase {
 	@Override
 	protected void initRatios() {
 		ratios = new double[2 * NB_NOTES_STANDARD];
-		ratios[Do()] = RATIO_UNISSON;
+		ratios[Do()] = MusicalKnowledge.RATIO_UNISSON;
 		ratios[DoDieze()] = 98.0 / 93.0;
 		// ratios[Re()] = 49.0 / 44.0;
 		ratios[Re()] = 28.0 / 25.0;

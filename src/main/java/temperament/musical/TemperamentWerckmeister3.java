@@ -11,7 +11,7 @@ public class TemperamentWerckmeister3 extends TemperamentBase {
 		double root2_2 = Math.pow(2.0, 1.0 / 2.0);
 
 		ratios = new double[2 * NB_NOTES_STANDARD];
-		ratios[Do()] = RATIO_UNISSON;
+		ratios[Do()] = MusicalKnowledge.RATIO_UNISSON;
 		ratios[DoDieze()] = 8.0 / 9.0 * root4_2;
 		ratios[Re()] = 9.0 / 8.0;
 		ratios[MiBemol()] = root4_2;

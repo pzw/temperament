@@ -13,7 +13,7 @@ public class TemperamentPythagore extends TemperamentBase {
 		ratios = new double[2 * NB_NOTES];
 		ratiosFifthsCircle = new double[2 * NB_NOTES];
 
-		ratiosFifthsCircle[Do()] = RATIO_UNISSON;
+		ratiosFifthsCircle[Do()] = MusicalKnowledge.RATIO_UNISSON;
 		ratiosFifthsCircle[Sol()] = quinteMontante(ratiosFifthsCircle[Do()]);
 		ratiosFifthsCircle[Re()] = quinteMontante(ratiosFifthsCircle[Sol()]);
 		ratiosFifthsCircle[La()] = quinteMontante(ratiosFifthsCircle[Re()]);
@@ -29,9 +29,9 @@ public class TemperamentPythagore extends TemperamentBase {
 
 		// on ne doit pas toucher le si dièze
 		for (int i = 0; i < NB_NOTES_STANDARD; i++) {
-			ratios[i] = dansOctave(ratiosFifthsCircle[i]);
+			ratios[i] = MusicalKnowledge.dansOctave(ratiosFifthsCircle[i]);
 		}
-		ratios[SiDieze()] = ratiosFifthsCircle[SiDieze()] / RATIO_OCTAVE_7;
+		ratios[SiDieze()] = ratiosFifthsCircle[SiDieze()] / MusicalKnowledge.RATIO_OCTAVE_7;
 	}
 
 	@Override

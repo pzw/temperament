@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import temperament.musical.ITemperament;
+import temperament.musical.MusicalKnowledge;
 import temperament.musical.NotesInterval;
-import temperament.musical.TemperamentBase;
 
 /**
  * tempérament basé sur le contenu d'un fichier JSON (actuellement pas utilisé)
@@ -55,7 +55,7 @@ public class TemperamentJson implements ITemperament {
 
 	@Override
 	public double getNoteFrequencyRatio(int noteIndex) {
-		return TemperamentBase.dansOctave(getNoteFrequencyRatioInFifthsCirle(noteIndex));
+		return MusicalKnowledge.dansOctave(getNoteFrequencyRatioInFifthsCirle(noteIndex));
 	}
 
 	@Override

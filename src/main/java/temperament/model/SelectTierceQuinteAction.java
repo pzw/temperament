@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 
 import temperament.musical.ITemperament;
-import temperament.musical.TemperamentBase;
+import temperament.musical.MusicalKnowledge;
 
 public class SelectTierceQuinteAction extends AbstractAction {
 	private static final long	serialVersionUID	= 1L;
@@ -27,8 +27,8 @@ public class SelectTierceQuinteAction extends AbstractAction {
 		ITemperament t = appState.getTemperament();
 		int idxNote1 = sel.get(0);
 		double ratio1 = t.getNoteFrequencyRatio(idxNote1);
-		double ratio2 = ratio1 * TemperamentBase.RATIO_TIERCE_MAJEURE;
-		double ratio3 = ratio1 * TemperamentBase.RATIO_QUINTE;
+		double ratio2 = ratio1 * MusicalKnowledge.RATIO_TIERCE_MAJEURE;
+		double ratio3 = ratio1 * MusicalKnowledge.RATIO_QUINTE;
 		
 		int idxNote2 = t.findNoteIndexByRatio(ratio2);
 		int idxNote3 = t.findNoteIndexByRatio(ratio3);

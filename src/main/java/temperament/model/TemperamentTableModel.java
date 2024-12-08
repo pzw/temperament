@@ -7,7 +7,7 @@ import java.text.NumberFormat;
 import javax.swing.table.AbstractTableModel;
 
 import temperament.musical.ITemperament;
-import temperament.musical.WellKnownInterval;
+import temperament.musical.MusicalKnowledge;
 
 public class TemperamentTableModel extends AbstractTableModel {
 	private static final long	serialVersionUID	= 1L;
@@ -75,7 +75,7 @@ public class TemperamentTableModel extends AbstractTableModel {
 					break;
 				}
 				case COL_CENTS: {
-					result = formatCents.format(WellKnownInterval.toCents(t.getNoteFrequencyRatio(rowIndex)));
+					result = formatCents.format(MusicalKnowledge.toCents(t.getNoteFrequencyRatio(rowIndex)));
 					break;
 				}
 				}

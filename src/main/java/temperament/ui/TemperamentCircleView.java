@@ -20,8 +20,8 @@ import javax.swing.SwingUtilities;
 import temperament.model.AppState;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentBaseCircleModel;
+import temperament.musical.MusicalKnowledge;
 import temperament.musical.NotesInterval;
-import temperament.musical.TemperamentBase;
 
 public class TemperamentCircleView extends JComponent {
 	private static final long			serialVersionUID	= 1L;
@@ -164,7 +164,7 @@ public class TemperamentCircleView extends JComponent {
 		g.setColor(Color.darkGray);
 		Font save = g.getFont();
 		g.setFont(intervalFont);
-		Color backColor = TemperamentBase.isWellKnownInterval(noteInterval.getFrequencyRatio()) ? wellKnownInterval
+		Color backColor = MusicalKnowledge.isWellKnownInterval(noteInterval.getFrequencyRatio()) ? wellKnownInterval
 				: otherInterval;
 		drawString(g, xc, yc, interval, backColor);
 		g.setFont(save);

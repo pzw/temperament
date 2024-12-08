@@ -19,7 +19,7 @@ public class TemperamentPythagore2 extends TemperamentBase {
 		ratiosFifthsCircle[DoDieze()] = quinteMontante(ratiosFifthsCircle[FaDieze()]);
 		ratiosFifthsCircle[SolDieze()] = quinteMontante(ratiosFifthsCircle[DoDieze()]);
 
-		ratiosFifthsCircle[Fa()] = quinteDescendante(ratiosFifthsCircle[Do()] * RATIO_OCTAVE_8);
+		ratiosFifthsCircle[Fa()] = quinteDescendante(ratiosFifthsCircle[Do()] * MusicalKnowledge.RATIO_OCTAVE_8);
 		ratiosFifthsCircle[SiBemol()] = quinteDescendante(ratiosFifthsCircle[Fa()]);
 		ratiosFifthsCircle[MiBemol()] = quinteDescendante(ratiosFifthsCircle[SiBemol()]);
 

@@ -9,10 +9,9 @@ import javax.swing.SwingUtilities;
 import com.jgoodies.binding.beans.Model;
 
 import temperament.musical.ITemperament;
+import temperament.musical.MusicalKnowledge;
 import temperament.musical.NoteWave;
-import temperament.musical.TemperamentBase;
 import temperament.musical.Temperaments;
-import temperament.musical.WellKnownInterval;
 
 public class AppState extends Model {
 	private static final long	serialVersionUID				= 1L;
@@ -279,14 +278,14 @@ public class AppState extends Model {
 
 			double ratio1 = temperament.getNoteFrequencyRatio(idxNote1);
 			if (autoSelectMajorThird) {
-				double ratio3 = ratio1 * TemperamentBase.RATIO_TIERCE_MAJEURE;
+				double ratio3 = ratio1 * MusicalKnowledge.RATIO_TIERCE_MAJEURE;
 				int idxNote3 = temperament.findNoteIndexByRatio(ratio3);
 				if (idxNote3 != -1) {
 					result.add(idxNote3);
 				}
 			}
 			if (autoSelectFifth) {
-				double ratio5 = ratio1 * TemperamentBase.RATIO_QUINTE;
+				double ratio5 = ratio1 * MusicalKnowledge.RATIO_QUINTE;
 				int idxNote5 = temperament.findNoteIndexByRatio(ratio5);
 				if (idxNote5 != -1) {
 					result.add(idxNote5);
@@ -312,7 +311,7 @@ public class AppState extends Model {
 		double f1 = getNoteFrequency(idx1);
 		double f2 = getNoteFrequency(idx2);
 		double ratio = Math.max(f1, f2) / Math.min(f1, f2);
-		String ratioName = WellKnownInterval.getFrequencyRatioName(ratio);
+		String ratioName = MusicalKnowledge.getFrequencyRatioName(ratio);
 		result.append(ratioName);
 		return result.toString();
 	}

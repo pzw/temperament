@@ -57,7 +57,7 @@ public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 
 		// 1 : poser les quintes do - sol - ré - la
 		// attention : les quintes dont fausses de 1/4 comma
-		ratiosFifthsCircle[Do()] = RATIO_UNISSON;
+		ratiosFifthsCircle[Do()] = MusicalKnowledge.RATIO_UNISSON;
 		ratiosFifthsCircle[Sol()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Do()]);
 		ratiosFifthsCircle[Re()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Sol()]);
 		ratiosFifthsCircle[La()] = quinteMesotoniqueMontante(ratiosFifthsCircle[Re()]);
@@ -88,8 +88,8 @@ public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
 	@Override
 	protected void initNoteNames() {
 		super.initNoteNames();
-		names[ReDieze()] = NOM_RE_DIEZE;
-		names[LaBemol()] = NOM_LA_BEMOL;
+		names[ReDieze()] = MusicalKnowledge.NOM_RE_DIEZE;
+		names[LaBemol()] = MusicalKnowledge.NOM_LA_BEMOL;
 	}
 
 	@Override

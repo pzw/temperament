@@ -16,43 +16,7 @@ public abstract class TemperamentBase implements ITemperament {
 	private static final int		IDX_LA						= 9;
 	private static final int		IDX_SI_BEMOL				= 10;
 	private static final int		IDX_SI						= 11;
-	public static final double		RATIO_UNISSON				= 1.0;
-	public static final double		RATIO_OCTAVE				= 2.0;
-	public static final double		RATIO_OCTAVE_2				= 2.0;
-	public static final double		RATIO_OCTAVE_3				= 4.0;
-	public static final double		RATIO_OCTAVE_4				= 8.0;
-	public static final double		RATIO_OCTAVE_5				= 16.0;
-	public static final double		RATIO_OCTAVE_6				= 32.0;
-	public static final double		RATIO_OCTAVE_7				= 64.0;
-	public static final double		RATIO_OCTAVE_8				= 128.0;
-	public static final double		RATIO_SECONDE_MINEURE		= 10.0 / 9.0;
-	public static final double		RATIO_SECONDE_MAJEURE		= 9.0 / 8.0;
-	public static final double		RATIO_TIERCE_MINEURE		= 6.0 / 5.0;
-	public static final double		RATIO_TIERCE_MAJEURE		= 5.0 / 4.0;
-	public static final double		RATIO_QUARTE				= 4.0 / 3.0;
-	public static final double		RATIO_QUINTE				= 3.0 / 2.0;
-	public static final double		RATIO_SIXTE_MINEURE			= 8.0 / 5.0;
-	public static final double		RATIO_SIXTE_MAJEURE			= 5.0 / 3.0;
-	public static final String		NOM_DO						= "do";
-	public static final String		NOM_DO_DIEZE				= "do #";
-	public static final String		NOM_RE_BEMOL				= "ré b";
-	public static final String		NOM_RE						= "ré";
-	public static final String		NOM_RE_DIEZE				= "ré #";
-	public static final String		NOM_MI_BEMOL				= "mi b";
-	public static final String		NOM_MI						= "mi";
-	public static final String		NOM_MI_DIEZE				= "mi #";
-	public static final String		NOM_FA						= "fa";
-	public static final String		NOM_FA_DIEZE				= "fa #";
-	public static final String		NOM_SOL						= "sol";
-	public static final String		NOM_SOL_DIEZE				= "sol #";
-	public static final String		NOM_LA_BEMOL				= "la b";
-	public static final String		NOM_LA						= "la";
-	public static final String		NOM_LA_DIEZE				= "la #";
-	public static final String		NOM_SI_BEMOL				= "si b";
-	public static final String		NOM_SI						= "si";
-	public static final String		NOM_SI_DIEZE				= "si #";
 	protected static final int		NB_NOTES_STANDARD			= 12;
-	protected static final double	RATIO_QUINTE_MESOTONIQUE4	= Math.pow(5.0, 0.25);
 	protected String[]				names;
 	protected double[]				ratios;
 	protected double[]				ratiosFifthsCircle;
@@ -67,7 +31,7 @@ public abstract class TemperamentBase implements ITemperament {
 
 	protected void initRatiosFromRatiosFifthsCircle() {
 		for (int i = 0; i < getNbNotesGamme(); i++) {
-			ratios[i] = dansOctave(ratiosFifthsCircle[i]);
+			ratios[i] = MusicalKnowledge.dansOctave(ratiosFifthsCircle[i]);
 		}
 	}
 
@@ -75,62 +39,62 @@ public abstract class TemperamentBase implements ITemperament {
 		ratiosFifthsCircle = new double[2 * getNbNotesGamme()];
 		ratiosFifthsCircle[Do()] = ratios[Do()];
 		ratiosFifthsCircle[Sol()] = ratios[Sol()];
-		ratiosFifthsCircle[Re()] = ratios[Re()] * RATIO_OCTAVE_2;
-		ratiosFifthsCircle[La()] = ratios[La()] * RATIO_OCTAVE_2;
-		ratiosFifthsCircle[Mi()] = ratios[Mi()] * RATIO_OCTAVE_3;
-		ratiosFifthsCircle[Si()] = ratios[Si()] * RATIO_OCTAVE_3;
-		ratiosFifthsCircle[FaDieze()] = ratios[FaDieze()] * RATIO_OCTAVE_4;
-		ratiosFifthsCircle[DoDieze()] = ratios[DoDieze()] * RATIO_OCTAVE_5;
-		ratiosFifthsCircle[SolDieze()] = ratios[SolDieze()] * RATIO_OCTAVE_5;
-		ratiosFifthsCircle[MiBemol()] = ratios[MiBemol()] * RATIO_OCTAVE_6;
-		ratiosFifthsCircle[SiBemol()] = ratios[SiBemol()] * RATIO_OCTAVE_6;
-		ratiosFifthsCircle[Fa()] = ratios[Fa()] * RATIO_OCTAVE_7;
+		ratiosFifthsCircle[Re()] = ratios[Re()] * MusicalKnowledge.RATIO_OCTAVE_2;
+		ratiosFifthsCircle[La()] = ratios[La()] * MusicalKnowledge.RATIO_OCTAVE_2;
+		ratiosFifthsCircle[Mi()] = ratios[Mi()] * MusicalKnowledge.RATIO_OCTAVE_3;
+		ratiosFifthsCircle[Si()] = ratios[Si()] * MusicalKnowledge.RATIO_OCTAVE_3;
+		ratiosFifthsCircle[FaDieze()] = ratios[FaDieze()] * MusicalKnowledge.RATIO_OCTAVE_4;
+		ratiosFifthsCircle[DoDieze()] = ratios[DoDieze()] * MusicalKnowledge.RATIO_OCTAVE_5;
+		ratiosFifthsCircle[SolDieze()] = ratios[SolDieze()] * MusicalKnowledge.RATIO_OCTAVE_5;
+		ratiosFifthsCircle[MiBemol()] = ratios[MiBemol()] * MusicalKnowledge.RATIO_OCTAVE_6;
+		ratiosFifthsCircle[SiBemol()] = ratios[SiBemol()] * MusicalKnowledge.RATIO_OCTAVE_6;
+		ratiosFifthsCircle[Fa()] = ratios[Fa()] * MusicalKnowledge.RATIO_OCTAVE_7;
 	}
 
 	protected double quinteDescendante(double pFrequency) {
-		return pFrequency / RATIO_QUINTE;
+		return pFrequency / MusicalKnowledge.RATIO_QUINTE;
 	}
 
 	protected double quinteMontante(double pFrequency) {
-		return pFrequency * RATIO_QUINTE;
+		return pFrequency * MusicalKnowledge.RATIO_QUINTE;
 	}
 
 	protected double quinteMesotoniqueDescendante(double pFrequency) {
-		return pFrequency / RATIO_QUINTE_MESOTONIQUE4;
+		return pFrequency / MusicalKnowledge.RATIO_QUINTE_MESOTONIQUE4;
 	}
 
 	protected double quinteMesotoniqueMontante(double pFrequency) {
-		return pFrequency * RATIO_QUINTE_MESOTONIQUE4;
+		return pFrequency * MusicalKnowledge.RATIO_QUINTE_MESOTONIQUE4;
 	}
 
 	protected double tierceMajeureMontante(double pFrequency) {
-		return pFrequency * RATIO_TIERCE_MAJEURE;
+		return pFrequency * MusicalKnowledge.RATIO_TIERCE_MAJEURE;
 	}
 
 	protected double tierceMajeureDescendante(double pFrequency) {
-		return pFrequency / RATIO_TIERCE_MAJEURE;
+		return pFrequency / MusicalKnowledge.RATIO_TIERCE_MAJEURE;
 	}
 
 	protected void initNoteNames() {
 		names = new String[getNbNotes()];
-		names[Do()] = NOM_DO;
-		names[DoDieze()] = NOM_DO_DIEZE;
-		names[Re()] = NOM_RE;
-		names[MiBemol()] = NOM_MI_BEMOL;
-		names[Mi()] = NOM_MI;
-		names[Fa()] = NOM_FA;
-		names[FaDieze()] = NOM_FA_DIEZE;
-		names[Sol()] = NOM_SOL;
-		names[SolDieze()] = NOM_SOL_DIEZE;
-		names[La()] = NOM_LA;
-		names[SiBemol()] = NOM_SI_BEMOL;
-		names[Si()] = NOM_SI;
+		names[Do()] = MusicalKnowledge.NOM_DO;
+		names[DoDieze()] = MusicalKnowledge.NOM_DO_DIEZE;
+		names[Re()] = MusicalKnowledge.NOM_RE;
+		names[MiBemol()] = MusicalKnowledge.NOM_MI_BEMOL;
+		names[Mi()] = MusicalKnowledge.NOM_MI;
+		names[Fa()] = MusicalKnowledge.NOM_FA;
+		names[FaDieze()] = MusicalKnowledge.NOM_FA_DIEZE;
+		names[Sol()] = MusicalKnowledge.NOM_SOL;
+		names[SolDieze()] = MusicalKnowledge.NOM_SOL_DIEZE;
+		names[La()] = MusicalKnowledge.NOM_LA;
+		names[SiBemol()] = MusicalKnowledge.NOM_SI_BEMOL;
+		names[Si()] = MusicalKnowledge.NOM_SI;
 	}
 
 	protected void initOctave() {
 		int n = getNbNotesGamme();
 		for (int i = 0; i < n; i++) {
-			ratios[i + n] = ratios[i] * RATIO_OCTAVE;
+			ratios[i + n] = ratios[i] * MusicalKnowledge.RATIO_OCTAVE;
 			ratiosFifthsCircle[i + n] = ratiosFifthsCircle[i];
 			names[i + n] = names[i];
 		}
@@ -175,52 +139,6 @@ public abstract class TemperamentBase implements ITemperament {
 		return frequenceLa / getNoteFrequencyRatio(La());
 	}
 
-	/**
-	 * garantir qu'un ratio est situé entre l'unisson et l'octave
-	 * 
-	 * @param ratio
-	 * @return
-	 */
-	public static double dansOctave(double ratio) {
-		if (0 == ratio)
-			return 0.0;
-
-		double result = ratio;
-		while (result > RATIO_OCTAVE) {
-			result = result / RATIO_OCTAVE;
-		}
-		while (result < RATIO_UNISSON) {
-			result = result * RATIO_OCTAVE;
-		}
-		return result;
-	}
-
-	public static boolean almostEqual(double v1, double v2) {
-		return Math.abs(v1 - v2) < 0.00000001;
-	}
-
-	public static boolean isWellKnownInterval(double ratio) {
-		return almostEqual(ratio, RATIO_TIERCE_MINEURE) || almostEqual(ratio, RATIO_TIERCE_MAJEURE)
-				|| almostEqual(ratio, RATIO_QUARTE) || almostEqual(ratio, RATIO_QUINTE)
-				|| almostEqual(ratio, RATIO_OCTAVE);
-	}
-
-//	public static String getFrequencyRatioName(double ratio) {
-//		if (almostEqual(ratio, RATIO_TIERCE_MINEURE)) {
-//			return "tierce mineure";
-//		} else if (almostEqual(ratio, RATIO_TIERCE_MAJEURE)) {
-//			return "tierce majeure";
-//		} else if (almostEqual(ratio, RATIO_QUARTE)) {
-//			return "quarte";
-//		} else if (almostEqual(ratio, RATIO_QUINTE)) {
-//			return "quinte";
-//		} else if (almostEqual(ratio, RATIO_OCTAVE)) {
-//			return "octave";
-//		} else {
-//			return "autre";
-//		}
-//	}
-//
 	public int Do() {
 		return IDX_DO;
 	}
@@ -330,14 +248,14 @@ public abstract class TemperamentBase implements ITemperament {
 	public int findNoteIndexByFullName(String fullName) {
 		int result = findNoteIndexByFullNameExact(fullName);
 		if (-1 == result) {
-			if (fullName.startsWith(NOM_RE_DIEZE)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(NOM_RE_DIEZE, NOM_MI_BEMOL));
-			} else if (fullName.startsWith(NOM_MI_BEMOL)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(NOM_MI_BEMOL, NOM_RE_DIEZE));
-			} else if (fullName.startsWith(NOM_SOL_DIEZE)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(NOM_SOL_DIEZE, NOM_LA_BEMOL));
-			} else if (fullName.startsWith(NOM_LA_BEMOL)) {
-				result = findNoteIndexByFullNameExact(fullName.replace(NOM_LA_BEMOL, NOM_SOL_DIEZE));
+			if (fullName.startsWith(MusicalKnowledge.NOM_RE_DIEZE)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_RE_DIEZE, MusicalKnowledge.NOM_MI_BEMOL));
+			} else if (fullName.startsWith(MusicalKnowledge.NOM_MI_BEMOL)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_MI_BEMOL, MusicalKnowledge.NOM_RE_DIEZE));
+			} else if (fullName.startsWith(MusicalKnowledge.NOM_SOL_DIEZE)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_SOL_DIEZE, MusicalKnowledge.NOM_LA_BEMOL));
+			} else if (fullName.startsWith(MusicalKnowledge.NOM_LA_BEMOL)) {
+				result = findNoteIndexByFullNameExact(fullName.replace(MusicalKnowledge.NOM_LA_BEMOL, MusicalKnowledge.NOM_SOL_DIEZE));
 			}
 		}
 		return result;
