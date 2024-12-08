@@ -1,7 +1,5 @@
 package temperament.ui;
 
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,7 +15,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import temperament.model.ApplicationState;
 import temperament.model.PlayGammeAction;
 import temperament.musical.ITemperament;
-import temperament.musical.Temperaments;
 
 /**
  * panel pour sélectionner le tempérament, la fréquence du la et jouer la gamme
@@ -28,8 +25,9 @@ public class ParameterPanel extends JPanel {
 
 	public ParameterPanel(ApplicationState appState) {
 		setBorder(BorderFactory.createTitledBorder("Paramètres"));
-		
-		FormLayout layout = new FormLayout("$dm,p,$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,0px,$dm", "$dm,p,0px:g,$dm");
+
+		FormLayout layout = new FormLayout("$dm,p,$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,0px,$dm",
+				"$dm,p,0px:g,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 
@@ -40,8 +38,7 @@ public class ParameterPanel extends JPanel {
 		add(new JLabel("Tempérament"), cc.xy(x, y));
 
 		x += 2;
-		List<ITemperament> temperaments = Temperaments.getInstance().getTemperaments();
-		SelectionInList<ITemperament> selTemperament = new SelectionInList<ITemperament>(temperaments,
+		SelectionInList<ITemperament> selTemperament = new SelectionInList<ITemperament>(appState.getTemperaments(),
 				pm.getModel(ApplicationState.TEMPERAMENT_PROPERTY));
 		JComboBox<ITemperament> cbTemperament = new JComboBox<ITemperament>();
 		Bindings.bind(cbTemperament, selTemperament);
@@ -49,7 +46,7 @@ public class ParameterPanel extends JPanel {
 
 		x += 2;
 		add(new JLabel("Fréquence du la"), cc.xy(x, y));
-		
+
 		x += 2;
 		SpinnerHelper sh = new SpinnerHelper(appState.getLaFrequency(), 200, 900, 0.5);
 		Bindings.bind(sh.getTextField(), pm.getModel(ApplicationState.LA_FREQUENCY_PROPERTY));

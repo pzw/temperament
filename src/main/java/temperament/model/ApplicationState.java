@@ -10,40 +10,74 @@ import com.jgoodies.binding.beans.Model;
 
 import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
-import temperament.musical.Temperaments;
+import temperament.musical.TemperamentAbbatialePayerne;
+import temperament.musical.TemperamentEgal;
+import temperament.musical.TemperamentMesotonique4;
+import temperament.musical.TemperamentPythagore;
+import temperament.musical.TemperamentPythagore2;
+import temperament.musical.TemperamentWerckmeister1;
+import temperament.musical.TemperamentWerckmeister2;
+import temperament.musical.TemperamentWerckmeister3;
+import temperament.musical.TemperamentWerckmeister4;
+import temperament.musical.json.TemperamentJson;
 
 /**
  * view model de l'application
  */
 public class ApplicationState extends Model {
-	private static final long	serialVersionUID				= 1L;
-	public static final String	TEMPERAMENT_PROPERTY			= "temperament";
-	public static final String	LA_FREQUENCY_PROPERTY			= "laFrequency";
-	public static final String	SELECTION_PROPERTY				= "selection";
-	public static final String	WAVE_VIEW_DURATION_PROPERTY		= "waveViewDuration";
-	public static final String	WAVE_SHOW_SUM_PROPERTY			= "waveShowSum";
-	public static final String	WAVE_SHOW_EACH_NOTE_PROPERTY	= "waveShowEachNote";
-	public static final String	SELECTION_DESCRIPTION_PROPERTY	= "selectionDescription";
-	public static final String	DISPLAY_FIFTHS					= "displayFifths";
-	public static final String	DISPLAY_MAJOR_THIRDS			= "displayMajorThirds";
-	public static final String	AUTO_SELECT_MAJOR_THIRD			= "autoSelectMajorThird";
-	public static final String	AUTO_SELECT_FIFTH				= "autoSelectFifth";
-	private ITemperament		temperament						= Temperaments.getInstance().getTemperaments().get(0);
-	private double				laFrequency						= 440.0;
-	private List<Integer>		selection						= new ArrayList<Integer>();
+	private static final long		serialVersionUID				= 1L;
+	public static final String		TEMPERAMENT_PROPERTY			= "temperament";
+	public static final String		LA_FREQUENCY_PROPERTY			= "laFrequency";
+	public static final String		SELECTION_PROPERTY				= "selection";
+	public static final String		WAVE_VIEW_DURATION_PROPERTY		= "waveViewDuration";
+	public static final String		WAVE_SHOW_SUM_PROPERTY			= "waveShowSum";
+	public static final String		WAVE_SHOW_EACH_NOTE_PROPERTY	= "waveShowEachNote";
+	public static final String		SELECTION_DESCRIPTION_PROPERTY	= "selectionDescription";
+	public static final String		DISPLAY_FIFTHS					= "displayFifths";
+	public static final String		DISPLAY_MAJOR_THIRDS			= "displayMajorThirds";
+	public static final String		AUTO_SELECT_MAJOR_THIRD			= "autoSelectMajorThird";
+	public static final String		AUTO_SELECT_FIFTH				= "autoSelectFifth";
+	private ITemperament			temperament;
+	private double					laFrequency						= 440.0;
+	private List<Integer>			selection						= new ArrayList<Integer>();
 	/** durée visualisée dans WavePanel */
-	private double				waveViewDuration				= 250.0;
-	private boolean				waveShowSum						= true;
-	private boolean				waveShowEachNote				= false;
-	private String				selectionDescription			= "";
-	private boolean				displayFifths					= false;
-	private boolean				displayMajorThirds				= false;
-	private boolean				autoSelectMajorThird			= false;
-	private boolean				autoSelectFifth					= false;
+	private double					waveViewDuration				= 250.0;
+	private boolean					waveShowSum						= true;
+	private boolean					waveShowEachNote				= false;
+	private String					selectionDescription			= "";
+	private boolean					displayFifths					= false;
+	private boolean					displayMajorThirds				= false;
+	private boolean					autoSelectMajorThird			= false;
+	private boolean					autoSelectFifth					= false;
+	private ArrayList<ITemperament>	temperaments;
 
-	public void setTemperamentTableModel() {
+	public ApplicationState() {
+		temperaments = new ArrayList<ITemperament>();
+		temperaments.add(new TemperamentEgal());
+		temperaments.add(new TemperamentPythagore());
+		temperaments.add(new TemperamentPythagore2());
+		temperaments.add(new TemperamentMesotonique4());
+		temperaments.add(new TemperamentAbbatialePayerne());
+		temperaments.add(new TemperamentWerckmeister1());
+		temperaments.add(new TemperamentWerckmeister2());
+		temperaments.add(new TemperamentWerckmeister3());
+		temperaments.add(new TemperamentWerckmeister4());
+		temperaments.add(new TemperamentJson("assets/tierce_quinte.json"));
+		temperament = temperaments.get(0);
 	}
 
+	/**
+	 * retourne la liste des tempéraments connus de l'application
+	 * 
+	 * @return
+	 */
+	public List<ITemperament> getTemperaments() {
+		return temperaments;
+	}
+
+	/**
+	 * retourne le tempérament actuellement sélectionné
+	 */
 	public ITemperament getTemperament() {
 		return temperament;
 	}
@@ -66,6 +100,11 @@ public class ApplicationState extends Model {
 		}
 	}
 
+	/**
+	 * retourne la fréquence choisie pour le LA
+	 * 
+	 * @return
+	 */
 	public double getLaFrequency() {
 		return laFrequency;
 	}
@@ -77,6 +116,11 @@ public class ApplicationState extends Model {
 		firePropertyChange(TEMPERAMENT_PROPERTY, null, getTemperament());
 	}
 
+	/**
+	 * retourne les indices des notes sélectionnées
+	 * 
+	 * @return
+	 */
 	public List<Integer> getSelection() {
 		return new ArrayList<Integer>(selection);
 	}
@@ -100,6 +144,12 @@ public class ApplicationState extends Model {
 		}
 	}
 
+	/**
+	 * retourne la fréquence d'une note selon son index
+	 * 
+	 * @param index
+	 * @return
+	 */
 	public double getNoteFrequency(int index) {
 		if (null == temperament)
 			return 0.0;
@@ -108,6 +158,12 @@ public class ApplicationState extends Model {
 		return result;
 	}
 
+	/**
+	 * retourne la couleur à utiliser pour montrer une note sélectionnée
+	 * 
+	 * @param idx
+	 * @return
+	 */
 	public Color getSelectionColor(int idx) {
 		switch (idx % 6) {
 		case 0:
@@ -126,6 +182,11 @@ public class ApplicationState extends Model {
 		return Color.magenta;
 	}
 
+	/**
+	 * retourne la durée de visualisation de l'onde de la note
+	 * 
+	 * @return
+	 */
 	public double getWaveViewDuration() {
 		return waveViewDuration;
 	}
@@ -136,6 +197,12 @@ public class ApplicationState extends Model {
 		firePropertyChange(WAVE_VIEW_DURATION_PROPERTY, oldvalue, newValue);
 	}
 
+	/**
+	 * retourne true si le composant de visualisation de l'onde doit montrer la
+	 * somme des ondes des notes sélectionnées
+	 * 
+	 * @return
+	 */
 	public boolean isWaveShowSum() {
 		return waveShowSum;
 	}
@@ -147,6 +214,12 @@ public class ApplicationState extends Model {
 
 	}
 
+	/**
+	 * retourne true si le composant de visualisation de l'onde doit montrer les
+	 * ondes individuelles des notes sélectionnées
+	 * 
+	 * @return
+	 */
 	public boolean isWaveShowEachNote() {
 		return waveShowEachNote;
 	}
@@ -157,6 +230,12 @@ public class ApplicationState extends Model {
 		firePropertyChange(WAVE_SHOW_EACH_NOTE_PROPERTY, oldValue, newValue);
 	}
 
+	/**
+	 * retourne un texte descriptif des intervalles des notes actuellement
+	 * sélectionnées
+	 * 
+	 * @return
+	 */
 	public String getSelectionDescription() {
 		return selectionDescription;
 	}
@@ -167,6 +246,11 @@ public class ApplicationState extends Model {
 		firePropertyChange(SELECTION_DESCRIPTION_PROPERTY, oldvalue, newValue);
 	}
 
+	/**
+	 * retourne true si l'on doit afficher les rapports de quintes
+	 * 
+	 * @return
+	 */
 	public boolean isDisplayFifths() {
 		return displayFifths;
 	}
@@ -180,6 +264,11 @@ public class ApplicationState extends Model {
 		}
 	}
 
+	/**
+	 * retourne true si l'on doit afficher les rapports des tierces majeures
+	 * 
+	 * @return
+	 */
 	public boolean isDisplayMajorThirds() {
 		return displayMajorThirds;
 	}
@@ -193,6 +282,12 @@ public class ApplicationState extends Model {
 		}
 	}
 
+	/**
+	 * retourne true si l'on doit automatiquement sélectionnée la tierce majeure
+	 * lorsqu'une note est sélectionnée par l'utilisateur
+	 * 
+	 * @return
+	 */
 	public boolean isAutoSelectMajorThird() {
 		return autoSelectMajorThird;
 	}
@@ -213,6 +308,12 @@ public class ApplicationState extends Model {
 		redoSelection();
 	}
 
+	/**
+	 * retourne true si l'on doit automatiquement sélectionnée la quinte lorsqu'une
+	 * note est sélectionnée par l'utilisateur
+	 * 
+	 * @return
+	 */
 	public boolean isAutoSelectFifth() {
 		return autoSelectFifth;
 	}
@@ -282,7 +383,7 @@ public class ApplicationState extends Model {
 	 * @param idx2
 	 * @return
 	 */
-	public String getIntervalDescription(int idx1, int idx2) {
+	private String getIntervalDescription(int idx1, int idx2) {
 		StringBuilder result = new StringBuilder();
 		result.append(temperament.getNoteName(idx1));
 		result.append(" - ");
