@@ -10,9 +10,9 @@ import temperament.player.NoteWave;
 
 public class PlaySelectionAction extends AbstractAction {
 	private static final long	serialVersionUID	= 1L;
-	private AppState			appState;
+	private ApplicationState			appState;
 
-	public PlaySelectionAction(AppState appState) {
+	public PlaySelectionAction(ApplicationState appState) {
 		super("Ecouter");
 		this.appState = appState;
 	}

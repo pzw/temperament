@@ -14,7 +14,7 @@ import com.jgoodies.binding.list.SelectionInList;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-import temperament.model.AppState;
+import temperament.model.ApplicationState;
 import temperament.model.PlayGammeAction;
 import temperament.musical.ITemperament;
 import temperament.musical.Temperaments;
@@ -26,14 +26,14 @@ public class ParameterPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public ParameterPanel(AppState appState) {
+	public ParameterPanel(ApplicationState appState) {
 		setBorder(BorderFactory.createTitledBorder("Paramètres"));
 		
 		FormLayout layout = new FormLayout("$dm,p,$rg,max(120dlu;p),$rg,p,$rg,max(60dlu;p),$rg,p,0px,$dm", "$dm,p,0px:g,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);
 
-		PresentationModel<AppState> pm = new PresentationModel<AppState>(appState);
+		PresentationModel<ApplicationState> pm = new PresentationModel<ApplicationState>(appState);
 
 		int x = 2;
 		int y = 2;
@@ -42,7 +42,7 @@ public class ParameterPanel extends JPanel {
 		x += 2;
 		List<ITemperament> temperaments = Temperaments.getInstance().getTemperaments();
 		SelectionInList<ITemperament> selTemperament = new SelectionInList<ITemperament>(temperaments,
-				pm.getModel(AppState.TEMPERAMENT_PROPERTY));
+				pm.getModel(ApplicationState.TEMPERAMENT_PROPERTY));
 		JComboBox<ITemperament> cbTemperament = new JComboBox<ITemperament>();
 		Bindings.bind(cbTemperament, selTemperament);
 		add(cbTemperament, cc.xy(x, y));
@@ -52,7 +52,7 @@ public class ParameterPanel extends JPanel {
 		
 		x += 2;
 		SpinnerHelper sh = new SpinnerHelper(appState.getLaFrequency(), 200, 900, 0.5);
-		Bindings.bind(sh.getTextField(), pm.getModel(AppState.LA_FREQUENCY_PROPERTY));
+		Bindings.bind(sh.getTextField(), pm.getModel(ApplicationState.LA_FREQUENCY_PROPERTY));
 		sh.getTextField().addFocusListener(new SelectAllFocusListener());
 		add(sh.getMainComponent(), cc.xy(x, y));
 

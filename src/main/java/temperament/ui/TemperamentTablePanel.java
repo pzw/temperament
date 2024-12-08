@@ -17,7 +17,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import temperament.model.AppState;
+import temperament.model.ApplicationState;
 import temperament.model.TemperamentTableModel;
 
 /**
@@ -28,7 +28,7 @@ public class TemperamentTablePanel extends JPanel {
 	private JTable				tableView;
 	private boolean				tableSelectionListenerEnabled	= true;
 
-	public TemperamentTablePanel(AppState appState, TemperamentTableModel model) {
+	public TemperamentTablePanel(ApplicationState appState, TemperamentTableModel model) {
 		setLayout(new BorderLayout());
 		tableView = new JTable(model);
 		tableView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -53,7 +53,7 @@ public class TemperamentTablePanel extends JPanel {
 			}
 		});
 
-		appState.addPropertyChangeListener(AppState.SELECTION_PROPERTY, new PropertyChangeListener() {
+		appState.addPropertyChangeListener(ApplicationState.SELECTION_PROPERTY, new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -68,7 +68,7 @@ public class TemperamentTablePanel extends JPanel {
 			}
 		});
 		
-		appState.addPropertyChangeListener(AppState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
+		appState.addPropertyChangeListener(ApplicationState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {

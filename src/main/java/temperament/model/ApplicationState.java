@@ -12,7 +12,7 @@ import temperament.musical.ITemperament;
 import temperament.musical.MusicalKnowledge;
 import temperament.musical.Temperaments;
 
-public class AppState extends Model {
+public class ApplicationState extends Model {
 	private static final long	serialVersionUID				= 1L;
 	public static final String	TEMPERAMENT_PROPERTY			= "temperament";
 	public static final String	LA_FREQUENCY_PROPERTY			= "laFrequency";
@@ -91,6 +91,7 @@ public class AppState extends Model {
 			}
 		}
 		selection = nv;
+		updateSelectionDescription();
 		if (change) {
 			firePropertyChange(SELECTION_PROPERTY, oldValue, nv);
 		}
@@ -292,4 +293,19 @@ public class AppState extends Model {
 		return result.toString();
 	}
 
+	private void updateSelectionDescription() {
+		int selSize = selection.size();
+		StringBuilder descr = new StringBuilder();
+		if (2 == selSize) {
+			descr.append(getIntervalDescription(selection.get(0), selection.get(1)));
+		} else if (3 == selSize) {
+			descr.append(getIntervalDescription(selection.get(0), selection.get(1)));
+			descr.append("  /  ");
+			descr.append(getIntervalDescription(selection.get(1), selection.get(2)));
+			descr.append("  /  ");
+			descr.append(getIntervalDescription(selection.get(0), selection.get(2)));
+
+		}
+		setSelectionDescription(descr.toString());
+	}
 }

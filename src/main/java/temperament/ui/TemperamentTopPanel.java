@@ -5,13 +5,13 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-import temperament.model.AppState;
+import temperament.model.ApplicationState;
 
 public class TemperamentTopPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TemperamentTopPanel(AppState appState) {
+	public TemperamentTopPanel(ApplicationState appState) {
 		FormLayout layout = new FormLayout("$dm,p,10px,p:g,$dm", "$dm,p,2px,p,$dm");
 		CellConstraints cc = new CellConstraints();
 		setLayout(layout);

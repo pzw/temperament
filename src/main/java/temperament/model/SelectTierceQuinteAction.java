@@ -11,9 +11,9 @@ import temperament.musical.MusicalKnowledge;
 
 public class SelectTierceQuinteAction extends AbstractAction {
 	private static final long	serialVersionUID	= 1L;
-	private AppState			appState;
+	private ApplicationState			appState;
 
-	public SelectTierceQuinteAction(AppState appState) {
+	public SelectTierceQuinteAction(ApplicationState appState) {
 		super("Sel 3 + 5");
 		this.appState = appState;
 	}

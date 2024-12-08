@@ -18,15 +18,15 @@ public class TemperamentTableModel extends AbstractTableModel {
 	private static final int	COL_NB				= 4;
 	private NumberFormat		format;
 	private NumberFormat		formatCents;
-	private AppState			appState;
+	private ApplicationState			appState;
 
-	public TemperamentTableModel(AppState appState) {
+	public TemperamentTableModel(ApplicationState appState) {
 		this.appState = appState;
-		appState.addPropertyChangeListener(AppState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
+		appState.addPropertyChangeListener(ApplicationState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
+				if (ApplicationState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
 					fireTableDataChanged();
 				}
 			}

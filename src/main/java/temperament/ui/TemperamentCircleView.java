@@ -17,7 +17,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import temperament.model.AppState;
+import temperament.model.ApplicationState;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentBaseCircleModel;
 import temperament.musical.MusicalKnowledge;
@@ -26,7 +26,7 @@ import temperament.musical.NotesInterval;
 public class TemperamentCircleView extends JComponent {
 	private static final long			serialVersionUID	= 1L;
 	private TemperamentBaseCircleModel	model;
-	private AppState					appState;
+	private ApplicationState					appState;
 	private boolean						showIntervals;
 	private NumberFormat				nfInterval;
 	private Font						intervalFont;
@@ -34,7 +34,7 @@ public class TemperamentCircleView extends JComponent {
 	private Color						otherInterval		= new Color(252, 191, 177);
 	private Color						backgroundColor		= Color.white;
 
-	public TemperamentCircleView(AppState appState, TemperamentBaseCircleModel model, boolean showIntervals) {
+	public TemperamentCircleView(ApplicationState appState, TemperamentBaseCircleModel model, boolean showIntervals) {
 		super();
 		nfInterval = NumberFormat.getNumberInstance();
 		nfInterval.setMaximumFractionDigits(3);
@@ -47,11 +47,11 @@ public class TemperamentCircleView extends JComponent {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())
-						|| AppState.DISPLAY_FIFTHS.equals(evt.getPropertyName())
-						|| AppState.DISPLAY_MAJOR_THIRDS.equals(evt.getPropertyName())) {
+				if (ApplicationState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())
+						|| ApplicationState.DISPLAY_FIFTHS.equals(evt.getPropertyName())
+						|| ApplicationState.DISPLAY_MAJOR_THIRDS.equals(evt.getPropertyName())) {
 					repaintLater();
-				} else if (AppState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
+				} else if (ApplicationState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 					repaint();
 				}
 			}

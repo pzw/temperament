@@ -5,7 +5,7 @@ import temperament.musical.ITemperament;
  * modèle pour le positionnement des notes dans un cercle : version par quintes dans 7 octaves
  */
 public class TemperamentFifthsCircleModel extends TemperamentBaseCircleModel {
-	public TemperamentFifthsCircleModel(AppState appState) {
+	public TemperamentFifthsCircleModel(ApplicationState appState) {
 		super(appState);
 	}
 

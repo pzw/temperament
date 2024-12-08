@@ -15,17 +15,17 @@ public abstract class TemperamentBaseCircleModel {
 	protected int				cy;
 	protected int				r;
 	protected int				r2;
-	protected AppState			appState;
+	protected ApplicationState			appState;
 
-	public TemperamentBaseCircleModel(AppState appState) {
+	public TemperamentBaseCircleModel(ApplicationState appState) {
 		this.appState = appState;
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if (AppState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
+				if (ApplicationState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
 					temperamentChanged();
-				} else if (AppState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
+				} else if (ApplicationState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 					// changement de la sélection
 					setSelection(appState.getSelection());
 				}

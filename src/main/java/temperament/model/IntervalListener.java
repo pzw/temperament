@@ -5,15 +5,15 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 public class IntervalListener implements PropertyChangeListener {
-	private AppState appState;
+	private ApplicationState appState;
 
-	public IntervalListener(AppState pAppState) {
+	public IntervalListener(ApplicationState pAppState) {
 		appState = pAppState;
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (AppState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
+		if (ApplicationState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 			List<Integer> sel = appState.getSelection();
 			int selSize = sel.size();
 			StringBuilder descr = new StringBuilder();

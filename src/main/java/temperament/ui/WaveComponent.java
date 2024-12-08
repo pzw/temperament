@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
-import temperament.model.AppState;
+import temperament.model.ApplicationState;
 import temperament.player.WaveGenerator;
 
 /**
@@ -20,10 +20,10 @@ import temperament.player.WaveGenerator;
  */
 public class WaveComponent extends JComponent {
 	private static final long	serialVersionUID	= 1L;
-	private AppState			appState;
+	private ApplicationState			appState;
 	private Color backgroundColor = Color.black;
 	
-	public WaveComponent(AppState appState) {
+	public WaveComponent(ApplicationState appState) {
 		this.appState = appState;
 
 		appState.addPropertyChangeListener(new PropertyChangeListener() {

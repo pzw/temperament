@@ -9,9 +9,9 @@ import temperament.player.NoteWave;
 
 public class PlayGammeAction extends AbstractAction {
 	private static final long	serialVersionUID	= 1L;
-	private AppState			appState;
+	private ApplicationState			appState;
 
-	public PlayGammeAction(AppState appState) {
+	public PlayGammeAction(ApplicationState appState) {
 		super("Gamme");
 		this.appState = appState;
 	}

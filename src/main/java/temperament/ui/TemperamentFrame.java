@@ -8,9 +8,12 @@ import java.awt.event.WindowEvent;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import temperament.model.ApplicationState;
+
 public class TemperamentFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-
+	private ApplicationState appState;
+	
 	public TemperamentFrame() {
 		super("Etude des tempéraments");
 		setMinimumSize(new Dimension(800, 800));
@@ -30,7 +33,8 @@ public class TemperamentFrame extends JFrame {
 	}
 
 	private JComponent buildMainPanel() {
-		TemperamentPanel result = new TemperamentPanel();
+		appState = new ApplicationState();
+		ApplicationPanel result = new ApplicationPanel(appState);
 		return result;
 	}
 }

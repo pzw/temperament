@@ -7,7 +7,7 @@ import temperament.musical.ITemperament;
  * dans une octave
  */
 public class TemperamentChromaticCircleModel extends TemperamentBaseCircleModel {
-	public TemperamentChromaticCircleModel(AppState appState) {
+	public TemperamentChromaticCircleModel(ApplicationState appState) {
 		super(appState);
 	}
 
