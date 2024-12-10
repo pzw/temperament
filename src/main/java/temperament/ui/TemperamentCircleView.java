@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
 
 import temperament.Commons;
 import temperament.model.ApplicationState;
+import temperament.model.ISelectableNote;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentBaseCircleModel;
 import temperament.musical.MusicalKnowledge;
@@ -57,9 +58,9 @@ public class TemperamentCircleView extends JComponent {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				NotePosition p = model.findNote(e.getPoint());
-				if (null != p) {
-					setToolTipText(p.getTooltip());
+				ISelectableNote n = model.findNote(e.getPoint());
+				if (null != n) {
+					setToolTipText(n.getTooltipText());
 				} else {
 					setToolTipText(null);
 				}
@@ -74,7 +75,7 @@ public class TemperamentCircleView extends JComponent {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
-					NotePosition np = model.findNote(e.getPoint());
+					ISelectableNote np = model.findNote(e.getPoint());
 					if (null != np) {
 						List<Integer> selection = appState.getSelection();
 						Integer noteIndex = np.getNoteIndex();

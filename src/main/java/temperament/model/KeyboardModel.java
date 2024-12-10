@@ -1,10 +1,7 @@
 package temperament.model;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.Polygon;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,7 @@ import temperament.musical.TemperamentAbbatialePayerne;
 /**
  * modèle de données pour les touches d'un clavier de piano
  */
-public class KeyboardModel {
+public class KeyboardModel extends SelectableNotesModel {
 	/** dimensions pour une touche de piano standard, en mm */
 	private static final double	DX1				= 24;
 	private static final double	DX2				= 14;
@@ -28,94 +25,44 @@ public class KeyboardModel {
 	private int					dy1;
 	private int					dy2;
 	private int					dy3;
-	private int					width			= 0;
-	private int					height			= 0;
-	private ApplicationState	appState;
 	private List<KeyboardKey>	keys;
-	private boolean				blackAndWhite	= false;
+	private boolean				blackAndWhite	= true;
 	private Color				whiteKey;
-	private Color				whiteKeyPressed;
 	private Color				blackKey;
-	private Color				blackKeyPressed;
 
 	public KeyboardModel(ApplicationState appState) {
-		this.appState = appState;
+		super(appState);
 		whiteKey = blackAndWhite ? Color.white : new Color(252, 197, 109);
-		whiteKeyPressed = Color.yellow;
 		blackKey = blackAndWhite ? Color.black : new Color(102, 69, 17);
-		blackKeyPressed = Color.green;
-
-		appState.addPropertyChangeListener(new PropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (ApplicationState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())) {
-					temperamentChanged();
-				} else if (ApplicationState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
-					// changement de la sélection
-					setSelection(appState.getSelection());
-				}
-			}
-		});
-		initKeyboard();
 	}
 
-	private void temperamentChanged() {
-		initKeyboard();
+	@Override
+	protected List<? extends ISelectableNote> getNotes() {
+		return keys;
 	}
 
-	private void setSelection(List<Integer> selection) {
-		if (null != keys) {
-			for (int n = 0; n < keys.size(); n++) {
-				KeyboardKey k = keys.get(n);
-				boolean newSelect = selection.contains(n);
-				k.setPressed(newSelect);
-			}
-		}
+	@Override
+	protected void afterPanelDimensionChanged() {
+		double scaleX = getWidth() / (14 * DX1);
+		double scaleY = getHeight() / DY1;
+		double scale = Math.min(scaleX, scaleY);
+		dx1 = (int) (DX1 * scale);
+		dx2 = (int) (DX2 * scale);
+		dy1 = (int) (DY1 * scale);
+		dy2 = (int) (DY2 * scale);
+		dy3 = (int) (DY3 * scale);
 	}
 
-	public void setPanelDimensions(int w, int h) {
-		if (w != width || h != height) {
-			width = w;
-			height = h;
-			double scaleX = w / (14 * DX1);
-			double scaleY = h / DY1;
-			double scale = Math.min(scaleX, scaleY);
-			dx1 = (int) (DX1 * scale);
-			dx2 = (int) (DX2 * scale);
-			dy1 = (int) (DY1 * scale);
-			dy2 = (int) (DY2 * scale);
-			dy3 = (int) (DY3 * scale);
-
-			updateKeyPositions();
-		}
-
-	}
-
-	public int getSelectionRank(int noteIndex) {
-		if (!keys.get(noteIndex).isPressed()) {
-			// la note n'est pas sélectionnée : pas de rang
-			return -1;
-		}
-		int result = 0;
-		int idx = 0;
-		while (idx < noteIndex) {
-			if (keys.get(idx).isPressed()) {
-				result++;
-			}
-			idx++;
-		}
-		return result;
-	}
-
-	private void initKeyboard() {
+	@Override
+	protected void initNotes() {
 		keys = new ArrayList<KeyboardKey>();
 		initOctave(0);
 		initOctave(1);
-		updateKeyPositions();
+		updateNotes();
 	}
 
-	private void updateKeyPositions() {
+	@Override
+	protected void updateNotes() {
 		if (null != keys) {
 			for (KeyboardKey k : keys) {
 				k.resetPolygon(dx1);
@@ -128,7 +75,7 @@ public class KeyboardModel {
 		int xStart = octave * 7;
 		int idx = keys.size();
 
-		ITemperament t = appState.getTemperament();
+		ITemperament t = getTemperament();
 		boolean feintesBrisees = null != t && TemperamentAbbatialePayerne.ABBATIALE_PAYERNE.equals(t.toString());
 		keys.add(new KeyboardKey(KeyType.DoFa, xStart + 0, idx++));
 		keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 1, idx++));
@@ -158,19 +105,9 @@ public class KeyboardModel {
 		return keys;
 	}
 
-	public KeyboardKey findNote(Point p) {
-		for (int i = 0; i < keys.size(); i++) {
-			KeyboardKey k = keys.get(i);
-			if (k.containsPoint(p.x, p.y)) {
-				return k;
-			}
-		}
-		return null;
-	}
-
-	public class KeyboardKey {
+	public class KeyboardKey implements ISelectableNote {
 		private Polygon	polygon;
-		private boolean	pressed;
+		private boolean	selected;
 		/** index de la note dans le tempérament */
 		private int		noteIndex;
 		private KeyType	keyType;
@@ -180,12 +117,17 @@ public class KeyboardModel {
 			this.keyType = keyType;
 			this.notePosition = notePosition;
 			this.noteIndex = noteIndex;
-			this.pressed = false;
+			this.selected = false;
 			this.polygon = null;
 		}
 
 		public Polygon getPolygon() {
 			return polygon;
+		}
+
+		@Override
+		public String getTooltipText() {
+			return null;
 		}
 
 		public void resetPolygon(int dx) {
@@ -216,12 +158,14 @@ public class KeyboardModel {
 			return keyType == KeyType.DoFa || keyType == KeyType.MiSi || keyType == KeyType.ReSolLa;
 		}
 
-		public boolean isPressed() {
-			return pressed;
+		@Override
+		public boolean isSelected() {
+			return selected;
 		}
 
-		public void setPressed(boolean pressed) {
-			this.pressed = pressed;
+		@Override
+		public void setSelected(boolean pressed) {
+			this.selected = pressed;
 		}
 
 		public int getNoteIndex() {
@@ -234,7 +178,7 @@ public class KeyboardModel {
 
 		public Color getFillColor() {
 			Color result;
-			if (isPressed()) {
+			if (isSelected()) {
 				int selRank = KeyboardModel.this.getSelectionRank(noteIndex);
 				result = Commons.getSelectionColor(selRank);
 			} else {

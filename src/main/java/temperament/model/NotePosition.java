@@ -3,7 +3,7 @@ package temperament.model;
 /**
  * position d'une note dans un cercle de notes
  */
-public class NotePosition {
+public class NotePosition implements ISelectableNote {
 	private TemperamentBaseCircleModel	circleModel;
 	/** position du centre du cercle de la note */
 	private int							x, y;
@@ -63,24 +63,14 @@ public class NotePosition {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 
-	/**
-	 * détermine si un point est à l'intérieur du cercle qui représente une note
-	 * 
-	 * @param pX
-	 * @param pY
-	 * @return
-	 */
-	public boolean isInNotePosition(int pX, int pY) {
+	@Override
+	public boolean containsPoint(int pX, int pY) {
 		double d = distance(pX, pY);
 		return d <= circleModel.getNoteRadius();
 	}
 
-	/**
-	 * retourne la bulle d'aide pour cette node
-	 * 
-	 * @return
-	 */
-	public String getTooltip() {
+	@Override
+	public String getTooltipText() {
 		StringBuilder s = new StringBuilder();
 		s.append("<html><body>");
 		s.append("<p>");
@@ -92,18 +82,17 @@ public class NotePosition {
 		return s.toString();
 	}
 
-	public void invertSelection() {
-		selected = !selected;
-	}
-
+	@Override
 	public void setSelected(boolean newValue) {
 		selected = newValue;
 	}
 
+	@Override
 	public boolean isSelected() {
 		return selected;
 	}
 
+	@Override
 	public int getNoteIndex() {
 		return noteIndex;
 	}

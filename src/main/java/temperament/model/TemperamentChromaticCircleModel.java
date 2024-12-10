@@ -33,6 +33,6 @@ public class TemperamentChromaticCircleModel extends TemperamentBaseCircleModel 
 		double rTx = r - 3 * r2;
 		int xTx = (int) (cx + cos * rTx);
 		int yTx = (int) (cy - sin * rTx);
-		positions[noteRank].setGraphicPosition(x, y, xTx, yTx);
+		positions.get(noteRank).setGraphicPosition(x, y, xTx, yTx);
 	}
 }

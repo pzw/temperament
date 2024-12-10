@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import temperament.model.ApplicationState;
+import temperament.model.ISelectableNote;
 import temperament.model.KeyboardModel;
 import temperament.model.KeyboardModel.KeyboardKey;
 
@@ -42,7 +43,7 @@ public class KeyboardPanel extends JComponent {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
-					KeyboardKey np = model.findNote(e.getPoint());
+					ISelectableNote np = model.findNote(e.getPoint());
 					if (null != np) {
 						List<Integer> selection = appState.getSelection();
 						Integer noteIndex = np.getNoteIndex();
