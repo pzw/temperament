@@ -43,15 +43,25 @@ public class ApplicationPanel extends JPanel {
 
 		KeyboardModel keyboardModel = new KeyboardModel(appState);
 		KeyboardPanel keyboardPanel = new KeyboardPanel(keyboardModel, appState);
-		
 		WavePanel wavePanel = new WavePanel(appState);
-		JSplitPane splitWave = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, keyboardPanel);
-		add(splitWave, BorderLayout.CENTER);
+
+		JSplitPane split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, keyboardPanel, wavePanel);
+		split2.setOneTouchExpandable(true);
+		JSplitPane split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, split2);
+		add(split1, BorderLayout.CENTER);
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				splitWave.setDividerLocation(0.7);
+				split1.setDividerLocation(0.8);
+				// invokeLater : split1 must be fully set before setting split2
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						split2.setDividerLocation(0.4);
+					}
+				});
 			}
 		});
 	}
