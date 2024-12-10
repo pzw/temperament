@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -18,7 +14,6 @@ import javax.swing.SwingUtilities;
 
 import temperament.Commons;
 import temperament.model.ApplicationState;
-import temperament.model.ISelectableNote;
 import temperament.model.NotePosition;
 import temperament.model.TemperamentBaseCircleModel;
 import temperament.musical.MusicalKnowledge;
@@ -40,6 +35,7 @@ public class TemperamentCircleView extends JComponent {
 		this.appState = appState;
 		this.model = model;
 		this.showIntervals = showIntervals;
+		intervalFont = new Font("SansSerif", Font.PLAIN, 12);
 
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -54,49 +50,9 @@ public class TemperamentCircleView extends JComponent {
 				}
 			}
 		});
-		this.addMouseMotionListener(new MouseMotionListener() {
 
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				ISelectableNote n = model.findNote(e.getPoint());
-				if (null != n) {
-					setToolTipText(n.getTooltipText());
-				} else {
-					setToolTipText(null);
-				}
-			}
-
-			@Override
-			public void mouseDragged(MouseEvent e) {
-			}
-		});
-		this.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
-					ISelectableNote np = model.findNote(e.getPoint());
-					if (null != np) {
-						List<Integer> selection = appState.getSelection();
-						Integer noteIndex = np.getNoteIndex();
-						if ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK) {
-							if (selection.contains(noteIndex)) {
-								selection.remove(noteIndex);
-							} else {
-								selection.add(noteIndex);
-							}
-						} else {
-							// clic only
-							selection.clear();
-							selection.add(noteIndex);
-						}
-						appState.setSelection(selection);
-					}
-				}
-			}
-
-		});
-		intervalFont = new Font("SansSerif", Font.PLAIN, 12);
+		this.addMouseMotionListener(new SelectableNotesMouseMotionListener(model, this));
+		this.addMouseListener(new SelectableNotesMouseListener(appState, model));
 	}
 
 	private void drawCircle(Graphics g, int xc, int yc, int r, Color borderColor, Color fillColor) {

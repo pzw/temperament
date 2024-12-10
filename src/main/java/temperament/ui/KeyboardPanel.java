@@ -24,7 +24,7 @@ public class KeyboardPanel extends JComponent {
 	private static final long	serialVersionUID	= 1L;
 	private KeyboardModel		model;
 
-	public KeyboardPanel(KeyboardModel model, ApplicationState appState) {
+	public KeyboardPanel(ApplicationState appState, KeyboardModel model) {
 		this.model = model;
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -38,34 +38,7 @@ public class KeyboardPanel extends JComponent {
 			}
 		});
 
-		this.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
-					ISelectableNote np = model.findNote(e.getPoint());
-					if (null != np) {
-						List<Integer> selection = appState.getSelection();
-						Integer noteIndex = np.getNoteIndex();
-						if ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK) {
-							if (selection.contains(noteIndex)) {
-								selection.remove(noteIndex);
-							} else {
-								selection.add(noteIndex);
-							}
-						} else {
-							// clic only
-							selection.clear();
-							selection.add(noteIndex);
-						}
-						System.out.println("selection :" + selection);
-						appState.setSelection(selection);
-					}
-				}
-			}
-
-		});
-
+		this.addMouseListener(new SelectableNotesMouseListener(appState, model));
 	}
 
 	private void repaintLater() {

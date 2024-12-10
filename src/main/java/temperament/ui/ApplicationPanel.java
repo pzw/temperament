@@ -42,7 +42,7 @@ public class ApplicationPanel extends JPanel {
 		tableAndCirclesPane.add(fifthsCircleView, cc.xy(5, 3, "f,f"));
 
 		KeyboardModel keyboardModel = new KeyboardModel(appState);
-		KeyboardPanel keyboardPanel = new KeyboardPanel(keyboardModel, appState);
+		KeyboardPanel keyboardPanel = new KeyboardPanel(appState, keyboardModel);
 		WavePanel wavePanel = new WavePanel(appState);
 
 		JSplitPane split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, keyboardPanel, wavePanel);

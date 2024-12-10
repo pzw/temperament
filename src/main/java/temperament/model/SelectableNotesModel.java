@@ -43,16 +43,8 @@ public abstract class SelectableNotesModel {
 
 	protected abstract void afterPanelDimensionChanged();
 
-	private void temperamentChanged() {
-		initNotes();
-	}
-
-	protected int getWidth() {
-		return width;
-	}
-
-	protected int getHeight() {
-		return height;
+	public ApplicationState getApplicationState() {
+		return appState;
 	}
 
 	public void setPanelDimensions(int w, int h) {
@@ -128,4 +120,15 @@ public abstract class SelectableNotesModel {
 		return appState.getTemperament();
 	}
 
+	protected int getWidth() {
+		return width;
+	}
+
+	protected int getHeight() {
+		return height;
+	}
+
+	private void temperamentChanged() {
+		initNotes();
+	}
 }
