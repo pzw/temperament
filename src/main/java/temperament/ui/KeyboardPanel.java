@@ -22,21 +22,9 @@ import temperament.model.KeyboardModel.KeyboardKey;
 public class KeyboardPanel extends JComponent {
 	private static final long	serialVersionUID	= 1L;
 	private KeyboardModel		model;
-	private ApplicationState	appState;
-	private boolean				blackAndWhite		= false;
-	private Color				whiteKey;
-	private Color				whiteKeyPressed;
-	private Color				blackKey;
-	private Color				blackKeyPressed;
 
 	public KeyboardPanel(KeyboardModel model, ApplicationState appState) {
 		this.model = model;
-		this.appState = appState;
-		whiteKey = blackAndWhite ? Color.white : new Color(252, 197, 109);
-		whiteKeyPressed = Color.yellow;
-		blackKey = blackAndWhite ? Color.black : new Color(102, 69, 17);
-		blackKeyPressed = Color.green;
-
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
@@ -69,6 +57,7 @@ public class KeyboardPanel extends JComponent {
 							selection.clear();
 							selection.add(noteIndex);
 						}
+						System.out.println("selection :" + selection);
 						appState.setSelection(selection);
 					}
 				}
@@ -95,21 +84,16 @@ public class KeyboardPanel extends JComponent {
 		int h = getHeight();
 
 		model.setPanelDimensions(w, h);
-		for (KeyboardKey k : model.getKeys()) {
-			drawKey(g, k);
+		if (null != model.getKeys()) {
+			for (KeyboardKey k : model.getKeys()) {
+				drawKey(g, k);
+			}
 		}
 	}
 
 	private void drawKey(Graphics g, KeyboardKey key) {
-		Color fill;
-		if (key.isWhiteKey()) {
-			fill = key.isPressed() ? whiteKeyPressed : whiteKey;
-		} else {
-			fill = key.isPressed() ? blackKeyPressed : blackKey;
-		}
-
 		// intérieur de la note
-		g.setColor(fill);
+		g.setColor(key.getFillColor());
 		g.fillPolygon(key.getPolygon());
 
 		// contour de la note

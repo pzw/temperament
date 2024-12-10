@@ -1,5 +1,6 @@
 package temperament.model;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.beans.PropertyChangeEvent;
@@ -7,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import temperament.Commons;
 import temperament.musical.ITemperament;
 import temperament.musical.TemperamentAbbatialePayerne;
 
@@ -15,23 +17,34 @@ import temperament.musical.TemperamentAbbatialePayerne;
  */
 public class KeyboardModel {
 	/** dimensions pour une touche de piano standard, en mm */
-	private static final double	DX1	= 24;
-	private static final double	DX2	= 14;
-	private static final double	DY1	= 150;
-	private static final double	DY2	= 100;
-	private static final double	DY3	= 50;
+	private static final double	DX1				= 24;
+	private static final double	DX2				= 14;
+	private static final double	DY1				= 150;
+	private static final double	DY2				= 100;
+	private static final double	DY3				= 50;
 
 	private int					dx1;
 	private int					dx2;
 	private int					dy1;
 	private int					dy2;
 	private int					dy3;
-
+	private int					width			= 0;
+	private int					height			= 0;
 	private ApplicationState	appState;
 	private List<KeyboardKey>	keys;
+	private boolean				blackAndWhite	= false;
+	private Color				whiteKey;
+	private Color				whiteKeyPressed;
+	private Color				blackKey;
+	private Color				blackKeyPressed;
 
 	public KeyboardModel(ApplicationState appState) {
 		this.appState = appState;
+		whiteKey = blackAndWhite ? Color.white : new Color(252, 197, 109);
+		whiteKeyPressed = Color.yellow;
+		blackKey = blackAndWhite ? Color.black : new Color(102, 69, 17);
+		blackKeyPressed = Color.green;
+
 		appState.addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
@@ -44,6 +57,7 @@ public class KeyboardModel {
 				}
 			}
 		});
+		initKeyboard();
 	}
 
 	private void temperamentChanged() {
@@ -51,33 +65,62 @@ public class KeyboardModel {
 	}
 
 	private void setSelection(List<Integer> selection) {
-		for (int n = 0; n < keys.size(); n++) {
-			KeyboardKey k = keys.get(n);
-			boolean newSelect = selection.contains(n);
-			k.setPressed(newSelect);
+		if (null != keys) {
+			for (int n = 0; n < keys.size(); n++) {
+				KeyboardKey k = keys.get(n);
+				boolean newSelect = selection.contains(n);
+				k.setPressed(newSelect);
+			}
 		}
 	}
 
 	public void setPanelDimensions(int w, int h) {
-		double scaleX = w / (14 * DX1);
-		double scaleY = h / DY1;
-		double scale = Math.min(scaleX, scaleY);
-		dx1 = (int) (DX1 * scale);
-		dx2 = (int) (DX2 * scale);
-		dy1 = (int) (DY1 * scale);
-		dy2 = (int) (DY2 * scale);
-		dy3 = (int) (DY3 * scale);
+		if (w != width || h != height) {
+			width = w;
+			height = h;
+			double scaleX = w / (14 * DX1);
+			double scaleY = h / DY1;
+			double scale = Math.min(scaleX, scaleY);
+			dx1 = (int) (DX1 * scale);
+			dx2 = (int) (DX2 * scale);
+			dy1 = (int) (DY1 * scale);
+			dy2 = (int) (DY2 * scale);
+			dy3 = (int) (DY3 * scale);
 
-		updateKeyPositions();
+			updateKeyPositions();
+		}
+
+	}
+
+	public int getSelectionRank(int noteIndex) {
+		if (!keys.get(noteIndex).isPressed()) {
+			// la note n'est pas sélectionnée : pas de rang
+			return -1;
+		}
+		int result = 0;
+		int idx = 0;
+		while (idx < noteIndex) {
+			if (keys.get(idx).isPressed()) {
+				result++;
+			}
+			idx++;
+		}
+		return result;
 	}
 
 	private void initKeyboard() {
 		keys = new ArrayList<KeyboardKey>();
 		initOctave(0);
 		initOctave(1);
+		updateKeyPositions();
 	}
 
 	private void updateKeyPositions() {
+		if (null != keys) {
+			for (KeyboardKey k : keys) {
+				k.resetPolygon(dx1);
+			}
+		}
 
 	}
 
@@ -87,28 +130,28 @@ public class KeyboardModel {
 
 		ITemperament t = appState.getTemperament();
 		boolean feintesBrisees = null != t && TemperamentAbbatialePayerne.ABBATIALE_PAYERNE.equals(t.toString());
-		keys.add(new KeyboardKey(1, xStart + 0, idx++, true)); // do
-		keys.add(new KeyboardKey(3, xStart + 1, idx++, false)); // do #
-		keys.add(new KeyboardKey(2, xStart + 1, idx++, true)); // ré
+		keys.add(new KeyboardKey(KeyType.DoFa, xStart + 0, idx++));
+		keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 1, idx++));
+		keys.add(new KeyboardKey(KeyType.ReSolLa, xStart + 1, idx++));
 		if (feintesBrisees) {
-			keys.add(new KeyboardKey(5, xStart + 2, idx++, true)); // ré #
-			keys.add(new KeyboardKey(6, xStart + 2, idx++, true)); // mi b
+			keys.add(new KeyboardKey(KeyType.BriseeArriere, xStart + 2, idx++));
+			keys.add(new KeyboardKey(KeyType.BriseeAvant, xStart + 2, idx++));
 		} else {
-			keys.add(new KeyboardKey(4, xStart + 2, idx++, true)); // ré #
+			keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 2, idx++));
 		}
-		keys.add(new KeyboardKey(3, xStart + 2, idx++, true)); // mi
-		keys.add(new KeyboardKey(1, xStart + 3, idx++, true)); // fa
-		keys.add(new KeyboardKey(4, xStart + 4, idx++, false)); // fa #
-		keys.add(new KeyboardKey(2, xStart + 4, idx++, true)); // sol
+		keys.add(new KeyboardKey(KeyType.MiSi, xStart + 2, idx++));
+		keys.add(new KeyboardKey(KeyType.DoFa, xStart + 3, idx++));
+		keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 4, idx++));
+		keys.add(new KeyboardKey(KeyType.ReSolLa, xStart + 4, idx++));
 		if (feintesBrisees) {
-			keys.add(new KeyboardKey(5, xStart + 5, idx++, false)); // sol #
-			keys.add(new KeyboardKey(6, xStart + 5, idx++, false)); // la b
+			keys.add(new KeyboardKey(KeyType.BriseeArriere, xStart + 5, idx++));
+			keys.add(new KeyboardKey(KeyType.BriseeAvant, xStart + 5, idx++));
 		} else {
-			keys.add(new KeyboardKey(4, xStart + 5, idx++, false)); // sol #
+			keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 5, idx++));
 		}
-		keys.add(new KeyboardKey(2, xStart + 5, idx++, true)); // la
-		keys.add(new KeyboardKey(4, xStart + 6, idx++, false)); // la #
-		keys.add(new KeyboardKey(3, xStart + 6, idx++, true)); // si
+		keys.add(new KeyboardKey(KeyType.ReSolLa, xStart + 5, idx++));
+		keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 6, idx++));
+		keys.add(new KeyboardKey(KeyType.MiSi, xStart + 6, idx++));
 	}
 
 	public List<KeyboardKey> getKeys() {
@@ -125,21 +168,18 @@ public class KeyboardModel {
 		return null;
 	}
 
-
 	public class KeyboardKey {
 		private Polygon	polygon;
-		private boolean	whiteKey;
 		private boolean	pressed;
 		/** index de la note dans le tempérament */
 		private int		noteIndex;
-		private int		noteForm;
+		private KeyType	keyType;
 		private int		notePosition;
 
-		public KeyboardKey(int noteForm, int notePosition, int noteIndex, boolean whiteKey) {
-			this.noteForm = noteForm;
+		public KeyboardKey(KeyType keyType, int notePosition, int noteIndex) {
+			this.keyType = keyType;
 			this.notePosition = notePosition;
 			this.noteIndex = noteIndex;
-			this.whiteKey = whiteKey;
 			this.pressed = false;
 			this.polygon = null;
 		}
@@ -148,8 +188,32 @@ public class KeyboardModel {
 			return polygon;
 		}
 
+		public void resetPolygon(int dx) {
+			switch (keyType) {
+			case DoFa:
+				this.polygon = createPolygonTypeDoFa(notePosition * dx);
+				break;
+			case ReSolLa:
+				this.polygon = createPolygonTypeReSolLa(notePosition * dx);
+				break;
+			case MiSi:
+				this.polygon = createPolygonTypeMiSi(notePosition * dx);
+				break;
+			case NoireComplete:
+				this.polygon = createPolygonTypeNoireComplete(notePosition * dx);
+				break;
+			case BriseeArriere:
+				this.polygon = createPolygonTypeNoireBriseeArriere(notePosition * dx);
+				break;
+			case BriseeAvant:
+				this.polygon = createPolygonTypeNoireBriseeAvant(notePosition * dx);
+				break;
+
+			}
+		}
+
 		public boolean isWhiteKey() {
-			return whiteKey;
+			return keyType == KeyType.DoFa || keyType == KeyType.MiSi || keyType == KeyType.ReSolLa;
 		}
 
 		public boolean isPressed() {
@@ -168,7 +232,22 @@ public class KeyboardModel {
 			return polygon.contains(x, y);
 		}
 
-		private Polygon createPolygonType1(int xStart) {
+		public Color getFillColor() {
+			Color result;
+			if (isPressed()) {
+				int selRank = KeyboardModel.this.getSelectionRank(noteIndex);
+				result = Commons.getSelectionColor(selRank);
+			} else {
+				if (isWhiteKey()) {
+					result = whiteKey;
+				} else {
+					result = blackKey;
+				}
+			}
+			return result;
+		}
+
+		private Polygon createPolygonTypeDoFa(int xStart) {
 			int[] x = new int[6];
 			int[] y = new int[6];
 
@@ -193,7 +272,7 @@ public class KeyboardModel {
 			return new Polygon(x, y, x.length);
 		}
 
-		private Polygon createPolygonType2(int xStart) {
+		private Polygon createPolygonTypeReSolLa(int xStart) {
 			int[] x = new int[8];
 			int[] y = new int[8];
 
@@ -223,7 +302,7 @@ public class KeyboardModel {
 			return new Polygon(x, y, x.length);
 		}
 
-		private Polygon createPolygonType3(int xStart) {
+		private Polygon createPolygonTypeMiSi(int xStart) {
 			int[] x = new int[6];
 			int[] y = new int[6];
 
@@ -248,7 +327,7 @@ public class KeyboardModel {
 			return new Polygon(x, y, x.length);
 		}
 
-		private Polygon createPolygonType4(int xStart) {
+		private Polygon createPolygonTypeNoireComplete(int xStart) {
 			int[] x = new int[4];
 			int[] y = new int[4];
 
@@ -267,7 +346,7 @@ public class KeyboardModel {
 			return new Polygon(x, y, x.length);
 		}
 
-		private Polygon createPolygonType5(int xStart) {
+		private Polygon createPolygonTypeNoireBriseeAvant(int xStart) {
 			int[] x = new int[4];
 			int[] y = new int[4];
 
@@ -286,7 +365,7 @@ public class KeyboardModel {
 			return new Polygon(x, y, x.length);
 		}
 
-		private Polygon createPolygonType6(int xStart) {
+		private Polygon createPolygonTypeNoireBriseeArriere(int xStart) {
 			int[] x = new int[4];
 			int[] y = new int[4];
 
@@ -305,5 +384,9 @@ public class KeyboardModel {
 			return new Polygon(x, y, x.length);
 		}
 
+	}
+
+	private enum KeyType {
+		DoFa, ReSolLa, MiSi, NoireComplete, BriseeArriere, BriseeAvant
 	}
 }
