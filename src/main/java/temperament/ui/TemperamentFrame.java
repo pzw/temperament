@@ -5,23 +5,24 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import temperament.model.ApplicationState;
 
 public class TemperamentFrame extends JFrame {
-	private static final long serialVersionUID = 1L;
-	private ApplicationState appState;
-	
+	private static final long	serialVersionUID	= 1L;
+	private ApplicationState	appState;
+	private ApplicationPanel	appPanel;
+
 	public TemperamentFrame() {
 		super("Etude des tempéraments");
 		setMinimumSize(new Dimension(800, 800));
 
 		setLayout(new BorderLayout());
-		add(buildMainPanel(), BorderLayout.CENTER);
+		appPanel = buildMainPanel();
+		add(appPanel, BorderLayout.CENTER);
 		pack();
-		setExtendedState(Frame.MAXIMIZED_BOTH);
 	}
 
 	@Override
@@ -32,7 +33,28 @@ public class TemperamentFrame extends JFrame {
 		super.processWindowEvent(e);
 	}
 
-	private JComponent buildMainPanel() {
+	@Override
+	public void setVisible(boolean b) {
+		if (b) {
+			SwingUtilities.invokeLater(new Runnable() {
+
+				@Override
+				public void run() {
+					setExtendedState(Frame.MAXIMIZED_BOTH);
+					SwingUtilities.invokeLater(new Runnable() {
+
+						@Override
+						public void run() {
+							appPanel.initSplitPanes();
+						}
+					});
+				}
+			});
+		}
+		super.setVisible(b);
+	}
+
+	private ApplicationPanel buildMainPanel() {
 		appState = new ApplicationState();
 		ApplicationPanel result = new ApplicationPanel(appState);
 		return result;

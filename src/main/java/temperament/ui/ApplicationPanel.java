@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.SwingUtilities;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -20,7 +19,9 @@ import temperament.model.TemperamentTableModel;
  */
 public class ApplicationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-
+	private JSplitPane split1;
+	private JSplitPane split2;
+	
 	public ApplicationPanel(ApplicationState appState) {
 		super();
 		setLayout(new BorderLayout());
@@ -45,24 +46,18 @@ public class ApplicationPanel extends JPanel {
 		KeyboardPanel keyboardPanel = new KeyboardPanel(appState, keyboardModel);
 		WavePanel wavePanel = new WavePanel(appState);
 
-		JSplitPane split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, keyboardPanel, wavePanel);
-		split2.setOneTouchExpandable(true);
-		JSplitPane split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, split2);
+		split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, keyboardPanel, wavePanel);
+		split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableAndCirclesPane, split2);
 		add(split1, BorderLayout.CENTER);
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				split1.setDividerLocation(0.8);
-				// invokeLater : split1 must be fully set before setting split2
-				SwingUtilities.invokeLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						split2.setDividerLocation(0.4);
-					}
-				});
-			}
-		});
+	}
+	
+	public void initSplitPanes() {
+		System.out.println("height:" + split1.getHeight());
+		int pos = 2 * split1.getHeight() / 3;
+		split1.setDividerLocation(pos);
+		System.out.println("width:" + split2.getWidth());
+		pos = split2.getWidth() / 4;
+		split2.setDividerLocation(pos);
+		split2.setOneTouchExpandable(true);
 	}
 }
