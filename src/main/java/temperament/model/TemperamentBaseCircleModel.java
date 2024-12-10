@@ -134,18 +134,18 @@ public abstract class TemperamentBaseCircleModel {
 		}
 	}
 
-	public NotePosition getNotePosition(int noteRank) {
-		return positions[noteRank];
+	public NotePosition getNotePosition(int noteIndex) {
+		return positions[noteIndex];
 	}
 
-	public int getSelectionRank(int noteRank) {
-		if (!positions[noteRank].isSelected()) {
+	public int getSelectionRank(int noteIndex) {
+		if (!positions[noteIndex].isSelected()) {
 			// la note n'est pas sélectionnée : pas de rang
 			return -1;
 		}
 		int result = 0;
 		int idx = 0;
-		while (idx < noteRank) {
+		while (idx < noteIndex) {
 			if (positions[idx].isSelected()) {
 				result++;
 			}
