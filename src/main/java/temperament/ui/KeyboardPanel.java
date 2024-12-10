@@ -2,18 +2,13 @@ package temperament.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import temperament.model.ApplicationState;
-import temperament.model.ISelectableNote;
 import temperament.model.KeyboardModel;
 import temperament.model.KeyboardModel.KeyboardKey;
 
