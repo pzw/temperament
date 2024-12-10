@@ -47,7 +47,7 @@ public class Commons {
 		case 1:
 			return Color.blue;
 		case 2:
-			return Color.white;
+			return Color.yellow;
 		case 3:
 			return Color.cyan;
 		case 4:
