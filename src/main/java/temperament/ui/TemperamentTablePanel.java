@@ -61,33 +61,36 @@ public class TemperamentTablePanel extends JPanel {
 				List<Integer> sel = appState.getSelection();
 				ListSelectionModel lsm = tableView.getSelectionModel();
 				lsm.clearSelection();
-				for (Integer s : sel) {
+				// selection in reverse order : lower note selected last. Better UX if user
+				// activate "auto-select" and use keys to go up and down
+				for (Integer s : sel.reversed()) {
 					lsm.addSelectionInterval(s, s);
 				}
 				tableSelectionListenerEnabled = true;
 			}
 		});
-		
+
 		appState.addPropertyChangeListener(ApplicationState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
-			
+
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				selectFirstNote();
 			}
 		});
-		
+
 		selectFirstNote();
 	}
 
 	private void selectFirstNote() {
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				tableView.getSelectionModel().setSelectionInterval(0,  0);
+				tableView.getSelectionModel().setSelectionInterval(0, 0);
 			}
 		});
 	}
+
 	public void addSelectionListener(ListSelectionListener listener) {
 		tableView.getSelectionModel().addListSelectionListener(listener);
 	}
