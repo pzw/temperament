@@ -129,6 +129,8 @@ public abstract class SelectableNotesModel {
 	}
 
 	private void temperamentChanged() {
+		width = -1;
+		height = -1;
 		initNotes();
 	}
 }

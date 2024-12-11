@@ -52,10 +52,10 @@ public class ApplicationPanel extends JPanel {
 	}
 	
 	public void initSplitPanes() {
-		System.out.println("height:" + split1.getHeight());
+		//System.out.println("height:" + split1.getHeight());
 		int pos = 2 * split1.getHeight() / 3;
 		split1.setDividerLocation(pos);
-		System.out.println("width:" + split2.getWidth());
+		//System.out.println("width:" + split2.getWidth());
 		pos = split2.getWidth() / 4;
 		split2.setDividerLocation(pos);
 		split2.setOneTouchExpandable(true);
