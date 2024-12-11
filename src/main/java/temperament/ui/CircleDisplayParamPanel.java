@@ -27,12 +27,12 @@ public class CircleDisplayParamPanel extends JPanel {
 		int y = 1;
 
 		JCheckBox chkDisplayMajorThirds = new JCheckBox("affiche les tierces majeures");
-		Bindings.bind(chkDisplayMajorThirds, pm.getModel(ApplicationState.DISPLAY_MAJOR_THIRDS));
+		Bindings.bind(chkDisplayMajorThirds, pm.getModel(ApplicationState.DISPLAY_MAJOR_THIRDS_PROPERTY));
 		add(chkDisplayMajorThirds, cc.xy(x, y));
 
 		x += 2;
 		JCheckBox chkDisplayFifths = new JCheckBox("affiche les quintes");
-		Bindings.bind(chkDisplayFifths, pm.getModel(ApplicationState.DISPLAY_FIFTHS));
+		Bindings.bind(chkDisplayFifths, pm.getModel(ApplicationState.DISPLAY_FIFTHS_PROPERTY));
 		add(chkDisplayFifths, cc.xy(x, y));
 	}
 }

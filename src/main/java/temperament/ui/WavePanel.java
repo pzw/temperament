@@ -23,7 +23,7 @@ public class WavePanel extends JPanel {
 	}
 
 	private JPanel buildNorth(ApplicationState state) {
-		FormLayout layout = new FormLayout("$dm,p,$rg,p,$rg:g,p,$rg,max(40dlu;p),$dm", "2px,p,2px");
+		FormLayout layout = new FormLayout("$dm,p,$rg,p,$rg:g,p,$rg,max(40dlu;p),$rg,p,$dm", "2px,p,2px");
 		JPanel result = new JPanel(layout);
 		PresentationModel<ApplicationState> pm = new PresentationModel<ApplicationState>(state);
 		CellConstraints cc = new CellConstraints();
@@ -46,6 +46,11 @@ public class WavePanel extends JPanel {
 		Bindings.bind(sh.getTextField(), pm.getModel(ApplicationState.WAVE_VIEW_DURATION_PROPERTY));
 		sh.getTextField().addFocusListener(new SelectAllFocusListener());
 		result.add(sh.getMainComponent(), cc.xy(x, y));
+
+		x += 2;
+		JCheckBox darkBackground = new JCheckBox("fond sombre");
+		Bindings.bind(darkBackground, pm.getModel(ApplicationState.DARK_BACKGROUND_PROPERTY));
+		result.add(darkBackground, cc.xy(x, y));
 
 		return result;
 	}

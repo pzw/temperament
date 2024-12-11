@@ -37,12 +37,12 @@ public class SelectionToolsPanel extends JPanel {
 
 		x += 2;
 		JCheckBox chkAutoSelectMajorThird = new JCheckBox("sélectionne la tierce majeure");
-		Bindings.bind(chkAutoSelectMajorThird, pm.getModel(ApplicationState.AUTO_SELECT_MAJOR_THIRD));
+		Bindings.bind(chkAutoSelectMajorThird, pm.getModel(ApplicationState.AUTO_SELECT_MAJOR_THIRD_PROPERTY));
 		add(chkAutoSelectMajorThird, cc.xy(x, y));
 
 		x += 2;
 		JCheckBox chkAutoSelectFifth = new JCheckBox("sélectionne la quinte");
-		Bindings.bind(chkAutoSelectFifth, pm.getModel(ApplicationState.AUTO_SELECT_FIFTH));
+		Bindings.bind(chkAutoSelectFifth, pm.getModel(ApplicationState.AUTO_SELECT_FIFTH__PROPERTY));
 		add(chkAutoSelectFifth, cc.xy(x, y));
 
 		x = 4;

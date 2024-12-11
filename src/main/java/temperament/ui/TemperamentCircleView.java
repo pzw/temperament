@@ -42,8 +42,8 @@ public class TemperamentCircleView extends JComponent {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (ApplicationState.TEMPERAMENT_PROPERTY.equals(evt.getPropertyName())
-						|| ApplicationState.DISPLAY_FIFTHS.equals(evt.getPropertyName())
-						|| ApplicationState.DISPLAY_MAJOR_THIRDS.equals(evt.getPropertyName())) {
+						|| ApplicationState.DISPLAY_FIFTHS_PROPERTY.equals(evt.getPropertyName())
+						|| ApplicationState.DISPLAY_MAJOR_THIRDS_PROPERTY.equals(evt.getPropertyName())) {
 					repaintLater();
 				} else if (ApplicationState.SELECTION_PROPERTY.equals(evt.getPropertyName())) {
 					repaint();

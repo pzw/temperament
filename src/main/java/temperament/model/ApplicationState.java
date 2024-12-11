@@ -25,30 +25,32 @@ import temperament.musical.json.TemperamentJson;
  * view model de l'application
  */
 public class ApplicationState extends Model {
-	private static final long		serialVersionUID				= 1L;
-	public static final String		TEMPERAMENT_PROPERTY			= "temperament";
-	public static final String		LA_FREQUENCY_PROPERTY			= "laFrequency";
-	public static final String		SELECTION_PROPERTY				= "selection";
-	public static final String		WAVE_VIEW_DURATION_PROPERTY		= "waveViewDuration";
-	public static final String		WAVE_SHOW_SUM_PROPERTY			= "waveShowSum";
-	public static final String		WAVE_SHOW_EACH_NOTE_PROPERTY	= "waveShowEachNote";
-	public static final String		SELECTION_DESCRIPTION_PROPERTY	= "selectionDescription";
-	public static final String		DISPLAY_FIFTHS					= "displayFifths";
-	public static final String		DISPLAY_MAJOR_THIRDS			= "displayMajorThirds";
-	public static final String		AUTO_SELECT_MAJOR_THIRD			= "autoSelectMajorThird";
-	public static final String		AUTO_SELECT_FIFTH				= "autoSelectFifth";
+	private static final long		serialVersionUID					= 1L;
+	public static final String		TEMPERAMENT_PROPERTY				= "temperament";
+	public static final String		LA_FREQUENCY_PROPERTY				= "laFrequency";
+	public static final String		SELECTION_PROPERTY					= "selection";
+	public static final String		WAVE_VIEW_DURATION_PROPERTY			= "waveViewDuration";
+	public static final String		WAVE_SHOW_SUM_PROPERTY				= "waveShowSum";
+	public static final String		WAVE_SHOW_EACH_NOTE_PROPERTY		= "waveShowEachNote";
+	public static final String		SELECTION_DESCRIPTION_PROPERTY		= "selectionDescription";
+	public static final String		DISPLAY_FIFTHS_PROPERTY				= "displayFifths";
+	public static final String		DISPLAY_MAJOR_THIRDS_PROPERTY		= "displayMajorThirds";
+	public static final String		AUTO_SELECT_MAJOR_THIRD_PROPERTY	= "autoSelectMajorThird";
+	public static final String		AUTO_SELECT_FIFTH__PROPERTY			= "autoSelectFifth";
+	public static final String		DARK_BACKGROUND_PROPERTY			= "darkBackground";
 	private ITemperament			temperament;
-	private double					laFrequency						= 440.0;
-	private List<Integer>			selection						= new ArrayList<Integer>();
+	private double					laFrequency							= 440.0;
+	private List<Integer>			selection							= new ArrayList<Integer>();
 	/** durée visualisée dans WavePanel */
-	private double					waveViewDuration				= 240.0;
-	private boolean					waveShowSum						= true;
-	private boolean					waveShowEachNote				= false;
-	private String					selectionDescription			= "";
-	private boolean					displayFifths					= true;
-	private boolean					displayMajorThirds				= false;
-	private boolean					autoSelectMajorThird			= false;
-	private boolean					autoSelectFifth					= false;
+	private double					waveViewDuration					= 240.0;
+	private boolean					waveShowSum							= true;
+	private boolean					waveShowEachNote					= false;
+	private String					selectionDescription				= "";
+	private boolean					displayFifths						= true;
+	private boolean					displayMajorThirds					= false;
+	private boolean					autoSelectMajorThird				= false;
+	private boolean					autoSelectFifth						= false;
+	private boolean					darkBackground						= true;
 	private ArrayList<ITemperament>	temperaments;
 
 	public ApplicationState() {
@@ -234,7 +236,7 @@ public class ApplicationState extends Model {
 	public void setDisplayFifths(boolean newValue) {
 		boolean oldValue = isDisplayFifths();
 		this.displayFifths = newValue;
-		firePropertyChange(DISPLAY_FIFTHS, oldValue, newValue);
+		firePropertyChange(DISPLAY_FIFTHS_PROPERTY, oldValue, newValue);
 		if (isDisplayMajorThirds() && isDisplayFifths()) {
 			setDisplayMajorThirds(false);
 		}
@@ -252,7 +254,7 @@ public class ApplicationState extends Model {
 	public void setDisplayMajorThirds(boolean newValue) {
 		boolean oldValue = isDisplayMajorThirds();
 		this.displayMajorThirds = newValue;
-		firePropertyChange(DISPLAY_MAJOR_THIRDS, oldValue, newValue);
+		firePropertyChange(DISPLAY_MAJOR_THIRDS_PROPERTY, oldValue, newValue);
 		if (isDisplayMajorThirds() && isDisplayFifths()) {
 			setDisplayFifths(false);
 		}
@@ -280,7 +282,7 @@ public class ApplicationState extends Model {
 	public void setAutoSelectMajorThird(boolean newValue) {
 		boolean oldValue = isAutoSelectMajorThird();
 		this.autoSelectMajorThird = newValue;
-		firePropertyChange(AUTO_SELECT_MAJOR_THIRD, oldValue, newValue);
+		firePropertyChange(AUTO_SELECT_MAJOR_THIRD_PROPERTY, oldValue, newValue);
 		redoSelection();
 	}
 
@@ -297,8 +299,18 @@ public class ApplicationState extends Model {
 	public void setAutoSelectFifth(boolean newValue) {
 		boolean oldValue = isAutoSelectFifth();
 		this.autoSelectFifth = newValue;
-		firePropertyChange(AUTO_SELECT_FIFTH, oldValue, newValue);
+		firePropertyChange(AUTO_SELECT_FIFTH__PROPERTY, oldValue, newValue);
 		redoSelection();
+	}
+
+	public boolean isDarkBackground() {
+		return darkBackground;
+	}
+
+	public void setDarkBackground(boolean newValue) {
+		boolean oldValue = isDarkBackground();
+		this.darkBackground = newValue;
+		firePropertyChange(DARK_BACKGROUND_PROPERTY, oldValue, newValue);
 	}
 
 	private List<String> getSelectionAsStrings() {
