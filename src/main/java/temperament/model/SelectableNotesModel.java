@@ -81,17 +81,24 @@ public abstract class SelectableNotesModel {
 	 */
 	public int getSelectionRank(int noteIndex) {
 		List<? extends ISelectableNote> notes = getNotes();
-		if (null == notes)
+		if (null == notes) {
 			return -1;
-		ISelectableNote n = notes.get(noteIndex);
-		if (null == n)
+		}
+		int idxNoteIndex = findIndexOfNote(noteIndex);
+		if (idxNoteIndex == -1) {
 			return -1;
-		if (!n.isSelected())
+		}
+		if (idxNoteIndex >= notes.size()) {
 			return -1;
-
+		}
+		ISelectableNote n = notes.get(idxNoteIndex);
+		if (!n.isSelected()) {
+			return -1;
+		}
+		
 		int result = 0;
 		int idx = 0;
-		while (idx < noteIndex) {
+		while (idx < idxNoteIndex) {
 			n = notes.get(idx);
 			if (null != n && n.isSelected()) {
 				result++;
@@ -101,6 +108,21 @@ public abstract class SelectableNotesModel {
 		return result;
 	}
 
+	/**
+	 * retourne l'index (dans la collection notes) de la note qui a le 'noteIndex' recherché
+	 * @param noteIndex
+	 * @return
+	 */
+	private int findIndexOfNote(int noteIndex) {
+		List<? extends ISelectableNote> notes = getNotes();
+		for (int i = 0; i < notes.size(); i++) {
+			ISelectableNote n = notes.get(i);
+			if (n.getNoteIndex() == noteIndex) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	/**
 	 * recherche si le graphisme d'une note contient un point (x,y)
 	 * 

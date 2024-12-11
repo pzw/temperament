@@ -73,9 +73,13 @@ public class KeyboardModel extends SelectableNotesModel {
 
 	private void initOctave(int octave) {
 		int xStart = octave * 7;
-		int idx = keys.size();
 
+		// attention à l'index de la note de départ : dans le cas du "tempérament de
+		// Pythagore avec les quintes empilées, le tempérament contient une note de plus
+		// que l'octave (le si#) 
 		ITemperament t = getTemperament();
+		int idx = octave * t.getNbNotesGamme();
+
 		boolean feintesBrisees = null != t && TemperamentAbbatialePayerne.ABBATIALE_PAYERNE.equals(t.toString());
 		keys.add(new KeyboardKey(KeyType.DoFa, xStart + 0, idx++));
 		keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 1, idx++));
