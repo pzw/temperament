@@ -1,6 +1,7 @@
 package temperament.model;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -34,7 +35,7 @@ public class KeyboardModel extends SelectableNotesModel {
 	public KeyboardModel(ApplicationState appState) {
 		super(appState);
 		selectKeyboardColor();
-		
+
 		appState.addPropertyChangeListener(ApplicationState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
 
 			@Override
@@ -69,6 +70,24 @@ public class KeyboardModel extends SelectableNotesModel {
 		dy3 = (int) (DY3 * scale);
 	}
 
+	/**
+	 * retourne la largeur d'une touche "blanche"
+	 * 
+	 * @return
+	 */
+	public int getWhiteKeyWidth() {
+		return dx1;
+	}
+
+	/**
+	 * retourne la largeur d'une touche "noire"
+	 * 
+	 * @return
+	 */
+	public int getBlackKeyWidth() {
+		return dx2;
+	}
+
 	@Override
 	protected void initNotes() {
 		keys = new ArrayList<KeyboardKey>();
@@ -81,7 +100,7 @@ public class KeyboardModel extends SelectableNotesModel {
 	protected void updateNotes() {
 		if (null != keys) {
 			for (KeyboardKey k : keys) {
-				k.resetPolygon(dx1);
+				k.updateKeyPosition(dx1);
 			}
 		}
 
@@ -132,6 +151,7 @@ public class KeyboardModel extends SelectableNotesModel {
 		private int		noteIndex;
 		private KeyType	keyType;
 		private int		notePosition;
+		private Point	textPosition;
 
 		public KeyboardKey(KeyType keyType, int notePosition, int noteIndex) {
 			this.keyType = keyType;
@@ -139,10 +159,15 @@ public class KeyboardModel extends SelectableNotesModel {
 			this.noteIndex = noteIndex;
 			this.selected = false;
 			this.polygon = null;
+			this.textPosition = null;
 		}
 
 		public Polygon getPolygon() {
 			return polygon;
+		}
+
+		public Point getTextPosition() {
+			return textPosition;
 		}
 
 		@Override
@@ -150,25 +175,25 @@ public class KeyboardModel extends SelectableNotesModel {
 			return null;
 		}
 
-		public void resetPolygon(int dx) {
+		public void updateKeyPosition(int dx) {
 			switch (keyType) {
 			case DoFa:
-				this.polygon = createPolygonTypeDoFa(notePosition * dx);
+				updateKeyPositionTypeDoFa(notePosition * dx);
 				break;
 			case ReSolLa:
-				this.polygon = createPolygonTypeReSolLa(notePosition * dx);
+				updateKeyPositionTypeReSolLa(notePosition * dx);
 				break;
 			case MiSi:
-				this.polygon = createPolygonTypeMiSi(notePosition * dx);
+				updateKeyPositionTypeMiSi(notePosition * dx);
 				break;
 			case NoireComplete:
-				this.polygon = createPolygonTypeNoireComplete(notePosition * dx);
+				updateKeyPositionTypeNoireComplete(notePosition * dx);
 				break;
 			case BriseeArriere:
-				this.polygon = createPolygonTypeNoireBriseeArriere(notePosition * dx);
+				updateKeyPositionTypeNoireBriseeArriere(notePosition * dx);
 				break;
 			case BriseeAvant:
-				this.polygon = createPolygonTypeNoireBriseeAvant(notePosition * dx);
+				updateKeyPositionTypeNoireBriseeAvant(notePosition * dx);
 				break;
 
 			}
@@ -196,6 +221,10 @@ public class KeyboardModel extends SelectableNotesModel {
 			return polygon.contains(x, y);
 		}
 
+		public String getNoteName() {
+			return getTemperament().getNoteName(noteIndex);
+		}
+
 		public Color getFillColor() {
 			Color result;
 			if (isSelected()) {
@@ -211,7 +240,7 @@ public class KeyboardModel extends SelectableNotesModel {
 			return result;
 		}
 
-		private Polygon createPolygonTypeDoFa(int xStart) {
+		private void updateKeyPositionTypeDoFa(int xStart) {
 			int[] x = new int[6];
 			int[] y = new int[6];
 
@@ -233,10 +262,11 @@ public class KeyboardModel extends SelectableNotesModel {
 			x[5] = x[4];
 			y[5] = 0;
 
-			return new Polygon(x, y, x.length);
+			polygon = new Polygon(x, y, x.length);
+			textPosition = new Point(x[2], y[2]);
 		}
 
-		private Polygon createPolygonTypeReSolLa(int xStart) {
+		private void updateKeyPositionTypeReSolLa(int xStart) {
 			int[] x = new int[8];
 			int[] y = new int[8];
 
@@ -263,10 +293,11 @@ public class KeyboardModel extends SelectableNotesModel {
 
 			x[7] = x[6];
 			y[7] = 0;
-			return new Polygon(x, y, x.length);
+			polygon = new Polygon(x, y, x.length);
+			textPosition = new Point(x[4], y[4]);
 		}
 
-		private Polygon createPolygonTypeMiSi(int xStart) {
+		private void updateKeyPositionTypeMiSi(int xStart) {
 			int[] x = new int[6];
 			int[] y = new int[6];
 
@@ -288,10 +319,11 @@ public class KeyboardModel extends SelectableNotesModel {
 			x[5] = x[4];
 			y[5] = 0;
 
-			return new Polygon(x, y, x.length);
+			polygon = new Polygon(x, y, x.length);
+			textPosition = new Point(x[4], y[4]);
 		}
 
-		private Polygon createPolygonTypeNoireComplete(int xStart) {
+		private void updateKeyPositionTypeNoireComplete(int xStart) {
 			int[] x = new int[4];
 			int[] y = new int[4];
 
@@ -307,15 +339,16 @@ public class KeyboardModel extends SelectableNotesModel {
 			x[3] = x[2];
 			y[3] = 0;
 
-			return new Polygon(x, y, x.length);
+			polygon = new Polygon(x, y, x.length);
+			textPosition = new Point(x[2], y[2]);
 		}
 
-		private Polygon createPolygonTypeNoireBriseeAvant(int xStart) {
+		private void updateKeyPositionTypeNoireBriseeAvant(int xStart) {
 			int[] x = new int[4];
 			int[] y = new int[4];
 
 			x[0] = xStart - dx2 / 2;
-			y[0] = dy3+1;
+			y[0] = dy3 + 1;
 
 			x[1] = x[0];
 			y[1] = dy2;
@@ -326,10 +359,11 @@ public class KeyboardModel extends SelectableNotesModel {
 			x[3] = x[2];
 			y[3] = y[0];
 
-			return new Polygon(x, y, x.length);
+			polygon = new Polygon(x, y, x.length);
+			textPosition = new Point(x[2], y[2]);
 		}
 
-		private Polygon createPolygonTypeNoireBriseeArriere(int xStart) {
+		private void updateKeyPositionTypeNoireBriseeArriere(int xStart) {
 			int[] x = new int[4];
 			int[] y = new int[4];
 
@@ -337,7 +371,7 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[0] = 0;
 
 			x[1] = x[0];
-			y[1] = dy3-1;
+			y[1] = dy3 - 1;
 
 			x[2] = x[1] + dx2;
 			y[2] = y[1];
@@ -345,7 +379,8 @@ public class KeyboardModel extends SelectableNotesModel {
 			x[3] = x[2];
 			y[3] = 0;
 
-			return new Polygon(x, y, x.length);
+			polygon = new Polygon(x, y, x.length);
+			textPosition = new Point(x[2], y[2]);
 		}
 
 	}

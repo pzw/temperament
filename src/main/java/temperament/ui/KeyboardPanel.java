@@ -2,6 +2,9 @@ package temperament.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.geom.AffineTransform;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -68,5 +71,23 @@ public class KeyboardPanel extends JComponent {
 		// contour de la note
 		g.setColor(Color.black);
 		g.drawPolygon(key.getPolygon());
+
+		// name of the key
+		if (model.getBlackKeyWidth() > 15) {
+			Color txColor = Color.white;
+			if (key.isWhiteKey()) {
+				txColor = Color.black;
+			}
+			g.setColor(txColor);
+			Point posTx = key.getTextPosition();
+			int x = posTx.x - 1;
+			int y = posTx.y - 1;
+
+			Graphics2D g2 = (Graphics2D) g;
+			AffineTransform bkp = g2.getTransform();
+			g2.rotate(-Math.PI / 2.0, x, y);
+			g.drawString(key.getNoteName(), x, y);
+			g2.setTransform(bkp);
+		}
 	}
 }
