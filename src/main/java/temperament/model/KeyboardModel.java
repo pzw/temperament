@@ -315,7 +315,7 @@ public class KeyboardModel extends SelectableNotesModel {
 			int[] y = new int[4];
 
 			x[0] = xStart - dx2 / 2;
-			y[0] = dy3;
+			y[0] = dy3+1;
 
 			x[1] = x[0];
 			y[1] = dy2;
@@ -324,7 +324,7 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[2] = y[1];
 
 			x[3] = x[2];
-			y[3] = dy3;
+			y[3] = y[0];
 
 			return new Polygon(x, y, x.length);
 		}
@@ -337,7 +337,7 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[0] = 0;
 
 			x[1] = x[0];
-			y[1] = dy3;
+			y[1] = dy3-1;
 
 			x[2] = x[1] + dx2;
 			y[2] = y[1];
