@@ -95,8 +95,8 @@ public class KeyboardModel extends SelectableNotesModel {
 		keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 4, idx++));
 		keys.add(new KeyboardKey(KeyType.ReSolLa, xStart + 4, idx++));
 		if (feintesBrisees) {
-			keys.add(new KeyboardKey(KeyType.BriseeArriere, xStart + 5, idx++));
 			keys.add(new KeyboardKey(KeyType.BriseeAvant, xStart + 5, idx++));
+			keys.add(new KeyboardKey(KeyType.BriseeArriere, xStart + 5, idx++));
 		} else {
 			keys.add(new KeyboardKey(KeyType.NoireComplete, xStart + 5, idx++));
 		}
