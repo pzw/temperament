@@ -29,7 +29,7 @@ public class ApplicationPanel extends JPanel {
 		TemperamentFifthsCircleModel fifthsCircleModel = new TemperamentFifthsCircleModel(appState);
 		TemperamentChromaticCircleModel chromaticCircleModel = new TemperamentChromaticCircleModel(appState);
 		TemperamentCircleView fifthsCircleView = new TemperamentCircleView(appState, fifthsCircleModel, true);
-		TemperamentCircleView chromaticCircleView = new TemperamentCircleView(appState, chromaticCircleModel, false);
+		TemperamentCircleView chromaticCircleView = new TemperamentCircleView(appState, chromaticCircleModel, true);
 		TemperamentTableModel tableModel = new TemperamentTableModel(appState);
 		TemperamentTablePanel tableView = new TemperamentTablePanel(appState, tableModel);
 
