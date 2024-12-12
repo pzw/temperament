@@ -8,22 +8,22 @@ import java.util.List;
  * supplémentaires : le ré dièze et le la bémol
  */
 public class TemperamentAbbatialePayerne extends TemperamentMesotonique4 {
-	public static final String ABBATIALE_PAYERNE = "Abbatiale Payerne";
-	private static final int	NB_NOTES		= 14;
-	private static final int	IDX_DO			= 0;
-	private static final int	IDX_DO_DIEZE	= 1;
-	private static final int	IDX_RE			= 2;
-	private static final int	IDX_RE_DIEZE	= 3;
-	private static final int	IDX_MI_BEMOL	= 4;
-	private static final int	IDX_MI			= 5;
-	private static final int	IDX_FA			= 6;
-	private static final int	IDX_FA_DIEZE	= 7;
-	private static final int	IDX_SOL			= 8;
-	private static final int	IDX_SOL_DIEZE	= 9;
-	private static final int	IDX_LA_BEMOL	= 10;
-	private static final int	IDX_LA			= 11;
-	private static final int	IDX_SI_BEMOL	= 12;
-	private static final int	IDX_SI			= 13;
+	public static final String	ABBATIALE_PAYERNE	= "Abbatiale Payerne";
+	private static final int	NB_NOTES			= 14;
+	private static final int	IDX_DO				= 0;
+	private static final int	IDX_DO_DIEZE		= 1;
+	private static final int	IDX_RE				= 2;
+	private static final int	IDX_RE_DIEZE		= 3;
+	private static final int	IDX_MI_BEMOL		= 4;
+	private static final int	IDX_MI				= 5;
+	private static final int	IDX_FA				= 6;
+	private static final int	IDX_FA_DIEZE		= 7;
+	private static final int	IDX_SOL				= 8;
+	private static final int	IDX_SOL_DIEZE		= 9;
+	private static final int	IDX_LA_BEMOL		= 10;
+	private static final int	IDX_LA				= 11;
+	private static final int	IDX_SI_BEMOL		= 12;
+	private static final int	IDX_SI				= 13;
 
 	@Override
 	protected void initRatios() {
