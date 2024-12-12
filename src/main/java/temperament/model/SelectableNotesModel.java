@@ -12,7 +12,7 @@ import temperament.musical.ITemperament;
  * modèle abstrait d'un ensemble de notes que l'on peut sélectionner
  */
 public abstract class SelectableNotesModel {
-	private ApplicationState	appState;
+	protected ApplicationState	appState;
 	private int					width	= 0;
 	private int					height	= 0;
 
@@ -95,7 +95,7 @@ public abstract class SelectableNotesModel {
 		if (!n.isSelected()) {
 			return -1;
 		}
-		
+
 		int result = 0;
 		int idx = 0;
 		while (idx < idxNoteIndex) {
@@ -109,7 +109,9 @@ public abstract class SelectableNotesModel {
 	}
 
 	/**
-	 * retourne l'index (dans la collection notes) de la note qui a le 'noteIndex' recherché
+	 * retourne l'index (dans la collection notes) de la note qui a le 'noteIndex'
+	 * recherché
+	 * 
 	 * @param noteIndex
 	 * @return
 	 */
@@ -123,6 +125,7 @@ public abstract class SelectableNotesModel {
 		}
 		return -1;
 	}
+
 	/**
 	 * recherche si le graphisme d'une note contient un point (x,y)
 	 * 

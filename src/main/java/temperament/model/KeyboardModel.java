@@ -2,6 +2,8 @@ package temperament.model;
 
 import java.awt.Color;
 import java.awt.Polygon;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +16,11 @@ import temperament.musical.TemperamentAbbatialePayerne;
  */
 public class KeyboardModel extends SelectableNotesModel {
 	/** dimensions pour une touche de piano standard, en mm */
-	private static final double	DX1				= 24;
-	private static final double	DX2				= 14;
-	private static final double	DY1				= 150;
-	private static final double	DY2				= 100;
-	private static final double	DY3				= 50;
+	private static final double	DX1	= 24;
+	private static final double	DX2	= 14;
+	private static final double	DY1	= 150;
+	private static final double	DY2	= 100;
+	private static final double	DY3	= 50;
 
 	private int					dx1;
 	private int					dx2;
@@ -26,12 +28,26 @@ public class KeyboardModel extends SelectableNotesModel {
 	private int					dy2;
 	private int					dy3;
 	private List<KeyboardKey>	keys;
-	private boolean				blackAndWhite	= true;
 	private Color				whiteKey;
 	private Color				blackKey;
 
 	public KeyboardModel(ApplicationState appState) {
 		super(appState);
+		selectKeyboardColor();
+		
+		appState.addPropertyChangeListener(ApplicationState.TEMPERAMENT_PROPERTY, new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				selectKeyboardColor();
+			}
+		});
+	}
+
+	private void selectKeyboardColor() {
+		ITemperament t = getTemperament();
+		boolean blackAndWhite = null != t && t.isModernTemperament();
+		;
 		whiteKey = blackAndWhite ? Color.white : new Color(252, 197, 109);
 		blackKey = blackAndWhite ? Color.black : new Color(102, 69, 17);
 	}
@@ -76,7 +92,7 @@ public class KeyboardModel extends SelectableNotesModel {
 
 		// attention à l'index de la note de départ : dans le cas du "tempérament de
 		// Pythagore avec les quintes empilées, le tempérament contient une note de plus
-		// que l'octave (le si#) 
+		// que l'octave (le si#)
 		ITemperament t = getTemperament();
 		int idx = octave * t.getNbNotesGamme();
 

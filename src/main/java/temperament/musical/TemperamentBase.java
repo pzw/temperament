@@ -282,4 +282,11 @@ public abstract class TemperamentBase implements ITemperament {
 		}
 		return bestDiff < 0.1 ? bestIndex : -1;
 	}
+
+	@Override
+	public boolean isModernTemperament() {
+		return false;
+	}
+	
+	
 }

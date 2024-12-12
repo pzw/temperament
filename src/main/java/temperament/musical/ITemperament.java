@@ -106,4 +106,12 @@ public interface ITemperament {
 	 * @return
 	 */
 	public int findNoteIndexByRatio(double ratio);
+
+	/**
+	 * retourne true si l'on est face à un tempérament couramment utilisé
+	 * actuellement (va influencer la couleur du clavier dessiné !
+	 * 
+	 * @return
+	 */
+	public boolean isModernTemperament();
 }

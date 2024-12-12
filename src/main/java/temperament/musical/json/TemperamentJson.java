@@ -160,6 +160,11 @@ public class TemperamentJson implements ITemperament {
 		return bestDiff < 0.1 ? bestIndex : -1;
 	}
 	
+	@Override
+	public boolean isModernTemperament() {
+		return true;
+	}
+
 	private class JSonNote {
 		private String	name;
 		private double	ratioMul;

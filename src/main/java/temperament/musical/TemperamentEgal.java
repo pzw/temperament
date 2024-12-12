@@ -23,4 +23,11 @@ public class TemperamentEgal extends TemperamentBase {
 	public String toString() {
 		return "égal";
 	}
+
+	@Override
+	public boolean isModernTemperament() {
+		return true;
+	}
+	
+	
 }
