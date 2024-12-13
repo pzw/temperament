@@ -152,6 +152,7 @@ public class KeyboardModel extends SelectableNotesModel {
 		private KeyType	keyType;
 		private int		notePosition;
 		private Point	textPosition;
+		private int		width;
 
 		public KeyboardKey(KeyType keyType, int notePosition, int noteIndex) {
 			this.keyType = keyType;
@@ -162,10 +163,20 @@ public class KeyboardModel extends SelectableNotesModel {
 			this.textPosition = null;
 		}
 
+		/**
+		 * retourne le polygon qui représente le contour de la touche du clavier
+		 * 
+		 * @return
+		 */
 		public Polygon getPolygon() {
 			return polygon;
 		}
 
+		/**
+		 * retourne la position d'affichage du nom de la note associée à la touche
+		 * 
+		 * @return
+		 */
 		public Point getTextPosition() {
 			return textPosition;
 		}
@@ -175,6 +186,12 @@ public class KeyboardModel extends SelectableNotesModel {
 			return null;
 		}
 
+		/**
+		 * met à jour la position de la touche, suite à un changement de dimensions du
+		 * panel qui représente le clavier
+		 * 
+		 * @param dx
+		 */
 		public void updateKeyPosition(int dx) {
 			switch (keyType) {
 			case DoFa:
@@ -199,6 +216,11 @@ public class KeyboardModel extends SelectableNotesModel {
 			}
 		}
 
+		/**
+		 * retourne true si la touche est une touche blanche
+		 * 
+		 * @return
+		 */
 		public boolean isWhiteKey() {
 			return keyType == KeyType.DoFa || keyType == KeyType.MiSi || keyType == KeyType.ReSolLa;
 		}
@@ -213,16 +235,36 @@ public class KeyboardModel extends SelectableNotesModel {
 			this.selected = pressed;
 		}
 
+		/**
+		 * retourne l'index de la note associée à la touche, dans le tempérament actuel
+		 */
 		public int getNoteIndex() {
 			return noteIndex;
 		}
 
+		/**
+		 * détermine si la forme de la touche contient le point (x,y)
+		 */
 		public boolean containsPoint(int x, int y) {
 			return polygon.contains(x, y);
 		}
 
+		/**
+		 * retourne le nom de la note associée à la touche
+		 * 
+		 * @return
+		 */
 		public String getNoteName() {
 			return getTemperament().getNoteName(noteIndex);
+		}
+
+		/**
+		 * retourne la largeur de la touche, en pixels
+		 * 
+		 * @return
+		 */
+		public int getWidth() {
+			return width;
 		}
 
 		public Color getFillColor() {
@@ -263,7 +305,8 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[5] = 0;
 
 			polygon = new Polygon(x, y, x.length);
-			textPosition = new Point(x[2], y[2]);
+			textPosition = new Point((x[1] + x[2]) / 2, y[2]);
+			width = dx1;
 		}
 
 		private void updateKeyPositionTypeReSolLa(int xStart) {
@@ -294,7 +337,8 @@ public class KeyboardModel extends SelectableNotesModel {
 			x[7] = x[6];
 			y[7] = 0;
 			polygon = new Polygon(x, y, x.length);
-			textPosition = new Point(x[4], y[4]);
+			textPosition = new Point((x[3] + x[4]) / 2, y[4]);
+			width = dx1;
 		}
 
 		private void updateKeyPositionTypeMiSi(int xStart) {
@@ -320,7 +364,8 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[5] = 0;
 
 			polygon = new Polygon(x, y, x.length);
-			textPosition = new Point(x[4], y[4]);
+			textPosition = new Point((x[3] + x[4]) / 2, y[4]);
+			width = dx1;
 		}
 
 		private void updateKeyPositionTypeNoireComplete(int xStart) {
@@ -340,7 +385,8 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[3] = 0;
 
 			polygon = new Polygon(x, y, x.length);
-			textPosition = new Point(x[2], y[2]);
+			textPosition = new Point((x[1] + x[2]) / 2, y[2]);
+			width = dx2;
 		}
 
 		private void updateKeyPositionTypeNoireBriseeAvant(int xStart) {
@@ -360,7 +406,8 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[3] = y[0];
 
 			polygon = new Polygon(x, y, x.length);
-			textPosition = new Point(x[2], y[2]);
+			textPosition = new Point((x[1] + x[2]) / 2, y[2]);
+			width = dx2;
 		}
 
 		private void updateKeyPositionTypeNoireBriseeArriere(int xStart) {
@@ -380,7 +427,8 @@ public class KeyboardModel extends SelectableNotesModel {
 			y[3] = 0;
 
 			polygon = new Polygon(x, y, x.length);
-			textPosition = new Point(x[2], y[2]);
+			textPosition = new Point((x[1] + x[2]) / 2, y[2]);
+			width = dx2;
 		}
 
 	}
