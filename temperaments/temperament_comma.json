@@ -1,0 +1,36 @@
+{
+	"name" : "Comma",
+	"description" : "Démo du comma",
+	"notes" : [
+		{
+			 "name" : "do",
+		     "ratio_mul" : 1,
+	   		 "ratio_div" : 1
+	    },
+		{
+			 "name" : "sol",
+		     "ratio_mul" : 3,
+			 "ratio_div" : 2
+		},
+		{
+			 "name" : "ré",
+		     "ratio_mul" : 9,
+			 "ratio_div" : 4
+		},
+		{
+			 "name" : "la",
+		     "ratio_mul" : 27,
+			 "ratio_div" : 8
+		},
+		{
+			"name" : "mi",
+	  		"ratio_mul" : 81,
+	  		"ratio_div" : 16
+		},
+		{
+			"name" : "mi - tierce",
+			"ratio_mul" : 20,
+			"ratio_div" : 4
+		},
+	],
+}

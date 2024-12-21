@@ -1,5 +1,6 @@
 package temperament.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import temperament.musical.TemperamentWerckmeister1;
 import temperament.musical.TemperamentWerckmeister2;
 import temperament.musical.TemperamentWerckmeister3;
 import temperament.musical.TemperamentWerckmeister4;
-import temperament.musical.json.TemperamentJson;
+import temperament.musical.json.TemperamentJsonVisitor;
 
 /**
  * view model de l'application
@@ -64,7 +65,11 @@ public class ApplicationState extends Model {
 		temperaments.add(new TemperamentWerckmeister2());
 		temperaments.add(new TemperamentWerckmeister3());
 		temperaments.add(new TemperamentWerckmeister4());
-		temperaments.add(new TemperamentJson("assets/tierce_quinte.json"));
+		TemperamentJsonVisitor visitor = new TemperamentJsonVisitor();
+		File temperamentsDirectory = new File("./temperaments").getAbsoluteFile();
+		if (temperamentsDirectory.exists()) {
+			temperaments.addAll(visitor.buildTemperaments(temperamentsDirectory.toPath()));
+		}
 		temperament = temperaments.get(0);
 	}
 
