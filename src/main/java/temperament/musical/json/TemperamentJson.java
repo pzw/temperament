@@ -21,9 +21,9 @@ public class TemperamentJson implements ITemperament {
 	private String				description	= null;
 	private ArrayList<JSonNote>	notes		= null;
 
-	public TemperamentJson(String path) {
+	public TemperamentJson(Path path) {
 		try {
-			String s = Files.readString(Path.of(path));
+			String s = Files.readString(path);
 			JSONObject def = new JSONObject(s);
 			name = def.getString("name");
 			description = def.getString("description");
@@ -35,8 +35,11 @@ public class TemperamentJson implements ITemperament {
 				notes.add(note);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+	}
+
+	public TemperamentJson(String path) {
+		this(Path.of(path));
 	}
 
 	@Override
@@ -159,7 +162,7 @@ public class TemperamentJson implements ITemperament {
 		}
 		return bestDiff < 0.1 ? bestIndex : -1;
 	}
-	
+
 	@Override
 	public boolean isModernTemperament() {
 		return true;
